@@ -12,10 +12,10 @@ function createWindow () {
   })
 
   // 加载 index.html
-  win.loadFile('index.html')
+  win.loadFile('./src/index.html')
 
   // 打开开发者工具
-  win.webContents.openDevTools()
+  // win.webContents.openDevTools()
 
   win.on('close', () => {
     win = null
