@@ -1,5 +1,5 @@
 const electron = require('electron') // 程序内置模块
-const { app, BrowserWindow, Menu } = require('electron')
+const { app, BrowserWindow, Menu, MenuItem } = require('electron')
 const ipc = electron.ipcMain
 const dialog = electron.dialog
 // 生命周期
@@ -56,7 +56,69 @@ function createWindow () {
 }
 
 // 创建浏览器窗口
-app.on('ready', createWindow)
+app.on('ready', () => {
+  createWindow()
+
+  // 右键菜单设置
+  /* const ctxMenu = new Menu()
+  ctxMenu.append(new MenuItem({
+    label: 'Hello',
+    click: () => {
+      console.log('Context menu item clicked')
+    }
+  }))
+
+  win.webContents.on('context-menu', (e, params) => {
+    ctxMenu.popup(win, params.x, params.y)
+  }) */
+
+  // 菜单设置
+  const template = [
+    {
+      label: 'Edit',
+      submenu: [
+        { role: 'undo' },
+        { role: 'redo' },
+        { type: 'separator' },
+        { role: 'cut' },
+        { role: 'copy' },
+        { role: 'paste' },
+        { role: 'pasteandmatchstyle' },
+        { role: 'delete' },
+        { role: 'selectall' }
+      ]
+    },
+    {
+      label: 'demo',
+      submenu: [
+        {
+          label: 'submenu1',
+          click: () => {
+            console.log('clicked submenu 1')
+          }
+        },
+        {
+          type: 'separator'
+        }
+      ]
+    },
+    {
+      label: 'help',
+      submenu: [
+        {
+          label: 'About Github',
+          click: () => {
+            electron.shell.openExternal('http://github.com')
+          }
+          // accelerator: 'CmdOrCtrl + Shift + H'
+        }
+      ]
+    }
+  ]
+
+  const menu = Menu.buildFromTemplate(template)
+  Menu.setApplicationMenu(menu)
+})
 
 // 全部窗口关闭时退出
 app.on('window-all-closed', () => {
