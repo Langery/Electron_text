@@ -13,25 +13,36 @@ function getCpu () {
   }
 }
 
+// let top = new BrowserWindow()
+// let child = new BrowserWindow({ parent: top })
+// child.show()
+// top.show()
+
 ipc.on('async-message', (event) => {
   dialog.showErrorBox('An error message', 'Demo of an error message')
   event.sender.send('async-reply', 'Main process opened the error dialog')
 })
 
+// 窗口设置
+let win
+let ipcPage
+
 ipc.on('add', () => {
-  let ipcPage = new BrowserWindow({
+  ipcPage = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
       nodeIntegration: true
-    }
+    },
+    parent: win
   })
   ipcPage.loadFile('./ipc/index.html')
 })
 
-ipc.on('back-index', createWindow)
+ipc.on('back-index', (event) => [
+  event.sender.send('close-win')
+])
 
-let win
 
 function createWindow () {
   win = new BrowserWindow({
