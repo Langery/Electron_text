@@ -39,11 +39,16 @@ ipc.on('add', () => {
   ipcPage.loadFile('./ipc/index.html')
 })
 
+ipc.on('login-click', (event) => {
+  win.loadFile('./src/Home/login.html')
+})
+
 ipc.on('back-index', (event) => [
   event.sender.send('close-win')
 ])
 
 
+// 创建窗口
 function createWindow () {
   win = new BrowserWindow({
     width: 800,
@@ -54,12 +59,13 @@ function createWindow () {
   })
 
   // 加载 index.html
-  win.loadFile('./src/index.html')
+  // win.loadFile('./src/index.html')
+  win.loadFile('./src/Home/index.html')
 
   // win.loadURL(`file://${__dirname}/index.html`)
 
   // 打开开发者工具
-  win.webContents.openDevTools()
+  // win.webContents.openDevTools()
 
   win.on('close', () => {
     win = null
