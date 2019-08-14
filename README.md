@@ -37,3 +37,13 @@
 
 - [x] 实现 IPC 与主进程的交互功能，并实现新窗口的创建以及对应函数的响应操作
 - [x] 关闭当前打开窗口以及返回上一级时关闭当前窗口
+
+### Note
+
+> ajax 的 readyState
+
+0. 初始化，XMLHttpRequest对象还没有完成初始化
+1. 载入，XMLHttpRequest对象开始发送请求
+2. 载入完成，XMLHttpRequest对象的请求发送完成
+3. 解析，XMLHttpRequest对象开始读取服务器的响应
+4. 完成，XMLHttpRequest对象读取服务器响应结束
