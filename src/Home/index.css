@@ -1,20 +1,35 @@
+*{
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
 body {
   background: #a4cab6;
 }
-.title{
+.main-div{
+  overflow: hidden;
+  margin-top: 40px;
+}
+
+.tittle{
   text-align: center;
   color: #f1f1f1;
   font-size: 20px;
+  margin-bottom: 30px;
 }
-
+.btn-block{
+  margin: 0 auto;
+  text-align: center;
+}
 .btn-class{
+  display: inline-block;
   background-color: #4CAF50; /* Green */
   border: none;
   color: white;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
-  display: block;
   font-size: 16px;
   margin: 0 auto;
   border-radius: 10px;

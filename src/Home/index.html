@@ -6,12 +6,35 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Hello</title>
   <link rel="stylesheet" href="./index.css">
+  <!-- <script>
+      require('./index.js')
+  </script> -->
+  <!-- <script src="./index.js"></script> -->
 </head>
 <body>
-  <p class="title">Hello My Electron</p>
-  <button id="loginBtn" class="btn-class">login</button>
+  <div class="main-div">
+    <p class="tittle">Hello My Electron</p>
+    <div class="btn-block">
+      <button id="loginBtn" class="btn-class" onclick="click()">login</button>
+      <button id="registerBtn" class="btn-class">register</button>
+    </div>
+  </div>
   <script>
-    require('./index.js')
+    // const electron = require('electron')
+    // var ipc = electron.ipcRenderer
+    // var ajax = new XMLHttpRequest()
+    // var loginBtn = document.getElementById('loginBtn')
+    // loginBtn.onclick = () => {
+    //   ajax.open('GET', 'http://127.0.0.1:5000/first', true)
+    //   ajax.send()
+    //   ajax.onreadystatechange = () => {
+    //     if (ajax.readyState == 4 && ajax.status == 200) {
+    //       console.log(ajax.responseText)
+    //       ipc.send('login-click')
+    //     }
+    //   }
+    // }
   </script>
+  <script src="./index.js"></script>  
 </body>
 </html>

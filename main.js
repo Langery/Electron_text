@@ -42,6 +42,9 @@ ipc.on('add', () => {
 ipc.on('login-click', (event) => {
   win.loadFile('./src/Home/login.html')
 })
+ipc.on('register-click', () => {
+  win.loadFile('./src/Home/register.html')
+})
 
 ipc.on('back-index', (event) => [
   event.sender.send('close-win')
@@ -65,7 +68,7 @@ function createWindow () {
   // win.loadURL(`file://${__dirname}/index.html`)
 
   // 打开开发者工具
-  // win.webContents.openDevTools()
+  win.webContents.openDevTools()
 
   win.on('close', () => {
     win = null
