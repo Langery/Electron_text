@@ -45,6 +45,9 @@ ipc.on('login-click', (event) => {
 ipc.on('register-click', () => {
   win.loadFile('./src/Home/register.html')
 })
+ipc.on('back-click', () => {
+  win.loadFile('./src/Home/index.html')
+})
 
 ipc.on('back-index', (event) => [
   event.sender.send('close-win')
