@@ -12,16 +12,17 @@
     <p class="tittle">Login</p>
     <div class="btn-block">
       <button id="loginSure" class="btn-class">Log In</button>
-      <button id="backBtn">Back Index</button>
+      <button id="backBtn" class="btn-class">Back Index</button>
       <button id="registerBtn" class="btn-class">To Register</button>
     </div>
   </div>
   <script type="text/javascript" src="./index.js"></script>
   <script>
     var registerBtn = document.getElementById('registerBtn')
-    registerFun(registerBtn)
     var backBtn = document.getElementById('backBtn')
-    backFun(backBtn)
+
+    sendIPC(registerBtn, 'register-click')
+    sendIPC(backBtn, 'back-click')
   </script>
 </body>
 </html>

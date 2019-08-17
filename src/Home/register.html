@@ -8,11 +8,17 @@
   <link rel="stylesheet" href="./index.css">
 </head>
 <body>
-  <div>
+  <div class="main-div">
     <p class="tittle">register</p>
+    <div class="btn-block">
+      <button id="backBtn" class="btn-class">Back Index</button>
+    </div>
   </div>
+  <script type="text/javascript" src="./index.js"></script>
   <script>
-    require('./index.js')
+    var backBtn = document.getElementById('backBtn')
+
+    sendIPC(backBtn, 'back-click')
   </script>
 </body>
 </html>
