@@ -10,6 +10,12 @@
 <body>
   <div class="main-div">
     <p class="tittle">Login</p>
+    <div class="input-p">
+      <input id="userName" type="text" placeholder="username">
+    </div>
+    <div class="input-p">
+      <input id="pwd" type="password" placeholder="password">
+    </div>
     <div class="btn-block">
       <button id="loginSure" class="btn-class">Log In</button>
       <button id="backBtn" class="btn-class">Back Index</button>
@@ -23,6 +29,12 @@
 
     sendIPC(registerBtn, 'register-click')
     sendIPC(backBtn, 'back-click')
+
+    var userName = document.getElementById('userName')
+    var pwd = document.getElementById('pwd')
+    var loginSure = document.getElementById('loginSure')
+
+    onLogin(loginSure, userName, pwd)
   </script>
 </body>
 </html>

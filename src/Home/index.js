@@ -17,14 +17,21 @@ function loginFun (target) {
   }
 }
 
-function registerFun (target) {
-  target.onclick = () => { ipc.send('register-click') }
-}
-
-function backFun (target) {
-  target.onclick = () => { ipc.send('back-click') }
-}
-
 function sendIPC (target, sendAim) {
   target.onclick = () => { ipc.send(sendAim) }
+}
+
+function onLogin (target, name, pwd) {
+  target.onclick = () => {
+    var username = name.value
+    var password = pwd.value
+    // console.log(username, password)
+    ajax.open('GET', 'http://127.0.0.1:5000/login?username=' + username + '&password=' + password)
+    ajax.send()
+    ajax.onreadystatechange = () => {
+      if (ajax.readyState == 4 && ajax.status == 200) {
+        console.log(ajax.responseText)
+      }
+    }
+  }
 }

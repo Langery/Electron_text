@@ -18,6 +18,31 @@ body {
   font-size: 20px;
   margin-bottom: 30px;
 }
+
+.p-text{
+  margin: 10px 60px;
+  color: #eef7f2;
+}
+
+.input-p{
+  text-align: center;
+  clear: both;
+  margin-bottom: 20px;
+}
+.input-p input{
+  width: 25%;
+  height: 24px;
+  line-height: 24px;
+  border-radius: 50px;
+  border: 1px solid #11659a;
+  padding-left: 20px;
+  font-size: 16px;
+  outline: none; 
+}
+input::-webkit-input-placeholder{
+  color: #c4cbcf;
+}
+
 .btn-block{
   margin: 0 auto;
   text-align: center;
