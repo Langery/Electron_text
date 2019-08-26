@@ -7,7 +7,8 @@
 #### 启动项目
 
 ``` node
-  $npm start
+  $ npm start
+  $ npm run estart
 ```
 
 ### idea
