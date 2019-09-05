@@ -1,3 +1,8 @@
+*{
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
 .App {
   text-align: center;
 }
@@ -30,4 +35,9 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.main-style {
+  background: #a4cab6;
+  height: 100vh;
 }

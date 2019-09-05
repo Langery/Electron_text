@@ -1,0 +1,21 @@
+.hello-body{
+  /* background: #a4cab6; */
+}
+
+.text-style{
+  text-align: center;
+  color: #f1f1f1;
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+.p-text{
+  margin: 10px 60px;
+  color: #eef7f2;
+}
+
+.btn-box{
+  text-align: center;
+}
+.btn-box button{
+  margin: 0 10px;
+}
