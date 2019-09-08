@@ -1,8 +1,12 @@
-.login-box{
-  padding-top: 40px;
+
+.login-form {
+  max-width: 300px;
+  margin: 0 auto;
 }
-.title-p{
-  text-align: center;
-  font-size: 20px;
-  color: #1661ab
+.login-form-forgot {
+  float: right;
+}
+.login-form-button {
+  width: 100%;
+  
 }

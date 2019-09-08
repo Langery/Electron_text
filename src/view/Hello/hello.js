@@ -14,7 +14,7 @@ class HelloIndex extends Component {
           Hello Electron
         </p>
         <p className="p-text">It is a index to welcome</p>
-        <p className="p-text">Place login or register</p>
+        <p className="p-text">Please login or register</p>
         <div className="btn-box">
           <Link to='/login/'>
             <Button type="primary">Log In</Button>
