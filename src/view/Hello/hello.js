@@ -4,6 +4,9 @@ import { Button } from 'antd';
 import { Link } from 'react-router-dom';
 
 class HelloIndex extends Component {
+  // loginFun () {
+  //   console.log('log in function')
+  // }
   render () {
     return (
       <div className="hello-body">
@@ -13,10 +16,10 @@ class HelloIndex extends Component {
         <p className="p-text">It is a index to welcome</p>
         <p className="p-text">Place login or register</p>
         <div className="btn-box">
-          <Link to='/login'>
+          <Link to='/login/'>
             <Button type="primary">Log In</Button>
           </Link>
-          <Link to="/register">
+          <Link to="/register/">
             <Button type="primary">Register</Button>
           </Link>
         </div>
