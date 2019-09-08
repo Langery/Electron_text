@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Row, Col } from 'antd'
-import { Button, Icon, Form, Input, Checkbox  } from 'antd';
+import { Button, Icon, Form, Input, Checkbox, message  } from 'antd';
 import './login.css'
 import '../../common/common.css'
 import { Link } from 'react-router-dom'
@@ -16,6 +16,34 @@ class WrappedNormalLoginForm extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values)
+        let formData = new FormData();
+        formData.append('username', values.username)
+        formData.append('password', values.password)
+        
+        let options = {
+          method: "POST", // Request way
+          body: formData,	 // Request body
+          headers: { // Request header
+      　　  'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        }
+        const url = 'http://127.0.0.1:5000/login'
+        // fetch request
+        fetch(url, options)
+          .then((response) => {
+            return response.json()
+          })
+          .then((data) => {
+            console.log(data)
+            if (!data.username || !data.password) {
+              message.error('The username or password is not exist, plase to register user~')
+            }
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+      } else {
+        console.log('No get the received values of form')
       }
     })
   }
