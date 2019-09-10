@@ -16,15 +16,19 @@ class WrappedNormalLoginForm extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values)
-        let formData = new FormData();
+        let formData = new FormData()
         formData.append('username', values.username)
         formData.append('password', values.password)
+        console.log(values.username, values.password)
+        console.log(formData)
         
         let options = {
+          mode: 'no-cors',
           method: "POST", // Request way
           body: formData,	 // Request body
           headers: { // Request header
-      　　  'Content-Type': 'application/x-www-form-urlencoded'
+            'Accept': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded'
           }
         }
         const url = 'http://127.0.0.1:5000/login'
