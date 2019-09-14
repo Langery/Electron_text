@@ -39,5 +39,7 @@
 
 .main-style {
   background: #a4cab6;
-  height: 100vh;
+  height: 100%;
+  width: 100%;
+  position: absolute;
 }

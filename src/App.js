@@ -10,7 +10,6 @@ class App extends Component {
     return (
       <Router>
         <div className="main-style">
-          {/* <HelloIndex></HelloIndex> */}
           <Route exact path="/" component={HelloIndex}></Route>
           <Route exact path="/login" component={LoginIndex}></Route>
           <Route exact path="/register" component={RegisterIndex}></Route>

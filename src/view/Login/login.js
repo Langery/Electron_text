@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col } from 'antd'
-import { Button, Icon, Form, Input, Checkbox, message  } from 'antd';
+import { Row, Col, Button, Icon, Form, Input, Checkbox, message  } from 'antd';
 import './login.css'
 import '../../common/common.css'
 import { Link } from 'react-router-dom'
@@ -16,9 +15,6 @@ class WrappedNormalLoginForm extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values)
-        // let formData = new FormData()
-        // formData.append('username', values.username)
-        // formData.append('password', values.password)
         let sendData = {
           username: values.username,
           password: values.password
