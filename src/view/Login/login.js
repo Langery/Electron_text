@@ -9,7 +9,7 @@ const leftTop = {
   paddingLeft: '20px'
 }
 
-class WrappedNormalLoginForm extends Component {
+class NormalLoginForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -111,5 +111,5 @@ class WrappedNormalLoginForm extends Component {
     )
   }
 }
-const LoginIndex = Form.create({ name: 'normal_login' })(WrappedNormalLoginForm)
+const LoginIndex = Form.create({ name: 'normal_login' })(NormalLoginForm)
 export default LoginIndex;

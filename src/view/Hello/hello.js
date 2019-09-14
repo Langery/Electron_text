@@ -4,9 +4,6 @@ import { Button } from 'antd';
 import { Link } from 'react-router-dom';
 
 class HelloIndex extends Component {
-  // loginFun () {
-  //   console.log('log in function')
-  // }
   render () {
     return (
       <div className="hello-body">

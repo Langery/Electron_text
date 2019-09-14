@@ -15,7 +15,7 @@ const rightStyle = {
   float: 'right'
 }
 
-class WrappedNormalLoginForm extends Component {
+class RegisterForm extends Component {
   state = {
     size: 'large',
     autoCompleteResult: [],
@@ -26,15 +26,15 @@ class WrappedNormalLoginForm extends Component {
     this.setState({ confirmDirty: this.state.confirmDirty || !!value });
   }
   compareToFirstPassword = (rule, value, callback) => {
-    const { form } = this.props;
+    const { form } = this.props
     if (value && value !== form.getFieldValue('password')) {
-      callback('Two passwords that you enter is inconsistent!');
+      callback('Two passwords that you enter is inconsistent!')
     } else {
-      callback();
+      callback()
     }
   }
   validateToNextPassword = (rule, value, callback) => {
-    const { form } = this.props;
+    const { form } = this.props
     if (value && this.state.confirmDirty) {
       form.validateFields(['confirm'], { force: true });
     }
@@ -51,7 +51,7 @@ class WrappedNormalLoginForm extends Component {
       wrapperCol: {
         xs: { span: 24 },
         sm: { span: 16 },
-      },
+      }
     }
     const tailFormItemLayout = {
       wrapperCol: {
@@ -85,8 +85,7 @@ class WrappedNormalLoginForm extends Component {
                 {getFieldDecorator('username', {
                   rules: [
                     {
-                      type: 'name',
-                      message: 'The input is not valid username!',
+                      message: 'The input is not valid username!'
                     },
                     {
                       required: true,
@@ -108,10 +107,11 @@ class WrappedNormalLoginForm extends Component {
                     },
                     {
                       validator: this.validateToNextPassword,
-                    },
+                    }
                   ],
                 })(
-                  <Input.Password
+                  <Input
+                    type="password"
                     placeholder="Password"
                   />
                 )}
@@ -125,9 +125,9 @@ class WrappedNormalLoginForm extends Component {
                     },
                     {
                       validator: this.compareToFirstPassword,
-                    },
+                    }
                   ],
-                })(<Input.Password onBlur={this.handleConfirmBlur} />)}
+                })(<Input type="password" onBlur={this.handleConfirmBlur} />)}
               </Form.Item>
               <Form.Item
                 label={
@@ -168,5 +168,5 @@ class WrappedNormalLoginForm extends Component {
     )
   }
 }
-const LoginIndex = Form.create({ name: 'normal_login' })(WrappedNormalLoginForm)
-export default LoginIndex;
+const RegisterIndex = Form.create({ name: 'normal_register' })(RegisterForm)
+export default RegisterIndex;
