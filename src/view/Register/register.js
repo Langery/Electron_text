@@ -1,8 +1,9 @@
 import React, { Component } from "react"
-import { Form, Input, Tooltip, Icon, Row, Col, Checkbox, Button } from 'antd'
+import { Form, Input, Tooltip, Icon, Row, Col, Checkbox, Button, message } from 'antd'
 import './register.css'
 import '../../common/common.css'
 import { Link } from 'react-router-dom'
+import { PostWay } from '../../common/common'
 
 
 const leftTop = {
@@ -20,6 +21,41 @@ class RegisterForm extends Component {
     size: 'large',
     autoCompleteResult: [],
     confirmDirty: false
+  }
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values)
+        if (typeof(values.agreement) == 'undefined') {
+          message.error('Plase to agree the rules')
+          return
+        }
+        let sendData = {
+          username: values.username,
+          password: values.password,
+          nickname: values.nickname
+        }
+        PostWay(sendData, 'register')
+          .then(data => {
+            console.log(data)
+            if (!data) {
+              message.error('The username or nickname had exist, plase to use a new username or nickname~')
+            } else {
+              // save true
+            }
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      } else {
+        console.log('No get the received values of form')
+      }
+    })
+  }
+  clearData = e => {
+    e.preventDefault()
+    this.props.form.validateFieldsAndScroll(() => { this.props.form.resetFields() })
   }
   handleConfirmBlur = e => {
     const { value } = e.target
@@ -156,7 +192,7 @@ class RegisterForm extends Component {
                 <Button type="primary" htmlType="submit" style={leftStyle}>
                   Register
                 </Button>
-                <Button type="primary" htmlType="submit" style={rightStyle}>
+                <Button type="primary" onClick={this.clearData} style={rightStyle}>
                   Clear Infor
                 </Button>
               </Form.Item>

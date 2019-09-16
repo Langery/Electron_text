@@ -3,6 +3,7 @@ import { Row, Col, Button, Icon, Form, Input, Checkbox, message  } from 'antd';
 import './login.css'
 import '../../common/common.css'
 import { Link } from 'react-router-dom'
+import { PostWay } from '../../common/common'
 
 
 const leftTop = {
@@ -19,28 +20,18 @@ class NormalLoginForm extends Component {
           username: values.username,
           password: values.password
         }
-
-        let options = {
-          method: "POST", // Request way
-          body: JSON.stringify(sendData),	 // Request body
-          headers: { // Request header
-      　　  'Content-Type': 'application/x-www-form-urlencoded'
-          }
-        }
-        const url = 'http://127.0.0.1:5000/login'
-        // fetch request
-        fetch(url, options)
-          .then((response) => {
-            return response.json()
-          })
-          .then((data) => {
+        
+        PostWay(sendData, 'login')
+          .then(data => {
             console.log(data)
-            if (!data.username || !data.password) {
+            if (!data) {
               message.error('The username or password is not exist, plase to register user~')
+            } else {
+              // save true
             }
           })
-          .catch((error) => {
-            console.log(error)
+          .catch(err => {
+            console.log(err)
           })
       } else {
         console.log('No get the received values of form')
