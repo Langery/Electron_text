@@ -20,18 +20,19 @@ class NormalLoginForm extends Component {
           username: values.username,
           password: values.password
         }
-        
-        PostWay(sendData, 'login')
+        const getWay = PostWay(sendData, 'login')
+        console.log(getWay)
+        fetch(getWay[0], getWay[1])
+          .then(response => {
+            return response.json()
+          })
           .then(data => {
             console.log(data)
-            if (data) {
+            if (!data.backData) {
               message.error('The username or password is not exist, plase to register user~')
             } else {
-              // save true
+              console.log('log in success')
             }
-          })
-          .catch(err => {
-            console.log(err)
           })
       } else {
         console.log('No get the received values of form')

@@ -36,17 +36,19 @@ class RegisterForm extends Component {
           password: values.password,
           nickname: values.nickname
         }
-        PostWay(sendData, 'register')
+        const getWay = PostWay(sendData, 'register')
+        console.log(getWay)
+        fetch(getWay[0], getWay[1])
+          .then(response => {
+            return response.json()
+          })
           .then(data => {
             console.log(data)
-            if (data) {
-              console.log('add success')
-            } else {
+            if (!data.backData) {
               message.error('The username or nickname had exist, plase to use a new username or nickname~')
+            } else {
+              console.log('add success')
             }
-          })
-          .catch(err => {
-            console.log(err)
           })
       } else {
         console.log('No get the received values of form')
