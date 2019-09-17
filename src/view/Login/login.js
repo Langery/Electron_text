@@ -24,7 +24,7 @@ class NormalLoginForm extends Component {
         PostWay(sendData, 'login')
           .then(data => {
             console.log(data)
-            if (!data) {
+            if (data) {
               message.error('The username or password is not exist, plase to register user~')
             } else {
               // save true

@@ -39,10 +39,10 @@ class RegisterForm extends Component {
         PostWay(sendData, 'register')
           .then(data => {
             console.log(data)
-            if (!data) {
-              message.error('The username or nickname had exist, plase to use a new username or nickname~')
+            if (data) {
+              console.log('add success')
             } else {
-              // save true
+              message.error('The username or nickname had exist, plase to use a new username or nickname~')
             }
           })
           .catch(err => {
