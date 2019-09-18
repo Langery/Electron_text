@@ -9,6 +9,8 @@
   "dependencies": {
     "antd": "^3.22.1",
     "electron": "^5.0.8",
+    "electron-packager": "^14.0.6",
+    "electron-prebuilt": "^1.4.13",
     "less-loader": "^5.0.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
