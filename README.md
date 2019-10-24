@@ -80,6 +80,6 @@
 
 1. 组件一定是首字母大写
 
-###　Link
+### Link
 
 1. [React-router路由模块化封装](https://www.jianshu.com/p/d4283e7f3c3c)
