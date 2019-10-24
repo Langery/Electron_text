@@ -75,3 +75,11 @@
 2. 载入完成，XMLHttpRequest对象的请求发送完成
 3. 解析，XMLHttpRequest对象开始读取服务器的响应
 4. 完成，XMLHttpRequest对象读取服务器响应结束
+
+> 组件引入问题
+
+1. 组件一定是首字母大写
+
+###　Link
+
+1. [React-router路由模块化封装](https://www.jianshu.com/p/d4283e7f3c3c)

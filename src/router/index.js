@@ -1,21 +1,34 @@
-import { Router, Route, Link } from 'react-router'
+// import { Router, Route, Link } from 'react-router'
 import HelloIndex from '../view/Hello/hello'
 import LoginIndex from '../view/Login/login'
 import RegisterIndex from '../view/Register/register'
+import MainView from '../view/MainView/mainview'
+import First from '../view/MainView/components/first'
 
 const routeMap = [
   {
     path: '/',
-    componentName: HelloIndex,
+    ComponentName: HelloIndex,
     exact: true
   },
   {
     path: '/login',
-    componentName: LoginIndex
+    ComponentName: LoginIndex
   },
   {
     path: '/register',
-    componentName: RegisterIndex
+    ComponentName: RegisterIndex
+  },
+  {
+    path: '/mainview',
+    ComponentName: MainView,
+    routes: [
+      {
+        path: '/mainView/first',
+        ComponentName: First,
+        exact: false
+      }
+    ]
   }
 ]
 
