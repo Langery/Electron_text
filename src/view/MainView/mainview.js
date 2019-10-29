@@ -15,12 +15,21 @@ class MainView extends Component {
     super(props)
     this.state = {}
   }
+  toggle = () => {
+    this.setState({
+      collapsed: !this.state.collapsed
+    })
+  }
   onCollapse = collapsed => {
     console.log(collapsed)
     this.setState({ collapsed })
   }
   handle = (e) => {
     console.log(e)
+    this.setState({
+      current: e.key
+    })
+    console.log(this.state)
   }
   render () {
     let {match, routes} = this.props
@@ -29,15 +38,15 @@ class MainView extends Component {
         <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
           <div className="logo" />
           <Menu theme="dark" defaultSelectedKeys={['/']} mode="inline" onClick={this.handle}>
-            <Menu.Item key="/">
+            <Menu.Item key="/mainView">
               <Icon type="pie-chart" />
               {/* <span>Main 1</span> */}
               <Link to={`${match.url}`}>Main 1</Link>
             </Menu.Item>
-            <Menu.Item key="/first">
+            <Menu.Item key="first">
               <Icon type="desktop" />
               {/* <span>Main 2</span> */}
-              <Link to={`${match.url}/first`}>Main 2</Link>
+              <Link to={`${match.url}first`}>Main 2</Link>
             </Menu.Item>
             <SubMenu
               key="sub1"
