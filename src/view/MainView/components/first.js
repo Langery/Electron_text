@@ -8,7 +8,7 @@ class First extends Component {
     return (
       <div className="hello-body">
         <p className="text-style">
-          Hello Electron
+          It is the first test
         </p>
         <p className="p-text">It is a index to welcome</p>
         <p className="p-text">Please login or register</p>

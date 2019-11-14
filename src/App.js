@@ -14,6 +14,7 @@ class App extends Component {
         <div className="main-style">
           {
             routeMap.map(({path, ComponentName, exact = true, routes = []}, key) => {
+              // console.log(routes)
               return <Route
                       exact={exact}
                       key={key}
