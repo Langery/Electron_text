@@ -7,6 +7,9 @@ import { Layout, Menu, Icon } from 'antd'
 const { Content, Footer, Sider } = Layout
 const { SubMenu } = Menu
 
+const aStyle = {
+  display: 'inline-block'
+}
 class MainView extends Component {
   state = {
     collapsed: false
@@ -39,16 +42,14 @@ class MainView extends Component {
         <Layout style={{ minHeight: '100vh' }}>
           <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
             <div className="logo" />
-            <Menu theme="dark" defaultSelectedKeys={['/']} mode="inline" onClick={this.handle}>
+            <Menu theme="dark" defaultSelectedKeys={['/mainView']} mode="inline" onClick={this.handle}>
               <Menu.Item key="/mainView">
                 <Icon type="pie-chart" />
-                {/* <span>Main 1</span> */}
-                <Link to={`${match.url}`}>Main 1</Link>
+                <Link style={aStyle} to={`${match.url}`}>Main 1</Link>
               </Menu.Item>
               <Menu.Item key="/first">
                 <Icon type="desktop" />
-                {/* <span>Main 2</span> */}
-                <Link to={`${match.url}/first`}>Main 2</Link>
+                <Link style={aStyle}  to={`${match.url}/first`}>Main 2</Link>
               </Menu.Item>
               <SubMenu
                 key="sub1"
@@ -81,15 +82,7 @@ class MainView extends Component {
               </Menu.Item>
             </Menu>
           </Sider>
-          {/* main view */}
           <Layout>
-            {/* <Content style={{ margin: '0 16px' }}>
-              <Breadcrumb style={{ margin: '16px 0' }}>
-                <Breadcrumb.Item>User</Breadcrumb.Item>
-                <Breadcrumb.Item>Bill</Breadcrumb.Item>
-              </Breadcrumb>
-              <div style={{ padding: 24, background: '#fff', minHeight: 660 }}>Bill is a cat.</div>
-            </Content> */}
             <Content>
               {
                 routes.map(({path, ComponentName, exact = true, routes = []}, key) => {
