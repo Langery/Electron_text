@@ -58,6 +58,14 @@
 - [ ] Single-SPA
 - [ ] 待续...
 
+> 代码分支化开发
+
+- [ ] 根据不同的功能进行分支创建
+- [ ] 完成某个模块后进行 Code Review
+
+~~- 提交 Commit 格式化~~
+~~- 使用 `git cz` 代替 `git commit`~~
+
 ### To be resolved
 - [x] 不实现新打开窗口，只是在当前状态下进行界面跳转
 - [ ] electron 嵌入到 react 中
