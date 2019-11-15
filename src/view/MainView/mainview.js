@@ -8,7 +8,7 @@ const { Content, Footer, Sider } = Layout
 const { SubMenu } = Menu
 
 const aStyle = {
-  display: 'inline-block'
+  float: 'right'
 }
 class MainView extends Component {
   state = {
@@ -29,11 +29,9 @@ class MainView extends Component {
   }
   handle = (e) => {
     console.log(e)
-    this.setState({
-      current: e.key
-    })
-    console.log(this.state)
-    console.log(this.props)
+    // this.setState({
+    //   current: e.key
+    // })
   }
   render () {
     let {match, routes} = this.props
