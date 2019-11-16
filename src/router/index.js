@@ -1,26 +1,10 @@
-// import Loadable from 'react-loadable'
-// import { Router, Route, Link } from 'react-router'
 import HelloIndex from '../view/Hello/hello'
 import LoginIndex from '../view/Login/login'
 import RegisterIndex from '../view/Register/register'
 import MainView from '../view/MainView/mainview'
 import First from '../view/MainView/components/first'
+import IndexView from '../view/MainView/components/indexview'
 
-// global.HelloIndex = Loadable({
-//   loader: () => HelloIndex
-// })
-// global.LoginIndex = Loadable({
-//   loader: () => LoginIndex
-// })
-// global.RegisterIndex = Loadable({
-//   loader: () => RegisterIndex
-// })
-// global.MainView = Loadable({
-//   loader: () => MainView
-// })
-// global.First = Loadable({
-//   loader: () => First
-// })
 
 const routeMap = [
   {
@@ -40,6 +24,10 @@ const routeMap = [
     path: '/mainview',
     ComponentName: MainView,
     routes: [
+      {
+        path: '/mainView',
+        ComponentName: IndexView
+      },
       {
         path: '/mainView/first',
         ComponentName: First

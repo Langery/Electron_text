@@ -8,7 +8,8 @@ const { Content, Footer, Sider } = Layout
 const { SubMenu } = Menu
 
 const aStyle = {
-  float: 'right'
+  float: 'right',
+  marginRight: '35%'
 }
 class MainView extends Component {
   state = {
@@ -43,7 +44,7 @@ class MainView extends Component {
             <Menu theme="dark" defaultSelectedKeys={['/mainView']} mode="inline" onClick={this.handle}>
               <Menu.Item key="/mainView">
                 <Icon type="pie-chart" />
-                <Link style={aStyle} to={`${match.url}`}>Main 1</Link>
+                <Link style={aStyle} to={`${match.url}`}>Homepage</Link>
               </Menu.Item>
               <Menu.Item key="/first">
                 <Icon type="desktop" />
