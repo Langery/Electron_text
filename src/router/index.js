@@ -4,6 +4,8 @@ import RegisterIndex from '../view/Register/register'
 import MainView from '../view/MainView/mainview'
 import First from '../view/MainView/components/first'
 import IndexView from '../view/MainView/components/indexview'
+import RoughIndex from '../view/MainView/components/rough'
+import Chartxkcd from '../view/MainView/components/chartxkcd'
 
 
 const routeMap = [
@@ -31,6 +33,14 @@ const routeMap = [
       {
         path: '/mainView/first',
         ComponentName: First
+      },
+      {
+        path: '/mainView/rough',
+        ComponentName: RoughIndex
+      },
+      {
+        path: '/mainView/chartxkcd',
+        ComponentName: Chartxkcd
       }
     ]
   }

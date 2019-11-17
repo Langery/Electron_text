@@ -11,6 +11,10 @@ const aStyle = {
   float: 'right',
   marginRight: '35%'
 }
+const bStyle = {
+  float: 'right',
+  marginRight: '22%'
+}
 class MainView extends Component {
   state = {
     collapsed: false
@@ -46,22 +50,26 @@ class MainView extends Component {
                 <Icon type="pie-chart" />
                 <Link style={aStyle} to={`${match.url}`}>Homepage</Link>
               </Menu.Item>
-              <Menu.Item key="/first">
+              <Menu.Item key="first">
                 <Icon type="desktop" />
                 <Link style={aStyle}  to={`${match.url}/first`}>Main 2</Link>
               </Menu.Item>
               <SubMenu
-                key="sub1"
                 title={
                   <span>
                     <Icon type="user" />
-                    <span>User</span>
+                    <span>Draw</span>
                   </span>
                 }
               >
-                <Menu.Item key="3">Tom</Menu.Item>
-                <Menu.Item key="4">Bill</Menu.Item>
-                <Menu.Item key="5">Alex</Menu.Item>
+                <Menu.Item key="rough">
+                  <Icon type="pie-chart" />
+                  <Link style={aStyle} to={`${match.url}/rough`}>Rough</Link>
+                </Menu.Item>
+                <Menu.Item key="chartxkcd">
+                  <Icon type="dot-chart" />
+                  <Link style={bStyle} to={`${match.url}/chartxkcd`}>Chart.xkcd</Link>
+                </Menu.Item>
               </SubMenu>
               <SubMenu
                 key="sub2"
