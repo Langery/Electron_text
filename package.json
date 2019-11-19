@@ -9,6 +9,7 @@
   "dependencies": {
     "antd": "^3.22.1",
     "chart.xkcd": "^1.1.10",
+    "chart.xkcd-react": "0.0.6",
     "electron": "^5.0.8",
     "electron-packager": "^14.0.6",
     "electron-prebuilt": "^1.4.13",

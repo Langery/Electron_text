@@ -62,11 +62,11 @@ class MainView extends Component {
                   </span>
                 }
               >
-                <Menu.Item key="rough">
+                <Menu.Item key="/rough">
                   <Icon type="pie-chart" />
                   <Link style={aStyle} to={`${match.url}/rough`}>Rough</Link>
                 </Menu.Item>
-                <Menu.Item key="chartxkcd">
+                <Menu.Item key="/chartxkcd">
                   <Icon type="dot-chart" />
                   <Link style={bStyle} to={`${match.url}/chartxkcd`}>Chart.xkcd</Link>
                 </Menu.Item>

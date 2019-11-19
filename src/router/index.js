@@ -5,7 +5,7 @@ import MainView from '../view/MainView/mainview'
 import First from '../view/MainView/components/first'
 import IndexView from '../view/MainView/components/indexview'
 import RoughIndex from '../view/MainView/components/rough'
-import Chartxkcd from '../view/MainView/components/chartxkcd'
+import ChartxkcdIndex from '../view/MainView/components/chartxkcd'
 
 
 const routeMap = [
@@ -40,7 +40,7 @@ const routeMap = [
       },
       {
         path: '/mainView/chartxkcd',
-        ComponentName: Chartxkcd
+        ComponentName: ChartxkcdIndex
       }
     ]
   }

@@ -114,6 +114,17 @@
 
 1. 组件一定是首字母大写
 
+> Chart.xkcd
+
+``` bash
+ npm i chart.xkcd
+ npm i -S chart.xkcd-react
+```
+``` javascript
+  import chartXkcd from 'chart.xkcd'
+  import { Line, Bar, Pie, XY } from 'chart.xkcd-react'
+```
+
 ### Link
 
 1. [React-router路由模块化封装](https://www.jianshu.com/p/d4283e7f3c3c)
