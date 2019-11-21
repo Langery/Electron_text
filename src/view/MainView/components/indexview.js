@@ -51,12 +51,13 @@ function dateCellRender(value) {
 
 function getMonthData(value) {
   if (value.month() === 8) {
+    // Sep has 1394
     return 1394;
   }
 }
 
 function monthCellRender(value) {
-  const num = getMonthData(value);
+  const num = getMonthData(value)
   return num ? (
     <div className="notes-month">
       <section>{num}</section>

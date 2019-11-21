@@ -8,7 +8,7 @@ class HelloIndex extends Component {
     return (
       <div className="hello-body">
         <p className="text-style">
-          Hello Electron
+          The heart of Bohemia
         </p>
         <p className="p-text">It is a index to welcome</p>
         <p className="p-text">Please login or register</p>
