@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import '../css/indexview.css'
-import { Layout,  Calendar, Badge  } from 'antd';
+import { Layout,  Calendar, Badge, Input, Row, Col, Button } from 'antd';
 // import { Link } from 'react-router-dom';
 
-const { Footer, Content } = Layout;
+const { Footer, Content, Header } = Layout;
 
 function getListData(value) {
   let listData
@@ -72,16 +72,65 @@ function monthCellRender(value) {
   ) : null;
 }
 
+function selectDay (date) {
+  // get the time
+  var clickTime = getDate(date)
+  console.log(clickTime)
+  // open a little window and write info
+}
+
+function getDate (date) {
+  var getdate = new Date(date)
+  var year = getdate.getFullYear()
+  var month = getdate.getMonth() + 1
+  var day = getdate.getDate()
+  return year + '-' + month + '-' + day
+}
+
 class IndexView extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      val: ''
+    }
+  }
+  searchClick = () => {
+    console.log(this.state.val)
+    // request
+  }
+  handelChange(e) {
+    this.setState({
+      val: e.target.value
+    })
+  }
+  
   render () {
     return (
       <div className="">
         <Layout>
+          <Header className="header-style">
+            {/* 分栏 */}
+            <Row>
+            <Col span={8}>
+              {/* 查询框：
+                  姓名、内容
+              */}
+              <span style={{marginRight: 20}}>User:</span>
+              <Input onChange={this.handelChange.bind(this)} defaultValue={this.state.val} style={{width: 200}} placeholder="Search" size="small" />
+            </Col>
+            <Col span={8}>
+
+            </Col>
+            <Col span={8}>
+              {/* 录入框 - button & 侧边栏 */}
+              <Button type="primary" icon="search" size="small" onClick={() => this.searchClick()}>Search</Button>
+            </Col>
+            </Row>
+          </Header>
           <Content>
-            <Calendar className="calendar-style" dateCellRender={dateCellRender} monthCellRender={monthCellRender} />
+            <Calendar onSelect={selectDay} className="calendar-style" dateCellRender={dateCellRender} monthCellRender={monthCellRender} />
           </Content>
           <Footer>
-
           </Footer>
         </Layout>
       </div>
