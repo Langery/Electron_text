@@ -121,9 +121,10 @@
 3. 解析，XMLHttpRequest对象开始读取服务器的响应
 4. 完成，XMLHttpRequest对象读取服务器响应结束
 
-> 组件问题
+> 组件问题 & Function
 
 1. 组件一定是首字母大写
+2. render 外的 Function 不需要通过 this，可以直接引用
 
 > [Chart.xkcd](https://timqian.com/chart.xkcd/)
 
