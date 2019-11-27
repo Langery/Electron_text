@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import '../css/indexview.css'
-import { Layout,  Calendar, Badge, Input, Row, Col, Button } from 'antd';
+import { Layout,  Calendar, Badge, Input, Row, Col, Button, Popover } from 'antd';
 // import { Link } from 'react-router-dom';
 
 const { Footer, Content, Header } = Layout;
@@ -42,16 +42,30 @@ function getListData(value) {
   return listData || [];
 }
 
+function addInfo () {
+  console.log('add info')
+}
+
+const text = <span>Add</span>
+const content = (
+  <div>
+    <p>Info</p>
+    <Button onClick={() => addInfo()}>Sure</Button>
+  </div>
+)
+
 function dateCellRender(value) {
   const listData = getListData(value);
   return (
-    <ul className="events">
-      {listData.map(item => (
-        <li key={item.content}>
-          <Badge status={item.type} text={item.content} />
-        </li>
-      ))}
-    </ul>
+    <Popover trigger="click" title={text} content={content}>
+      <ul className="events">
+        {listData.map(item => (
+          <li key={item.content}>
+            <Badge status={item.type} text={item.content} />
+          </li>
+        ))}
+      </ul>
+    </Popover>
   );
 }
 
