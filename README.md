@@ -102,6 +102,7 @@
     - [ ] 使文字保持在居中位置
   - [x] 默认进入第一个子页面
   - [ ] 多级路由切换问题未解决，需特殊考虑其他子层路由关系
+  - [ ] electron 打包发布
 - [ ] 待续...
 
 ### Finished
@@ -129,8 +130,8 @@
 > [Chart.xkcd](https://timqian.com/chart.xkcd/)
 
 ``` bash
- npm i chart.xkcd
- npm i -S chart.xkcd-react
+  npm i chart.xkcd
+  npm i -S chart.xkcd-react
 ```
 ``` javascript
   import chartXkcd from 'chart.xkcd'
