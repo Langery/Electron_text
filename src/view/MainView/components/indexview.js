@@ -46,7 +46,12 @@ function addInfo () {
   console.log('add info')
 }
 
-const text = <span>Add</span>
+const text = (
+  <div>
+    <span>Add</span>
+    <Button className="btn-tight" size="small" onClick={() => editInfo()}>Edit</Button>
+  </div>
+)
 const content = (
   <div>
     <p>Info</p>
@@ -54,8 +59,12 @@ const content = (
   </div>
 )
 
+function editInfo () {
+  console.log('click edit bution')
+}
+
 function dateCellRender(value) {
-  const listData = getListData(value);
+  const listData = getListData(value)
   return (
     <Popover trigger="click" title={text} content={content}>
       <ul className="events">
@@ -93,6 +102,7 @@ function selectDay (date) {
   // open a little window and write info
 }
 
+// deal time data
 function getDate (date) {
   var getdate = new Date(date)
   var year = getdate.getFullYear()
