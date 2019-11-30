@@ -86,6 +86,7 @@
 - [ ] 防御式编程思想
 - [ ] 代码健壮性
 - [ ] Single-SPA
+- [ ] 错误日志输出
 - [ ] 待续...
 
 > 代码分支化开发
@@ -149,12 +150,13 @@
 
 > Hook
 
-1. 规则：
-    - 只在最顶层使用Hook，不要在循环或嵌套函数中调用
-    - 不要在普通 JavaScript 函数中调用
+* 规则：
+  - 只在最顶层使用Hook，不要在循环或嵌套函数中调用
+  - 不要在普通 JavaScript 函数中调用
 
 ### Link
 
 1. [React-router路由模块化封装](https://www.jianshu.com/p/d4283e7f3c3c)
 2. [React点击事件的两种写法](https://www.jianshu.com/p/2a5c525e9a28)
+3. [30分钟精通React今年最劲爆的新特性——React Hooks](https://segmentfault.com/a/1190000016950339)
 
