@@ -47,6 +47,7 @@
   - [ ] 绘图
     - [ ] 二维
       - [ ] Rough
+        - [ ] Rough Charts
       - [ ] chart.xkcd
         - [x] 引入 chart.xkcd
         - [ ] 优化
@@ -62,6 +63,8 @@
     - [ ] 特殊功能实现
   - [ ] 日历，用于记录一日常
     - [ ] 点击日历中的每一天出现弹框
+      - [ ] 存新数据
+      - [ ] 编辑旧数据
     - [ ] 数据处理
       - [ ] 存数据
       - [ ] 取数据
@@ -147,6 +150,10 @@
   import chartXkcd from 'chart.xkcd'
   import { Line, Bar, Pie, XY } from 'chart.xkcd-react'
 ```
+
+> rough
+
+1. [rough-charts](https://github.com/beizhedenglong/rough-charts)
 
 > Hook
 

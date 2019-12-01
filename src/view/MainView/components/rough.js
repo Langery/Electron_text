@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 // import rough from 'roughjs'
 
 class RoughIndex extends Component {
@@ -13,4 +13,4 @@ class RoughIndex extends Component {
   }
 }
 
-export default RoughIndex;
+export default RoughIndex

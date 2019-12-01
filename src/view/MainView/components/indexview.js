@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 import '../css/indexview.css'
-import { Layout,  Calendar, Badge, Input, Row, Col, Button, Popover } from 'antd';
+import { Layout, Calendar, Badge, Input, Row, Col, Button, Popover } from 'antd'
 // import { Link } from 'react-router-dom';
 
-const { Footer, Content, Header } = Layout;
+const { Footer, Content, Header } = Layout
 
-function getListData(value) {
+function getListData (value) {
   let listData
 
   var thisMonth = value.month() + 1
@@ -15,15 +15,15 @@ function getListData(value) {
       case 8:
         listData = [
           { type: 'warning', content: 'This is warning event.' },
-          { type: 'success', content: 'This is usual event.' },
-        ];
+          { type: 'success', content: 'This is usual event.' }
+        ]
         break;
       case 10:
         listData = [
           { type: 'warning', content: 'This is warning event.' },
           { type: 'success', content: 'This is usual event.' },
-          { type: 'error', content: 'This is error event.' },
-        ];
+          { type: 'error', content: 'This is error event.' }
+        ]
         break;
       case 15:
         listData = [
@@ -32,14 +32,14 @@ function getListData(value) {
           { type: 'error', content: 'This is error event 1.' },
           { type: 'error', content: 'This is error event 2.' },
           { type: 'error', content: 'This is error event 3.' },
-          { type: 'error', content: 'This is error event 4.' },
-        ];
+          { type: 'error', content: 'This is error event 4.' }
+        ]
         break;
       default:
     }
   }
-  
-  return listData || [];
+
+  return listData || []
 }
 
 function addInfo () {
@@ -63,7 +63,7 @@ function editInfo () {
   console.log('click edit bution')
 }
 
-function dateCellRender(value) {
+function dateCellRender (value) {
   const listData = getListData(value)
   return (
     <Popover trigger="click" title={text} content={content}>
@@ -75,24 +75,24 @@ function dateCellRender(value) {
         ))}
       </ul>
     </Popover>
-  );
+  )
 }
 
-function getMonthData(value) {
+function getMonthData (value) {
   if (value.month() === 8) {
     // Sep has 1394
-    return 1394;
+    return 1394
   }
 }
 
-function monthCellRender(value) {
+function monthCellRender (value) {
   const num = getMonthData(value)
   return num ? (
     <div className="notes-month">
       <section>{num}</section>
       <span>Backlog number</span>
     </div>
-  ) : null;
+  ) : null
 }
 
 function selectDay (date) {
@@ -100,6 +100,12 @@ function selectDay (date) {
   var clickTime = getDate(date)
   console.log(clickTime)
   // open a little window and write info
+  const popover = <Popover target="click"></Popover>
+  return (
+    <div>
+      {popover}
+    </div>
+  )
 }
 
 // deal time data
@@ -112,22 +118,24 @@ function getDate (date) {
 }
 
 class IndexView extends Component {
-  constructor(props){
+  constructor (props) {
     super(props)
     this.state = {
       val: ''
     }
   }
+
   searchClick = () => {
     console.log(this.state.val)
     // request
   }
-  handelChange(e) {
+
+  handelChange (e) {
     this.setState({
       val: e.target.value
     })
   }
-  
+
   render () {
     return (
       <div className="">
@@ -135,20 +143,20 @@ class IndexView extends Component {
           <Header className="header-style">
             {/* 分栏 */}
             <Row>
-            <Col span={8}>
-              {/* 查询框：
+              <Col span={8}>
+                {/* 查询框：
                   姓名、内容
               */}
-              <span style={{marginRight: 20}}>User:</span>
-              <Input onChange={this.handelChange.bind(this)} defaultValue={this.state.val} style={{width: 200}} placeholder="Search" size="small" />
-            </Col>
-            <Col span={8}>
+                <span style={{ marginRight: 20 }}>User:</span>
+                <Input onChange={this.handelChange.bind(this)} defaultValue={this.state.val} style={{ width: 200 }} placeholder="Search" size="small" />
+              </Col>
+              <Col span={8}>
 
-            </Col>
-            <Col span={8}>
-              {/* 录入框 - button & 侧边栏 */}
-              <Button type="primary" icon="search" size="small" onClick={() => this.searchClick()}>Search</Button>
-            </Col>
+              </Col>
+              <Col span={8}>
+                {/* 录入框 - button & 侧边栏 */}
+                <Button type="primary" icon="search" size="small" onClick={() => this.searchClick()}>Search</Button>
+              </Col>
             </Row>
           </Header>
           <Content>
@@ -162,4 +170,4 @@ class IndexView extends Component {
   }
 }
 
-export default IndexView;
+export default IndexView

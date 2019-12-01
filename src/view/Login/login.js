@@ -27,7 +27,7 @@ class NormalLoginForm extends Component {
             return response.json()
           })
           .then(data => {
-            console.log(data)
+            // console.log(data)
             if (!data.backData) {
               message.error('The username or password is not exist, plase to register user~')
             } else {

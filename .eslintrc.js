@@ -9,7 +9,7 @@ module.exports = {
     node: true
   },
   // https://github.com/feross/standard/blob/master/RULES.md#javascript-standard-style
-  extends: 'standard', //扩展，可以通过字符串或者一个数组来扩展规则
+  // extends: 'standard', //扩展，可以通过字符串或者一个数组来扩展规则
   // required to lint *.vue files
   plugins: [
     'react',
