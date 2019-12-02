@@ -7,14 +7,6 @@ import { Layout, Menu, Icon } from 'antd'
 const { Content, Footer, Sider } = Layout
 const { SubMenu } = Menu
 
-const aStyle = {
-  float: 'right',
-  marginRight: '35%'
-}
-const bStyle = {
-  float: 'right',
-  marginRight: '22%'
-}
 class MainView extends Component {
   state = {
     collapsed: false
@@ -48,11 +40,15 @@ class MainView extends Component {
             <Menu theme="dark" defaultSelectedKeys={['/mainView']} mode="inline" onClick={this.handle}>
               <Menu.Item key="/mainView">
                 <Icon type="pie-chart" />
-                <Link style={aStyle} to={`${match.url}`}>Homepage</Link>
+                <span>
+                  <Link to={`${match.url}`}>Homepage</Link>
+                </span>
               </Menu.Item>
               <Menu.Item key="first">
                 <Icon type="desktop" />
-                <Link style={aStyle}  to={`${match.url}/first`}>Main 2</Link>
+                <span>
+                  <Link to={`${match.url}/first`}>Main 2</Link>
+                </span>
               </Menu.Item>
               <SubMenu
                 title={
@@ -64,11 +60,15 @@ class MainView extends Component {
               >
                 <Menu.Item key="/rough">
                   <Icon type="pie-chart" />
-                  <Link style={aStyle} to={`${match.url}/rough`}>Rough</Link>
+                  <span>
+                    <Link to={`${match.url}/rough`}>Rough</Link>
+                  </span>
                 </Menu.Item>
                 <Menu.Item key="/chartxkcd">
                   <Icon type="dot-chart" />
-                  <Link style={bStyle} to={`${match.url}/chartxkcd`}>Chart.xkcd</Link>
+                  <span>
+                    <Link to={`${match.url}/chartxkcd`}>Chart.xkcd</Link>
+                  </span>
                 </Menu.Item>
               </SubMenu>
               <SubMenu
