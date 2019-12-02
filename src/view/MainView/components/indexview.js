@@ -10,7 +10,7 @@ function getListData (value) {
 
   var thisMonth = value.month() + 1
 
-  if (thisMonth === 11) {
+  if (thisMonth === 12) {
     switch (value.date()) {
       case 8:
         listData = [
@@ -65,17 +65,25 @@ function editInfo () {
 
 function dateCellRender (value) {
   const listData = getListData(value)
-  return (
-    <Popover trigger="click" title={text} content={content}>
-      <ul className="events">
-        {listData.map(item => (
-          <li key={item.content}>
-            <Badge status={item.type} text={item.content} />
-          </li>
-        ))}
-      </ul>
-    </Popover>
-  )
+  if (listData.length !== 0) {
+    return (
+      <Popover trigger="click" title={text} content={content}>
+        <ul className="events">
+          {listData.map(item => (
+            <li key={item.content}>
+              <Badge status={item.type} text={item.content} />
+            </li>
+          ))}
+        </ul>
+      </Popover>
+    )
+  } else {
+    return (
+      <Popover trigger="click" title={text} content={content}>
+      </Popover>
+    )
+  }
+  
 }
 
 function getMonthData (value) {
