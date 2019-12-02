@@ -166,6 +166,12 @@
   - 只在最顶层使用Hook，不要在循环或嵌套函数中调用
   - 不要在普通 JavaScript 函数中调用
 
+> Canvas & SVG
+
+     | Canvas | SVG
+---- | ------ | ---
+代码方式 | JavaScript | XML
+
 ### Link
 
 1. [React-router路由模块化封装](https://www.jianshu.com/p/d4283e7f3c3c)
