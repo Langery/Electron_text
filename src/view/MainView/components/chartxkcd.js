@@ -7,9 +7,6 @@ class ChartxkcdIndex extends Component {
   render () {
     return (
       <div className="hello-body">
-        <p className="text-style">
-          chart.xkcd
-        </p>
         <Line 
           config={{
             title: 'Monthly ihcome of an indie developer',

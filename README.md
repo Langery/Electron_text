@@ -47,7 +47,8 @@
   - [ ] 绘图
     - [ ] 二维
       - [ ] Rough
-        - [ ] Rough Charts
+        - [x] Rough Charts
+        - [x] React Rough
       - [ ] chart.xkcd
         - [x] 引入 chart.xkcd
         - [ ] 优化
@@ -116,6 +117,9 @@
     - [ ] 多级路由的子路由数据传递
     - [ ] 子路由的数据存储以及与父级之间的数据交换
   - [ ] electron 打包发布
+- [ ] Canvas 和 SVG 的区别
+  - [ ] 处理速度
+  - [ ] CPU 与 GPU 耗能
 - [ ] 待续...
 
 ### Finished
@@ -154,6 +158,7 @@
 > rough
 
 1. [rough-charts](https://github.com/beizhedenglong/rough-charts)
+2. [react-rough](https://github.com/ooade/react-rough)
 
 > Hook
 

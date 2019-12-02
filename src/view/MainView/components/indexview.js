@@ -65,25 +65,17 @@ function editInfo () {
 
 function dateCellRender (value) {
   const listData = getListData(value)
-  if (listData.length !== 0) {
-    return (
-      <Popover trigger="click" title={text} content={content}>
-        <ul className="events">
-          {listData.map(item => (
-            <li key={item.content}>
-              <Badge status={item.type} text={item.content} />
-            </li>
-          ))}
-        </ul>
-      </Popover>
-    )
-  } else {
-    return (
-      <Popover trigger="click" title={text} content={content}>
-      </Popover>
-    )
-  }
-  
+  return (
+    <Popover trigger="click" title={text} content={content}>
+      <ul className="events">
+        {listData.map(item => (
+          <li key={item.content}>
+            <Badge status={item.type} text={item.content} />
+          </li>
+        ))}
+      </ul>
+    </Popover>
+  )
 }
 
 function getMonthData (value) {
