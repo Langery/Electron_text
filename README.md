@@ -98,7 +98,7 @@
 - [ ] 根据不同的功能进行分支创建
 - [ ] 完成某个模块后进行 Code Review
   - [ ] 划分多个分支，每个分支进行单独的代码处理
-- [ ] 提交 Commit 格式化
+- [x] 提交 Commit 格式化
   - 使用 `git cz` 代替 `git commit`
 
 ### To be resolved
@@ -117,7 +117,14 @@
     - [ ] 多级路由的子路由数据传递
     - [ ] 子路由的数据存储以及与父级之间的数据交换
   - [ ] electron 打包发布
-- [ ] Canvas 和 SVG 的区别
+- [ ] 视图处理方式
+  - [ ] 处理过程分类
+    - [ ] 视图属性
+    - [ ] 视图数据集
+    - [ ] 独立数据集请求方法
+  - [ ] 并发请求 & 并发渲染
+    - [ ] 多图像之间的渲染不会受到影响
+- [x] Canvas 和 SVG 的区别
   - [ ] 处理速度
   - [ ] CPU 与 GPU 耗能
 - [ ] 待续...
@@ -168,7 +175,7 @@
 
 > Canvas & SVG
 
-|      | Canvas | SVG
+|       | Canvas | SVG
 | ----- | ------ | ---
 | 图形方式 | 标量图 | 矢量图
 | 绘制方式 | JavaScript | XML
@@ -183,4 +190,5 @@
 1. [React-router路由模块化封装](https://www.jianshu.com/p/d4283e7f3c3c)
 2. [React点击事件的两种写法](https://www.jianshu.com/p/2a5c525e9a28)
 3. [30分钟精通React今年最劲爆的新特性——React Hooks](https://segmentfault.com/a/1190000016950339)
+4. [svg之path详解](https://www.jianshu.com/p/c819ae16d29b)
 
