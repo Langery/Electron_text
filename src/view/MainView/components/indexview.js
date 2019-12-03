@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import '../css/indexview.css'
 import { Layout, Calendar, Badge, Input, Row, Col, Button, Popover } from 'antd'
-// import { Link } from 'react-router-dom';
+import { PostWay } from '../../../common/common'
 
 const { Footer, Content, Header } = Layout
 
@@ -126,8 +126,20 @@ class IndexView extends Component {
   }
 
   searchClick = () => {
-    console.log(this.state.val)
+    // console.log(this.state.val)
     // request
+    const getUser = {
+      username: this.state.val
+    }
+    const getWay = PostWay(getUser, 'canlendar')
+    console.log(getWay)
+    fetch(getWay[0], getWay[1])
+      .then(response => {
+        console.log(response)
+      })
+      .then(data => {
+        console.log(data)
+      })
   }
 
   handelChange (e) {

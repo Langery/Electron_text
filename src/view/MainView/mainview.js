@@ -39,16 +39,16 @@ class MainView extends Component {
             <div className="logo" />
             <Menu theme="dark" defaultSelectedKeys={['/mainView']} mode="inline" onClick={this.handle}>
               <Menu.Item key="/mainView">
-                <Icon type="pie-chart" />
-                <span>
-                  <Link to={`${match.url}`}>Homepage</Link>
-                </span>
+                <Link to={`${match.url}`}>
+                  <Icon type="pie-chart" />
+                  <span>Homepage</span>
+                </Link>
               </Menu.Item>
               <Menu.Item key="first">
-                <Icon type="desktop" />
-                <span>
-                  <Link to={`${match.url}/first`}>Main 2</Link>
-                </span>
+                <Link to={`${match.url}/first`}>
+                  <Icon type="desktop" />
+                    <span>Main 2</span>
+                  </Link>
               </Menu.Item>
               <SubMenu
                 title={
@@ -59,16 +59,16 @@ class MainView extends Component {
                 }
               >
                 <Menu.Item key="/rough">
-                  <Icon type="pie-chart" />
-                  <span>
-                    <Link to={`${match.url}/rough`}>Rough</Link>
-                  </span>
+                  <Link to={`${match.url}/rough`}>
+                    <Icon type="pie-chart" />
+                    <span>Rough</span>
+                  </Link>
                 </Menu.Item>
                 <Menu.Item key="/chartxkcd">
-                  <Icon type="dot-chart" />
-                  <span>
-                    <Link to={`${match.url}/chartxkcd`}>Chart.xkcd</Link>
-                  </span>
+                  <Link to={`${match.url}/chartxkcd`}>
+                    <Icon type="dot-chart" />
+                    <span>Chart.xkcd</span>
+                  </Link>
                 </Menu.Item>
               </SubMenu>
               <SubMenu
@@ -84,7 +84,7 @@ class MainView extends Component {
                 <Menu.Item key="8">Team 2</Menu.Item>
               </SubMenu>
               <Menu.Item key="9">
-                <Icon type="file" />
+                <Icon type="appstore" />
                 <span>extend</span>
               </Menu.Item>
             </Menu>

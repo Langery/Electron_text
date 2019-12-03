@@ -6,6 +6,6 @@ export function PostWay (sendData, urlnaem) {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
   }
-  const url = 'http://127.0.0.1:5000/' + urlnaem
+  const url = 'http://0.0.0.0:5000/' + urlnaem
   return [url, options]
 }
