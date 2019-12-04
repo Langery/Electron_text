@@ -46,9 +46,15 @@ function addInfo () {
   console.log('add info')
 }
 
-const text = (
+const Addtext = (
   <div>
     <span>Add</span>
+    <Button className="btn-tight" size="small">Add</Button>
+  </div>
+)
+const Edittext = (
+  <div>
+    <span>Edit</span>
     <Button className="btn-tight" size="small" onClick={() => editInfo()}>Edit</Button>
   </div>
 )
@@ -65,17 +71,25 @@ function editInfo () {
 
 function dateCellRender (value) {
   const listData = getListData(value)
-  return (
-    <Popover trigger="click" title={text} content={content}>
-      <ul className="events">
-        {listData.map(item => (
-          <li key={item.content}>
-            <Badge status={item.type} text={item.content} />
-          </li>
-        ))}
-      </ul>
-    </Popover>
-  )
+  if (listData.length === 0) {
+    return (
+      <Popover trigger="click" title={Addtext} content={content}>
+        <ul style={{height: '80%'}}></ul>
+      </Popover>
+    )
+  } else {
+    return (
+      <Popover trigger="click" title={Edittext} content={content}>
+        <ul className="events">
+          {listData.map(item => (
+            <li key={item.content}>
+              <Badge status={item.type} text={item.content} />
+            </li>
+          ))}
+        </ul>
+      </Popover>
+    )
+  }
 }
 
 function getMonthData (value) {
@@ -100,12 +114,7 @@ function selectDay (date) {
   var clickTime = getDate(date)
   console.log(clickTime)
   // open a little window and write info
-  const popover = <Popover target="click"></Popover>
-  return (
-    <div>
-      {popover}
-    </div>
-  )
+
 }
 
 // deal time data
@@ -135,7 +144,7 @@ class IndexView extends Component {
     console.log(getWay)
     fetch(getWay[0], getWay[1])
       .then(response => {
-        console.log(response)
+        return response.json()
       })
       .then(data => {
         console.log(data)

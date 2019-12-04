@@ -93,7 +93,6 @@ class MainView extends Component {
             <Content>
               {
                 routes.map(({path, ComponentName, exact = true, routes = []}, key) => {
-                  console.log(routes)
                   return <Route
                           exact = {exact}
                           key={key}
