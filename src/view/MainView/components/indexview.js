@@ -3,7 +3,7 @@ import '../css/indexview.css'
 import { Layout, Calendar, Badge, Input, Row, Col, Button, Popover } from 'antd'
 import { PostWay } from '../../../common/common'
 
-const { Footer, Content, Header } = Layout
+const { Content, Header } = Layout
 
 function getListData (value) {
   let listData
@@ -60,7 +60,7 @@ const Edittext = (
 )
 const content = (
   <div>
-    <p>Info</p>
+    <p>info</p>
     <Button onClick={() => addInfo()}>Sure</Button>
   </div>
 )
@@ -71,6 +71,7 @@ function editInfo () {
 
 function dateCellRender (value) {
   const listData = getListData(value)
+  
   if (listData.length === 0) {
     return (
       <Popover trigger="click" title={Addtext} content={content}>
@@ -114,7 +115,6 @@ function selectDay (date) {
   var clickTime = getDate(date)
   console.log(clickTime)
   // open a little window and write info
-
 }
 
 // deal time data
@@ -167,9 +167,9 @@ class IndexView extends Component {
               <Col span={8}>
                 {/* 查询框：
                   姓名、内容
-              */}
+                */}
                 <span style={{ marginRight: 20 }}>User:</span>
-                <Input onChange={this.handelChange.bind(this)} defaultValue={this.state.val} style={{ width: 200 }} placeholder="Search" size="small" />
+                <Input onChange={this.handelChange.bind(this)} defaultValue={this.state.val} style={{ width: 180 }} placeholder="Search" size="small" />
               </Col>
               <Col span={8}>
 
@@ -183,8 +183,6 @@ class IndexView extends Component {
           <Content>
             <Calendar onSelect={selectDay} className="calendar-style" dateCellRender={dateCellRender} monthCellRender={monthCellRender} />
           </Content>
-          <Footer>
-          </Footer>
         </Layout>
       </div>
     )
