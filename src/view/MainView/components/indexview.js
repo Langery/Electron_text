@@ -1,9 +1,20 @@
 import React, { Component } from 'react'
 import '../css/indexview.css'
-import { Layout, Calendar, Badge, Input, Row, Col, Button, Popover } from 'antd'
+import { Layout, Calendar, Badge, Input, Row, Col, Button, Popover, Select } from 'antd'
 import { PostWay } from '../../../common/common'
 
 const { Content, Header } = Layout
+const { Option } = Select
+
+const data = {
+  flag: false,
+  date: '',
+  dateBool: {
+    flag: false,
+    date: ''
+  }
+}
+
 
 function getListData (value) {
   let listData
@@ -44,12 +55,18 @@ function getListData (value) {
 
 function addInfo () {
   console.log('add info')
+  const dateBool = data.dateBool
+  dateBool.flag = !dateBool.flag
+}
+
+function upInfo () {
+  console.log('up info')
 }
 
 const Addtext = (
   <div>
     <span>Add</span>
-    <Button className="btn-tight" size="small">Add</Button>
+    <Button className="btn-tight" size="small" onClick={() => addInfo()}>Add</Button>
   </div>
 )
 const Edittext = (
@@ -61,9 +78,32 @@ const Edittext = (
 const content = (
   <div>
     <p>info</p>
-    <Button onClick={() => addInfo()}>Sure</Button>
+    <div>
+      <Input placeholder="Add infor" />
+      <Select>
+        <Option value="success">Success</Option>
+        <Option value="warning">Warning</Option>
+        <Option value="error">Error</Option>
+      </Select>
+    </div>
+    <Button onClick={() => upInfo()}>Sure</Button>
   </div>
 )
+
+function dealContent (item) {
+  console.log(item)
+  if (!item.flag) {
+  return <p>deal infor {data.date}</p>
+  } else {
+    return <div>
+    <Select style={{ width: 100 }}>
+      <Option value="success">Success</Option>
+      <Option value="warning">Warning</Option>
+      <Option value="error">Error</Option>
+    </Select><Input placeholder="Add infor" />
+  </div>
+  }
+}
 
 function editInfo () {
   console.log('click edit bution')
@@ -74,7 +114,7 @@ function dateCellRender (value) {
   
   if (listData.length === 0) {
     return (
-      <Popover trigger="click" title={Addtext} content={content}>
+      <Popover trigger="click" title={Addtext} content={dealContent(data.dateBool)}>
         <ul style={{height: '80%'}}></ul>
       </Popover>
     )
@@ -113,7 +153,9 @@ function monthCellRender (value) {
 function selectDay (date) {
   // get the time
   var clickTime = getDate(date)
-  console.log(clickTime)
+  // console.log(clickTime)
+  data.dateBool.date = clickTime
+  data.date = clickTime
   // open a little window and write info
 }
 
@@ -131,6 +173,7 @@ class IndexView extends Component {
     super(props)
     this.state = {
       val: ''
+      // flag: false
     }
   }
 
