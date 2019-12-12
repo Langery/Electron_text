@@ -22,6 +22,7 @@ class RoughIndex extends Component {
         {/* Chart */}
         <ChartProvider
           height={400}
+          width={480}
           data={data}
         >
           <XAxis dataKey="name" />
