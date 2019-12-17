@@ -17,6 +17,30 @@ const data = {
 
 
 function getListData (value) {
+  // console.log()
+  // let thisdata = getDate()
+  // console.log(thisdata)
+  /**
+   * [fetch description]
+   * @text {Calendar}
+   * start
+   */
+  // let sendData = {
+  //   time: thisdata
+  // }
+  // console.log(sendData)
+  // const getCalendar = PostWay(sendData, 'canlendar/list')
+  // fetch(getCalendar[0], getCalendar[1])
+  //   .then(response => {
+  //     return response.json()
+  //   })
+  //   .then(data => {
+  //     console.log(data)
+  //   })
+  //   .catch(err => {
+  //     console.log(err)
+  //   })
+
   let listData
 
   var thisMonth = value.month() + 1
@@ -93,14 +117,15 @@ const content = (
 function dealContent (item) {
   console.log(item)
   if (!item.flag) {
-  return <p>deal infor {data.date}</p>
+    return <p>deal infor {data.date}</p>
   } else {
     return <div>
-    <Select style={{ width: 100 }}>
+    <Select style={{ width: 70}}>
       <Option value="success">Success</Option>
       <Option value="warning">Warning</Option>
       <Option value="error">Error</Option>
-    </Select><Input placeholder="Add infor" />
+    </Select>
+    <Input placeholder="Add infor" style={{ width: 150, marginLeft: 5}} />
   </div>
   }
 }
@@ -111,7 +136,7 @@ function editInfo () {
 
 function dateCellRender (value) {
   const listData = getListData(value)
-  
+
   if (listData.length === 0) {
     return (
       <Popover trigger="click" title={Addtext} content={dealContent(data.dateBool)}>
@@ -161,7 +186,7 @@ function selectDay (date) {
 
 // deal time data
 function getDate (date) {
-  var getdate = new Date(date)
+  var getdate = date === undefined ? new Date() : new Date(date)
   var year = getdate.getFullYear()
   var month = getdate.getMonth() + 1
   var day = getdate.getDate()
