@@ -17,6 +17,7 @@ const data = {
 
 
 function getListData (value) {
+  console.log(data)
   let listData
 
   var thisMonth = value.month() + 1
@@ -111,6 +112,7 @@ function editInfo () {
 }
 
 function dateCellRender (value) {
+
   const listData = getListData(value)
 
   if (listData.length === 0) {
@@ -173,7 +175,8 @@ class IndexView extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      val: ''
+      val: '',
+      firstData: {}
     }
   }
   // DOM 渲染前调用
@@ -187,7 +190,10 @@ class IndexView extends Component {
         return response.json()
       })
       .then(data => {
-        console.log(data)
+        console.log(this)
+        this.setState({
+          firstData: data
+        })
       })
       .catch(err => {
         console.log(err)

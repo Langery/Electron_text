@@ -26,6 +26,9 @@
   - [ ] 逻辑划分
   - [ ] 逻辑函数处理
   - [ ] 共用函数体处理以及特殊情况应用
+- [ ] redux
+- [ ] hook 机制
+- [ ] history
 - [ ] 待续...
 
 > 功能层
@@ -109,8 +112,6 @@
 
 - [x] 不实现新打开窗口，只是在当前状态下进行界面跳转
 - [x] react 嵌入到 electron 中
-- [ ] hook 机制
-- [ ] history
 - [x] 以实现路由封装，但是未实现子级路由获取
   - [x] 默认指定第一个子路由
   - [x] 默认左侧第一项已选中
@@ -123,7 +124,6 @@
   - [x] 多级路由切换问题未解决，需特殊考虑其他子层路由关系
   - [ ] 多级路由的子路由数据传递
   - [ ] 子路由的数据存储以及与父级之间的数据交换
-- [ ] electron 打包发布
 - [ ] **视图处理方式**
   - [ ] 处理过程分类
   - [ ] 视图属性
@@ -134,6 +134,7 @@
 - [x] Canvas 和 SVG 的区别
   - [ ] 处理速度
   - [ ] CPU 与 GPU 耗能
+- [ ] electron 打包发布
 - [ ] 待续...
 
 ### Finished
@@ -193,9 +194,20 @@
 | 支持事件处理器 | 否      | 是            |
 | 适合对象    | 图像密集型游戏  | 地图/大型渲染区域的应用程序 |
 
+> 生命周期
+
+1. 组件将要挂载时：componentWillMount
+2. 组件挂载完成时：componentDidMount
+3. 是否要更新数据时：shouldComponentUpdate
+4. 将要更新数据时：componentWillUpdate
+5. 数据更新完成时：componentDidUpdate
+6. 组件将要销毁时：componentWillUnmount
+7. 父组件中改变了props传值时：componentWillReceiveProps
+
 ### Link
 
 1. [React-router路由模块化封装](https://www.jianshu.com/p/d4283e7f3c3c)
 2. [React点击事件的两种写法](https://www.jianshu.com/p/2a5c525e9a28)
 3. [30分钟精通React今年最劲爆的新特性——React Hooks](https://segmentfault.com/a/1190000016950339)
 4. [svg之path详解](https://www.jianshu.com/p/c819ae16d29b)
+5. [React-Redux 中文文档](https://segmentfault.com/a/1190000017064759?utm_source=tag-newest)
