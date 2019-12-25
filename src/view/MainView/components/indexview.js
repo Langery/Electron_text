@@ -17,30 +17,6 @@ const data = {
 
 
 function getListData (value) {
-  // console.log()
-  // let thisdata = getDate()
-  // console.log(thisdata)
-  /**
-   * [fetch description]
-   * @text {Calendar}
-   * start
-   */
-  // let sendData = {
-  //   time: thisdata
-  // }
-  // console.log(sendData)
-  // const getCalendar = PostWay(sendData, 'canlendar/list')
-  // fetch(getCalendar[0], getCalendar[1])
-  //   .then(response => {
-  //     return response.json()
-  //   })
-  //   .then(data => {
-  //     console.log(data)
-  //   })
-  //   .catch(err => {
-  //     console.log(err)
-  //   })
-
   let listData
 
   var thisMonth = value.month() + 1
@@ -115,7 +91,7 @@ const content = (
 )
 
 function dealContent (item) {
-  console.log(item)
+  // console.log(item)
   if (!item.flag) {
     return <p>deal infor {data.date}</p>
   } else {
@@ -185,12 +161,12 @@ function selectDay (date) {
 }
 
 // deal time data
-function getDate (date) {
-  var getdate = date === undefined ? new Date() : new Date(date)
+function getDate (date, type = 0) {
+  var getdate = date === null ? new Date() : new Date(date)
   var year = getdate.getFullYear()
   var month = getdate.getMonth() + 1
   var day = getdate.getDate()
-  return year + '-' + month + '-' + day
+  return type === 0 ? year + '-' + month + '-' + day : year + '-' + month
 }
 
 class IndexView extends Component {
@@ -198,12 +174,26 @@ class IndexView extends Component {
     super(props)
     this.state = {
       val: ''
-      // flag: false
     }
   }
-
+  // DOM 渲染前调用
+  componentWillMount () {
+    const nowtime = getDate(null, 1)
+    console.log(nowtime)
+    let sendData = { time: nowtime }
+    const getCalendar = PostWay(sendData, 'calendar/list')
+    fetch(getCalendar[0], getCalendar[1])
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        console.log(data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
   searchClick = () => {
-    // console.log(this.state.val)
     // request
     const getUser = {
       username: this.state.val

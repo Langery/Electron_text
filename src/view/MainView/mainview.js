@@ -76,12 +76,12 @@ class MainView extends Component {
                 title={
                   <span>
                     <Icon type="team" />
-                    <span>Team</span>
+                    <span>Friends</span>
                   </span>
                 }
               >
-                <Menu.Item key="6">Team 1</Menu.Item>
-                <Menu.Item key="8">Team 2</Menu.Item>
+                <Menu.Item key="6">List</Menu.Item>
+                <Menu.Item key="8">Connection</Menu.Item>
               </SubMenu>
               <Menu.Item key="9">
                 <Icon type="appstore" />
