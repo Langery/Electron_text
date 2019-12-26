@@ -155,7 +155,7 @@ function monthCellRender (value) {
 
 function selectDay (date) {
   // get the time
-  var clickTime = getDate(date)
+  const clickTime = getDate(date)
   // console.log(clickTime)
   data.dateBool.date = clickTime
   data.date = clickTime
@@ -164,10 +164,10 @@ function selectDay (date) {
 
 // deal time data
 function getDate (date, type = 0) {
-  var getdate = date === null ? new Date() : new Date(date)
-  var year = getdate.getFullYear()
-  var month = getdate.getMonth() + 1
-  var day = getdate.getDate()
+  const getdate = date === null ? new Date() : new Date(date)
+  const year = getdate.getFullYear()
+  const month = getdate.getMonth() + 1
+  const day = getdate.getDate()
   return type === 0 ? year + '-' + month + '-' + day : year + '-' + month
 }
 
@@ -223,7 +223,7 @@ class IndexView extends Component {
 
   render () {
     return (
-      <div className="">
+      <div>
         <Layout>
           <Header className="header-style">
             {/* 分栏 */}
