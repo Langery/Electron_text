@@ -45,9 +45,9 @@ class MainView extends Component {
                 </Link>
               </Menu.Item>
               <Menu.Item key="first">
-                <Link to={`${match.url}/first`}>
+                <Link to={`${match.url}/map`}>
                   <Icon type="desktop" />
-                    <span>Main 2</span>
+                    <span>Map</span>
                   </Link>
               </Menu.Item>
               <SubMenu
