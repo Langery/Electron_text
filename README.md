@@ -89,6 +89,8 @@
     - [ ] 日历有多种展示方式
     - [ ] 通屏日历，可以随时点击一个出现编辑操作页
     - [ ] 小日历，点击后右侧显示编辑操作页
+  - [ ] [mdx-deck](https://github.com/jxnblk/mdx-deck)
+  - [ ] [code-surfer](https://github.com/pomber/code-surfer)
 - [ ] 待续...
 
 > 网络层
