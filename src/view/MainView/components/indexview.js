@@ -183,6 +183,7 @@ class IndexView extends Component {
   componentWillMount () {
     const nowtime = getDate(null, 1)
     console.log(nowtime)
+    // debugger
     let sendData = { time: nowtime }
     const getCalendar = PostWay(sendData, 'calendar/list')
     fetch(getCalendar[0], getCalendar[1])
