@@ -15,6 +15,32 @@ const data = {
   }
 }
 
+// value 日 day  2020-01-04
+// function getListData1 (uid,date) {
+
+//   //查数据库  按天查
+//   listDbdate = [{
+//     "userId": "langery",
+//     "event": "new",
+//     "createtime": "2020-01-01",
+//     "status": "1",
+//     "newtime": "2020-01-01"
+//   },...];
+
+//   //数据转换
+//   /*
+//     status -> type
+//     evet -> content
+//     createtime   long->string
+//   */
+//   data = getDate4DbData(dbdate);
+  
+//   listData = [
+//     { type: 'warning', content: 'This is warning event.' },
+//     { type: 'success', content: 'This is usual event.' }
+//   ]
+//   return listData || []
+// }
 
 function getListData (value) {
 
@@ -197,13 +223,15 @@ class IndexView extends Component {
         // var site = nowtime.lastIndexOf("-")
         var site = (name) => { return name.lastIndexOf('-') }
         const dealData = {
-          month: nowtime.substring(site(nowtime) + 1, nowtime.length)
+          month: nowtime.substring(site(nowtime) + 1, nowtime.length),
+          event: []
         }
         data.forEach(item => {
           const newtime = item.newtime
           const getday = newtime.substring(site(newtime) + 1, newtime.length)
           dealData.dayTime = getday
-          dealData.event = item.event
+          // dealData.event = item.event
+          dealData.event.push(item.event)
         })
         console.log(dealData)
         // let strMap = new Map();
