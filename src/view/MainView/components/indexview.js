@@ -17,9 +17,11 @@ const data = {
 
 
 function getListData (value) {
-  console.log(data)
+
+  // console.log(value)
   let listData
 
+  // var thisYear = value.year()
   var thisMonth = value.month() + 1
 
   if (thisMonth === 12) {
@@ -112,7 +114,7 @@ function editInfo () {
 }
 
 function dateCellRender (value) {
-
+  // console.log(value)
   const listData = getListData(value)
 
   if (listData.length === 0) {
@@ -164,10 +166,11 @@ function selectDay (date) {
 
 // deal time data
 function getDate (date, type = 0) {
-  const getdate = date === null ? new Date() : new Date(date)
-  const year = getdate.getFullYear()
-  const month = getdate.getMonth() + 1
-  const day = getdate.getDate()
+  let getdate = date === null ? new Date() : new Date(date)
+  let year = getdate.getFullYear()
+  let month = getdate.getMonth() + 1
+  month = month < 10 ? '0' + month : month
+  let day = getdate.getDate()
   return type === 0 ? year + '-' + month + '-' + day : year + '-' + month
 }
 
@@ -191,9 +194,25 @@ class IndexView extends Component {
         return response.json()
       })
       .then(data => {
-        console.log(this)
+        // var site = nowtime.lastIndexOf("-")
+        var site = (name) => { return name.lastIndexOf('-') }
+        const dealData = {
+          month: nowtime.substring(site(nowtime) + 1, nowtime.length)
+        }
+        data.forEach(item => {
+          const newtime = item.newtime
+          const getday = newtime.substring(site(newtime) + 1, newtime.length)
+          dealData.dayTime = getday
+          dealData.event = item.event
+        })
+        console.log(dealData)
+        // let strMap = new Map();
+        //   for (let k of Object.keys(obj)) {
+        //   strMap.set(k,obj[k]);
+        // }
+        // dealData 
         this.setState({
-          firstData: data
+          firstData: dealData
         })
       })
       .catch(err => {
@@ -201,7 +220,6 @@ class IndexView extends Component {
       })
   }
   searchClick = () => {
-    // request
     const getUser = {
       username: this.state.val
     }
@@ -246,6 +264,7 @@ class IndexView extends Component {
             </Row>
           </Header>
           <Content>
+            {/* this.state.firstData */}
             <Calendar onSelect={selectDay} className="calendar-style" dateCellRender={dateCellRender} monthCellRender={monthCellRender} />
           </Content>
         </Layout>
