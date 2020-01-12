@@ -34,7 +34,7 @@ const data = {
 //     createtime   long->string
 //   */
 //   data = getDate4DbData(dbdate);
-  
+
 //   listData = [
 //     { type: 'warning', content: 'This is warning event.' },
 //     { type: 'success', content: 'This is usual event.' }
@@ -182,6 +182,7 @@ function monthCellRender (value) {
 }
 
 function selectDay (date) {
+
   // get the time
   const clickTime = getDate(date)
   // console.log(clickTime)
@@ -191,13 +192,19 @@ function selectDay (date) {
 }
 
 // deal time data
-function getDate (date, type = 0) {
+function getDate (date, type = 0, addmonth = 1) {
   let getdate = date === null ? new Date() : new Date(date)
   let year = getdate.getFullYear()
-  let month = getdate.getMonth() + 1
+  let month = getdate.getMonth() + addmonth
   month = month < 10 ? '0' + month : month
   let day = getdate.getDate()
   return type === 0 ? year + '-' + month + '-' + day : year + '-' + month
+}
+
+// time stamp
+function timeStamp (time) {
+  let backTime = Date.parse(new Date(time)) / 1000
+  return backTime
 }
 
 class IndexView extends Component {
@@ -210,16 +217,25 @@ class IndexView extends Component {
   }
   // DOM 渲染前调用
   componentWillMount () {
-    const nowtime = getDate(null, 1)
+    // 处理时间戳 time stamp
+    const nowtime = timeStamp(getDate(null, 1))
+    const newtime = timeStamp(getDate(null, 1, 2))
     console.log(nowtime)
+    console.log(newtime)
+    // newtime 一个月后的时间戳
     // debugger
-    let sendData = { time: nowtime }
+    let sendData = {
+      nowtime: nowtime,
+      newtime: newtime
+    }
     const getCalendar = PostWay(sendData, 'calendar/list')
     fetch(getCalendar[0], getCalendar[1])
       .then(response => {
         return response.json()
       })
       .then(data => {
+        console.log(data)
+        // debugger
         // var site = nowtime.lastIndexOf("-")
         var site = (name) => { return name.lastIndexOf('-') }
         const dealData = {
@@ -238,7 +254,7 @@ class IndexView extends Component {
         //   for (let k of Object.keys(obj)) {
         //   strMap.set(k,obj[k]);
         // }
-        // dealData 
+        // dealData
         this.setState({
           firstData: dealData
         })
