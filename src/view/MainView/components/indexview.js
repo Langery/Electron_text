@@ -44,40 +44,54 @@ const data = {
 
 function getListData (value) {
 
-  // console.log(value)
-  let listData
+  console.log(value)
 
-  // var thisYear = value.year()
-  var thisMonth = value.month() + 1
-
-  if (thisMonth === 12) {
-    switch (value.date()) {
-      case 8:
-        listData = [
-          { type: 'warning', content: 'This is warning event.' },
-          { type: 'success', content: 'This is usual event.' }
-        ]
-        break;
-      case 10:
-        listData = [
-          { type: 'warning', content: 'This is warning event.' },
-          { type: 'success', content: 'This is usual event.' },
-          { type: 'error', content: 'This is error event.' }
-        ]
-        break;
-      case 15:
-        listData = [
-          { type: 'warning', content: 'This is warning event' },
-          { type: 'success', content: 'This is very long usual event。。....' },
-          { type: 'error', content: 'This is error event 1.' },
-          { type: 'error', content: 'This is error event 2.' },
-          { type: 'error', content: 'This is error event 3.' },
-          { type: 'error', content: 'This is error event 4.' }
-        ]
-        break;
-      default:
+  let listData = []
+  if (JSON.stringify(value) === '{}') { return }
+  for (var item in value) {
+    // console.log(value[item])
+    const sendList = {
+      type: value[item].status,
+      constent: value[item].event
     }
+
+    listData.push(sendList)
   }
+  console.log(listData)
+  // var thisYear = value.year()
+  var thisMonth = getDate(null, 2)
+  console.log(thisMonth)
+  if (thisMonth) {
+
+  }
+  // if (thisMonth === 12) {
+  //   switch (value.date()) {
+  //     case 8:
+  //       listData = [
+  //         { type: 'warning', content: 'This is warning event.' },
+  //         { type: 'success', content: 'This is usual event.' }
+  //       ]
+  //       break;
+  //     case 10:
+  //       listData = [
+  //         { type: 'warning', content: 'This is warning event.' },
+  //         { type: 'success', content: 'This is usual event.' },
+  //         { type: 'error', content: 'This is error event.' }
+  //       ]
+  //       break;
+  //     case 15:
+  //       listData = [
+  //         { type: 'warning', content: 'This is warning event' },
+  //         { type: 'success', content: 'This is very long usual event。。....' },
+  //         { type: 'error', content: 'This is error event 1.' },
+  //         { type: 'error', content: 'This is error event 2.' },
+  //         { type: 'error', content: 'This is error event 3.' },
+  //         { type: 'error', content: 'This is error event 4.' }
+  //       ]
+  //       break;
+  //     default:
+  //   }
+  // }
 
   return listData || []
 }
@@ -120,7 +134,7 @@ const content = (
 )
 
 function dealContent (item) {
-  // console.log(item)
+  console.log(item)
   if (!item.flag) {
     return <p>deal infor {data.date}</p>
   } else {
@@ -140,28 +154,30 @@ function editInfo () {
 }
 
 function dateCellRender (value) {
-  // console.log(value)
+  console.log(value)
   const listData = getListData(value)
+  console.log(listData)
+  if (listData === undefined) { return }
 
   if (listData.length === 0) {
     return (
-      <Popover trigger="click" title={Addtext} content={dealContent(data.dateBool)}>
+      <Popover trigger="click" title={Addtext} content={dealContent(data.dateBool)} key={Addtext}>
         <ul style={{height: '80%'}}></ul>
       </Popover>
     )
-  } else {
+  } /* else {
     return (
-      <Popover trigger="click" title={Edittext} content={content}>
-        <ul className="events">
-          {listData.map(item => (
-            <li key={item.content}>
-              <Badge status={item.type} text={item.content} />
-            </li>
-          ))}
-        </ul>
-      </Popover>
+      // <Popover trigger="click" title={Edittext} content={content} key={Edittext}>
+      //   <ul className="events">
+      //     {listData.map(item => (
+      //       <li key={item.content}>
+      //         <Badge status={item.type} text={item.content} />
+      //       </li>
+      //     ))}
+      //   </ul>
+      // </Popover>
     )
-  }
+  }*/
 }
 
 function getMonthData (value) {
@@ -192,13 +208,28 @@ function selectDay (date) {
 }
 
 // deal time data
+/**
+ * type 0 : yyyy-mm-dd
+ * type 1 : yyyy-mm
+ * type 2 : mm
+ * type 3 : dd
+ */
 function getDate (date, type = 0, addmonth = 1) {
+
   let getdate = date === null ? new Date() : new Date(date)
   let year = getdate.getFullYear()
   let month = getdate.getMonth() + addmonth
   month = month < 10 ? '0' + month : month
   let day = getdate.getDate()
-  return type === 0 ? year + '-' + month + '-' + day : year + '-' + month
+  if (type === 0) {
+    return year + '-' + month + '-' + day
+  } else if (type === 1) {
+    return year + '-' + month
+  } else if (type === 2) {
+    return month
+  } else if (type === 3) {
+    return day
+  }
 }
 
 // time stamp
@@ -219,11 +250,10 @@ class IndexView extends Component {
   componentWillMount () {
     // 处理时间戳 time stamp
     const nowtime = timeStamp(getDate(null, 1))
-    const newtime = timeStamp(getDate(null, 1, 2))
+    const newtime = timeStamp(getDate(null, 1, 2)) // newtime 一个月后的时间戳
     console.log(nowtime)
     console.log(newtime)
-    // newtime 一个月后的时间戳
-    // debugger
+
     let sendData = {
       nowtime: nowtime,
       newtime: newtime
@@ -234,29 +264,12 @@ class IndexView extends Component {
         return response.json()
       })
       .then(data => {
-        console.log(data)
-        // debugger
-        // var site = nowtime.lastIndexOf("-")
-        var site = (name) => { return name.lastIndexOf('-') }
-        const dealData = {
-          month: nowtime.substring(site(nowtime) + 1, nowtime.length),
-          event: []
-        }
         data.forEach(item => {
-          const newtime = item.newtime
-          const getday = newtime.substring(site(newtime) + 1, newtime.length)
-          dealData.dayTime = getday
-          // dealData.event = item.event
-          dealData.event.push(item.event)
+          item.createtime = getDate(item.createtime * 1000)
         })
-        console.log(dealData)
-        // let strMap = new Map();
-        //   for (let k of Object.keys(obj)) {
-        //   strMap.set(k,obj[k]);
-        // }
-        // dealData
+        console.log(data)
         this.setState({
-          firstData: dealData
+          firstData: data
         })
       })
       .catch(err => {
@@ -309,7 +322,7 @@ class IndexView extends Component {
           </Header>
           <Content>
             {/* this.state.firstData */}
-            <Calendar onSelect={selectDay} className="calendar-style" dateCellRender={dateCellRender} monthCellRender={monthCellRender} />
+            <Calendar onSelect={selectDay} className="calendar-style" dateCellRender={dateCellRender(this.state.firstData)} monthCellRender={monthCellRender} />
           </Content>
         </Layout>
       </div>
