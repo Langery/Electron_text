@@ -1,28 +1,19 @@
 import React, { Component } from "react";
 // import './hello.css'
-import { Button } from 'antd';
-import { Link } from 'react-router-dom';
 
-class First extends Component {
+class MapView extends Component {
+  componentWillMount () {
+  }
   render () {
     return (
-      <div className="hello-body">
+      <div className="hello-map">
         <p className="text-style">
-          It is the first test
+          It is the Map page about MapVGL
         </p>
-        <p className="p-text">It is a index to welcome</p>
-        <p className="p-text">Please login or register</p>
-        <div className="btn-box">
-          <Link to='/login/'>
-            <Button type="primary">Log In</Button>
-          </Link>
-          <Link to="/register/">
-            <Button type="primary">Register</Button>
-          </Link>
-        </div>
+        <div id="map_container"></div>
       </div>
     )
   }
 }
 
-export default First;
+export default MapView;

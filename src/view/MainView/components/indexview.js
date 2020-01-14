@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import '../css/indexview.css'
-import { Layout, Calendar, Badge, Input, Row, Col, Button, Popover, Select } from 'antd'
+// Badge,
+import { Layout, Calendar, Input, Row, Col, Button, Popover, Select } from 'antd'
 import { PostWay } from '../../../common/common'
 
 const { Content, Header } = Layout
@@ -102,9 +103,9 @@ function addInfo () {
   dateBool.flag = !dateBool.flag
 }
 
-function upInfo () {
-  console.log('up info')
-}
+// function upInfo () {
+//   console.log('up info')
+// }
 
 const Addtext = (
   <div>
@@ -112,26 +113,26 @@ const Addtext = (
     <Button className="btn-tight" size="small" onClick={() => addInfo()}>Add</Button>
   </div>
 )
-const Edittext = (
-  <div>
-    <span>Edit</span>
-    <Button className="btn-tight" size="small" onClick={() => editInfo()}>Edit</Button>
-  </div>
-)
-const content = (
-  <div>
-    <p>info</p>
-    <div>
-      <Input placeholder="Add infor" />
-      <Select>
-        <Option value="success">Success</Option>
-        <Option value="warning">Warning</Option>
-        <Option value="error">Error</Option>
-      </Select>
-    </div>
-    <Button onClick={() => upInfo()}>Sure</Button>
-  </div>
-)
+// const Edittext = (
+//   <div>
+//     <span>Edit</span>
+//     <Button className="btn-tight" size="small" onClick={() => editInfo()}>Edit</Button>
+//   </div>
+// )
+// const content = (
+//   <div>
+//     <p>info</p>
+//     <div>
+//       <Input placeholder="Add infor" />
+//       <Select>
+//         <Option value="success">Success</Option>
+//         <Option value="warning">Warning</Option>
+//         <Option value="error">Error</Option>
+//       </Select>
+//     </div>
+//     <Button onClick={() => upInfo()}>Sure</Button>
+//   </div>
+// )
 
 function dealContent (item) {
   console.log(item)
@@ -149,9 +150,9 @@ function dealContent (item) {
   }
 }
 
-function editInfo () {
-  console.log('click edit bution')
-}
+// function editInfo () {
+//   console.log('click edit bution')
+// }
 
 function dateCellRender (value) {
   console.log(value)
