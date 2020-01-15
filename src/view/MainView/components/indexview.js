@@ -42,6 +42,21 @@ const data = {
 //   ]
 //   return listData || []
 // }
+function dealInfo (date, info) {
+  let backList = []
+  for (var [k,v] of info) {
+    if (getDate(k, 3) === date) {
+      v.forEach(item => {
+        const sendList = {
+          type: item.status,
+          constent: item.event
+        }
+        backList.push(sendList)
+      })
+    }
+    return backList
+  }
+}
 
 function getListData (value) {
 
@@ -50,21 +65,37 @@ function getListData (value) {
   let listData = []
   if (JSON.stringify(value) === '{}') { return }
   for (var item in value) {
-    // console.log(value[item])
-    const sendList = {
-      type: value[item].status,
-      constent: value[item].event
-    }
+    console.log(value[item])
+    // const sendList = {
+    //   type: value[item].status,
+    //   constent: value[item].event
+    // }
+    let thisdate = getDate(value[item].createtime, 3)
+    console.log(thisdate)
+    const thisMonth = getDate(value[item].createtime, 2)
 
-    listData.push(sendList)
-  }
-  console.log(listData)
-  // var thisYear = value.year()
-  var thisMonth = getDate(null, 2)
-  console.log(thisMonth)
-  if (thisMonth) {
+    var map = new Map();
+    value.map((item)=>{
+      if(map.has(item.createtime)){
+        map.get(item.createtime).push(item);
+      }else{
+        map.set(item.createtime,[]);
+        map.get(item.createtime).push(item);
+      }
+    })
+    console.log(map)
+    if (thisMonth) {
+      listData = dealInfo(thisdate, map)
+      console.log(listData)
+    } 
 
   }
+  // console.log(listData)
+  // // var thisYear = value.year()
+  // var thisMonth = getDate(null, 2)
+  // console.log(thisMonth)
+
+
   // if (thisMonth === 12) {
   //   switch (value.date()) {
   //     case 8:
@@ -155,9 +186,11 @@ function dealContent (item) {
 // }
 
 function dateCellRender (value) {
-  console.log(value)
+  // console.log(this.getDOMNode())
+  console.log(this)
+  // console.log(value)
   const listData = getListData(value)
-  console.log(listData)
+  // console.log(listData)
   if (listData === undefined) { return }
 
   if (listData.length === 0) {
@@ -252,8 +285,6 @@ class IndexView extends Component {
     // 处理时间戳 time stamp
     const nowtime = timeStamp(getDate(null, 1))
     const newtime = timeStamp(getDate(null, 1, 2)) // newtime 一个月后的时间戳
-    console.log(nowtime)
-    console.log(newtime)
 
     let sendData = {
       nowtime: nowtime,
@@ -323,7 +354,7 @@ class IndexView extends Component {
           </Header>
           <Content>
             {/* this.state.firstData */}
-            <Calendar onSelect={selectDay} className="calendar-style" dateCellRender={dateCellRender(this.state.firstData)} monthCellRender={monthCellRender} />
+            <Calendar onSelect={selectDay} className="calendar-style" dateCellRender={dateCellRender} monthCellRender={monthCellRender} />
           </Content>
         </Layout>
       </div>
