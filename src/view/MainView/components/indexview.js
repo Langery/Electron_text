@@ -186,7 +186,6 @@ function dealContent (item) {
 // }
 
 function dateCellRender (value) {
-  // console.log(this.getDOMNode())
   console.log(this)
   // console.log(value)
   const listData = getListData(value)
@@ -354,7 +353,7 @@ class IndexView extends Component {
           </Header>
           <Content>
             {/* this.state.firstData */}
-            <Calendar onSelect={selectDay} className="calendar-style" dateCellRender={dateCellRender} monthCellRender={monthCellRender} />
+            <Calendar onSelect={selectDay} className="calendar-style" dateCellRender={dateCellRender(this.state.firstData)} monthCellRender={monthCellRender} />
           </Content>
         </Layout>
       </div>
