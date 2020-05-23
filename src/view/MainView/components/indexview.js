@@ -74,7 +74,8 @@ function getListData (value) {
     console.log(thisdate)
     const thisMonth = getDate(value[item].createtime, 2)
 
-    var map = new Map();
+    var map = new Map()
+    if (JSON.stringify(value) === '{}') { return }
     value.map((item)=>{
       if(map.has(item.createtime)){
         map.get(item.createtime).push(item);
@@ -87,7 +88,7 @@ function getListData (value) {
     if (thisMonth) {
       listData = dealInfo(thisdate, map)
       console.log(listData)
-    } 
+    }
 
   }
   // console.log(listData)
