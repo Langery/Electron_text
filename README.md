@@ -28,7 +28,7 @@
   - [ ] 逻辑划分
   - [ ] 逻辑函数处理
   - [ ] 共用函数体处理以及特殊情况应用
-- [ ] redux
+- [ ] [redux](https://www.redux.org.cn/)
 - [ ] hook 机制
 - [ ] history
 - [ ] 待续...
@@ -198,6 +198,8 @@
 * 规则：
   - 只在最顶层使用Hook，不要在循环或嵌套函数中调用
   - 不要在普通 JavaScript 函数中调用
+
+> Redux
 
 > Canvas & SVG
 

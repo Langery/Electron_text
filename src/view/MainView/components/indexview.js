@@ -42,21 +42,21 @@ const data = {
 //   ]
 //   return listData || []
 // }
-function dealInfo (date, info) {
-  let backList = []
-  for (var [k,v] of info) {
-    if (getDate(k, 3) === date) {
-      v.forEach(item => {
-        const sendList = {
-          type: item.status,
-          constent: item.event
-        }
-        backList.push(sendList)
-      })
-    }
-    return backList
-  }
-}
+// function dealInfo (date, info) {
+//   // let backList = []
+//   // for (var [k,v] of info) {
+//   //   if (getDate(k, 3) === date) {
+//   //     v.forEach(item => {
+//   //       const sendList = {
+//   //         type: item.status,
+//   //         constent: item.event
+//   //       }
+//   //       backList.push(sendList)
+//   //     })
+//   //   }
+//   //   return backList
+//   // }
+// }
 
 function getListData (value) {
 
@@ -70,25 +70,25 @@ function getListData (value) {
     //   type: value[item].status,
     //   constent: value[item].event
     // }
-    let thisdate = getDate(value[item].createtime, 3)
-    console.log(thisdate)
-    const thisMonth = getDate(value[item].createtime, 2)
+    // let thisdate = getDate(value[item].createtime, 3)
+    // console.log(thisdate)
+    // const thisMonth = getDate(value[item].createtime, 2)
 
-    var map = new Map()
-    if (JSON.stringify(value) === '{}') { return }
-    value.map((item)=>{
-      if(map.has(item.createtime)){
-        map.get(item.createtime).push(item);
-      }else{
-        map.set(item.createtime,[]);
-        map.get(item.createtime).push(item);
-      }
-    })
-    console.log(map)
-    if (thisMonth) {
-      listData = dealInfo(thisdate, map)
-      console.log(listData)
-    }
+    // var map = new Map()
+    // if (JSON.stringify(value) === '{}') { return }
+    // value.map((item)=>{
+    //   if(map.has(item.createtime)){
+    //     map.get(item.createtime).push(item);
+    //   }else{
+    //     map.set(item.createtime,[]);
+    //     map.get(item.createtime).push(item);
+    //   }
+    // })
+    // console.log(map)
+    // if (thisMonth) {
+    //   listData = dealInfo(thisdate, map)
+    //   console.log(listData)
+    // }
 
   }
   // console.log(listData)
@@ -145,26 +145,6 @@ const Addtext = (
     <Button className="btn-tight" size="small" onClick={() => addInfo()}>Add</Button>
   </div>
 )
-// const Edittext = (
-//   <div>
-//     <span>Edit</span>
-//     <Button className="btn-tight" size="small" onClick={() => editInfo()}>Edit</Button>
-//   </div>
-// )
-// const content = (
-//   <div>
-//     <p>info</p>
-//     <div>
-//       <Input placeholder="Add infor" />
-//       <Select>
-//         <Option value="success">Success</Option>
-//         <Option value="warning">Warning</Option>
-//         <Option value="error">Error</Option>
-//       </Select>
-//     </div>
-//     <Button onClick={() => upInfo()}>Sure</Button>
-//   </div>
-// )
 
 function dealContent (item) {
   console.log(item)
@@ -189,17 +169,18 @@ function dealContent (item) {
 function dateCellRender (value) {
 
   // console.log(value)
-  const listData = getListData(value)
+  // const listData = getListData(value)
   // console.log(listData)
-  if (listData === undefined) { return }
+  // if (listData === undefined) { return }
 
-  if (listData.length === 0) {
-    return (
-      <Popover trigger="click" title={Addtext} content={dealContent(data.dateBool)} key={Addtext}>
-        <ul style={{height: '80%'}}></ul>
-      </Popover>
-    )
-  } /* else {
+  // if (listData.length === 0) {
+  //   // return (
+  //   //   <Popover trigger="click" title={Addtext} content={dealContent(data.dateBool)} key={Addtext}>
+  //   //     <ul style={{height: '80%'}}></ul>
+  //   //   </Popover>
+  //   // )
+  // } 
+  /* else {
     return (
       // <Popover trigger="click" title={Edittext} content={content} key={Edittext}>
       //   <ul className="events">
