@@ -10,7 +10,7 @@
     "antd": "^3.26.17",
     "chart.xkcd": "^1.1.13",
     "chart.xkcd-react": "0.0.6",
-    "electron": "^5.0.13",
+    "electron": "^7.2.4",
     "electron-packager": "^14.2.1",
     "electron-prebuilt": "^1.4.13",
     "history": "^4.10.1",
