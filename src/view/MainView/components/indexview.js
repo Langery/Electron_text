@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import '../css/indexview.css'
 // Badge,
 import { Layout, Calendar, Input, Row, Col, Button, Popover, Select } from 'antd'
-import { PostWay } from '../../../common/common'
+// import { PostWay } from '../../../common/common'
+import { PostWay } from '../../../server/request'
 
 const { Content, Header } = Layout
 const { Option } = Select
@@ -179,7 +180,7 @@ function dateCellRender (value) {
   //   //     <ul style={{height: '80%'}}></ul>
   //   //   </Popover>
   //   // )
-  // } 
+  // }
   /* else {
     return (
       // <Popover trigger="click" title={Edittext} content={content} key={Edittext}>
