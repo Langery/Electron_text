@@ -3,7 +3,8 @@ import { Row, Col, Button, Icon, Form, Input, Checkbox, message  } from 'antd';
 import './login.css'
 import '../../common/common.css'
 import { Link } from 'react-router-dom'
-import { PostWay } from '../../common/common'
+// import { PostWay } from '../../common/common'
+import { PostWay } from '../../server/request'
 
 
 const leftTop = {

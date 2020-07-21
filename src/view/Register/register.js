@@ -3,7 +3,8 @@ import { Form, Input, Tooltip, Icon, Row, Col, Checkbox, Button, message } from 
 import './register.css'
 import '../../common/common.css'
 import { Link } from 'react-router-dom'
-import { PostWay } from '../../common/common'
+// import { PostWay } from '../../common/common'
+import { PostWay } from '../../server/request'
 
 
 const leftTop = {
