@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import '../css/indexview.css'
-// Badge,
-import { Layout, Calendar, Input, Row, Col, Button, Popover, Select } from 'antd'
+// Badge, Popover, Select
+import { Layout, Calendar, Input, Row, Col, Button } from 'antd'
 // import { PostWay } from '../../../common/common'
 import { PostWay } from '../../../server/request'
 
 const { Content, Header } = Layout
-const { Option } = Select
+// const { Option } = Select
 
 const data = {
   flag: false,
@@ -15,185 +15,6 @@ const data = {
     flag: false,
     date: ''
   }
-}
-
-// value 日 day  2020-01-04
-// function getListData1 (uid,date) {
-
-//   //查数据库  按天查
-//   listDbdate = [{
-//     "userId": "langery",
-//     "event": "new",
-//     "createtime": "2020-01-01",
-//     "status": "1",
-//     "newtime": "2020-01-01"
-//   },...];
-
-//   //数据转换
-//   /*
-//     status -> type
-//     evet -> content
-//     createtime   long->string
-//   */
-//   data = getDate4DbData(dbdate);
-
-//   listData = [
-//     { type: 'warning', content: 'This is warning event.' },
-//     { type: 'success', content: 'This is usual event.' }
-//   ]
-//   return listData || []
-// }
-// function dealInfo (date, info) {
-//   // let backList = []
-//   // for (var [k,v] of info) {
-//   //   if (getDate(k, 3) === date) {
-//   //     v.forEach(item => {
-//   //       const sendList = {
-//   //         type: item.status,
-//   //         constent: item.event
-//   //       }
-//   //       backList.push(sendList)
-//   //     })
-//   //   }
-//   //   return backList
-//   // }
-// }
-
-function getListData (value) {
-
-  console.log(value)
-
-  let listData = []
-  if (JSON.stringify(value) === '{}') { return }
-  for (var item in value) {
-    console.log(value[item])
-    // const sendList = {
-    //   type: value[item].status,
-    //   constent: value[item].event
-    // }
-    // let thisdate = getDate(value[item].createtime, 3)
-    // console.log(thisdate)
-    // const thisMonth = getDate(value[item].createtime, 2)
-
-    // var map = new Map()
-    // if (JSON.stringify(value) === '{}') { return }
-    // value.map((item)=>{
-    //   if(map.has(item.createtime)){
-    //     map.get(item.createtime).push(item);
-    //   }else{
-    //     map.set(item.createtime,[]);
-    //     map.get(item.createtime).push(item);
-    //   }
-    // })
-    // console.log(map)
-    // if (thisMonth) {
-    //   listData = dealInfo(thisdate, map)
-    //   console.log(listData)
-    // }
-
-  }
-  // console.log(listData)
-  // // var thisYear = value.year()
-  // var thisMonth = getDate(null, 2)
-  // console.log(thisMonth)
-
-
-  // if (thisMonth === 12) {
-  //   switch (value.date()) {
-  //     case 8:
-  //       listData = [
-  //         { type: 'warning', content: 'This is warning event.' },
-  //         { type: 'success', content: 'This is usual event.' }
-  //       ]
-  //       break;
-  //     case 10:
-  //       listData = [
-  //         { type: 'warning', content: 'This is warning event.' },
-  //         { type: 'success', content: 'This is usual event.' },
-  //         { type: 'error', content: 'This is error event.' }
-  //       ]
-  //       break;
-  //     case 15:
-  //       listData = [
-  //         { type: 'warning', content: 'This is warning event' },
-  //         { type: 'success', content: 'This is very long usual event。。....' },
-  //         { type: 'error', content: 'This is error event 1.' },
-  //         { type: 'error', content: 'This is error event 2.' },
-  //         { type: 'error', content: 'This is error event 3.' },
-  //         { type: 'error', content: 'This is error event 4.' }
-  //       ]
-  //       break;
-  //     default:
-  //   }
-  // }
-
-  return listData || []
-}
-
-function addInfo () {
-  console.log('add info')
-  const dateBool = data.dateBool
-  dateBool.flag = !dateBool.flag
-}
-
-// function upInfo () {
-//   console.log('up info')
-// }
-
-const Addtext = (
-  <div>
-    <span>Add</span>
-    <Button className="btn-tight" size="small" onClick={() => addInfo()}>Add</Button>
-  </div>
-)
-
-function dealContent (item) {
-  console.log(item)
-  if (!item.flag) {
-    return <p>deal infor {data.date}</p>
-  } else {
-    return <div>
-    <Select style={{ width: 70}}>
-      <Option value="success">Success</Option>
-      <Option value="warning">Warning</Option>
-      <Option value="error">Error</Option>
-    </Select>
-    <Input placeholder="Add infor" style={{ width: 150, marginLeft: 5}} />
-  </div>
-  }
-}
-
-// function editInfo () {
-//   console.log('click edit bution')
-// }
-
-function dateCellRender (value) {
-
-  // console.log(value)
-  // const listData = getListData(value)
-  // console.log(listData)
-  // if (listData === undefined) { return }
-
-  // if (listData.length === 0) {
-  //   // return (
-  //   //   <Popover trigger="click" title={Addtext} content={dealContent(data.dateBool)} key={Addtext}>
-  //   //     <ul style={{height: '80%'}}></ul>
-  //   //   </Popover>
-  //   // )
-  // }
-  /* else {
-    return (
-      // <Popover trigger="click" title={Edittext} content={content} key={Edittext}>
-      //   <ul className="events">
-      //     {listData.map(item => (
-      //       <li key={item.content}>
-      //         <Badge status={item.type} text={item.content} />
-      //       </li>
-      //     ))}
-      //   </ul>
-      // </Popover>
-    )
-  }*/
 }
 
 function getMonthData (value) {
@@ -336,7 +157,7 @@ class IndexView extends Component {
           </Header>
           <Content>
             {/* this.state.firstData */}
-            <Calendar onSelect={selectDay} className="calendar-style" dateCellRender={dateCellRender(this.state.firstData)} monthCellRender={monthCellRender} />
+            <Calendar onSelect={selectDay} className="calendar-style" monthCellRender={monthCellRender} />
           </Content>
         </Layout>
       </div>
