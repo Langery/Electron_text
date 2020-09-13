@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import '../css/indexview.css'
 // Badge, Popover, Select
-import { Layout, Calendar, Input, Row, Col, Button } from 'antd'
+import { Layout, Calendar, Input, Row, Col, Button, Badge } from 'antd'
 // import { PostWay } from '../../../common/common'
 import { PostWay } from '../../../server/request'
 
 const { Content, Header } = Layout
-// const { Option } = Select
 
 const data = {
   flag: false,
@@ -21,9 +20,12 @@ function getMonthData (value) {
   if (value.month() === 8) {
     // Sep has 1394
     return 1394
+  } else if (value.month() === 2) {
+    return 1234
   }
 }
 
+// click year show infor
 function monthCellRender (value) {
   const num = getMonthData(value)
   return num ? (
@@ -73,6 +75,51 @@ function getDate (date, type = 0, addmonth = 1) {
 function timeStamp (time) {
   let backTime = Date.parse(new Date(time)) / 1000
   return backTime
+}
+
+function getListData (value) {
+  let listData;
+  switch (value.date()) {
+    case 8:
+      listData = [
+        { type: 'warning', content: 'This is warning event.' },
+        { type: 'success', content: 'This is usual event.' },
+      ];
+      break;
+    case 10:
+      listData = [
+        { type: 'warning', content: 'This is warning event.' },
+        { type: 'success', content: 'This is usual event.' },
+        { type: 'error', content: 'This is error event.' },
+      ];
+      break;
+    case 15:
+      listData = [
+        { type: 'warning', content: 'This is warning event' },
+        { type: 'success', content: 'This is very long usual event。。....' },
+        { type: 'error', content: 'This is error event 1.' },
+        { type: 'error', content: 'This is error event 2.' },
+        { type: 'error', content: 'This is error event 3.' },
+        { type: 'error', content: 'This is error event 4.' },
+      ];
+      break;
+    default:
+  }
+  return listData || []
+}
+
+function dateCellRender (value) {
+  const listData = getListData(value);
+  console.log(listData)
+  return (
+    <ul>
+      {listData.map(item => (
+        <li key={item.content}>
+          <Badge status={item.type} text={item.content} />
+        </li>
+      ))}
+    </ul>
+  )
 }
 
 class IndexView extends Component {
@@ -155,9 +202,10 @@ class IndexView extends Component {
               </Col>
             </Row>
           </Header>
+          {/* 日历展示 */}
           <Content>
             {/* this.state.firstData */}
-            <Calendar onSelect={selectDay} className="calendar-style" monthCellRender={monthCellRender} />
+            <Calendar onSelect={selectDay} dateCellRender={dateCellRender} className="calendar-style" monthCellRender={monthCellRender} />
           </Content>
         </Layout>
       </div>
