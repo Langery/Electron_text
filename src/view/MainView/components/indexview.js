@@ -79,29 +79,68 @@ function timeStamp (time) {
 
 function getListData (value) {
   let listData;
-  switch (value.date()) {
-    case 8:
-      listData = [
-        { type: 'warning', content: 'This is warning event.' },
-        { type: 'success', content: 'This is usual event.' },
-      ];
-      break;
-    case 10:
-      listData = [
-        { type: 'warning', content: 'This is warning event.' },
-        { type: 'success', content: 'This is usual event.' },
-        { type: 'error', content: 'This is error event.' },
-      ];
-      break;
-    case 15:
-      listData = [
-        { type: 'warning', content: 'This is warning event' },
-        { type: 'success', content: 'This is very long usual event。。....' },
-        { type: 'error', content: 'This is error event 1.' },
-        { type: 'error', content: 'This is error event 2.' },
-        { type: 'error', content: 'This is error event 3.' },
-        { type: 'error', content: 'This is error event 4.' },
-      ];
+  // month 默认是 +1 的
+  switch (value.year()) {
+    case 2020:
+      switch (value.month()) {
+        case 8:
+          switch (value.date()) {
+            case 2:
+              listData = [
+                { type: 'warning', content: 'This is warning event.' },
+                { type: 'success', content: 'This is usual event.' },
+              ];
+              break;
+            case 18:
+              listData = [
+                { type: 'warning', content: 'This is warning event.' },
+                { type: 'success', content: 'This is usual event.' },
+                { type: 'error', content: 'This is error event.' },
+              ];
+              break;
+            case 20:
+              listData = [
+                { type: 'warning', content: 'This is warning event' },
+                { type: 'success', content: 'This is very long usual event。。....' },
+                { type: 'error', content: 'This is error event 1.' },
+                { type: 'error', content: 'This is error event 2.' },
+                { type: 'error', content: 'This is error event 3.' },
+                { type: 'error', content: 'This is error event 4.' },
+              ];
+              break;
+            default:
+          }
+          break;
+        case 9:
+          switch (value.date()) {
+            case 8:
+              listData = [
+                { type: 'warning', content: 'This is warning event.' },
+                { type: 'success', content: 'This is usual event.' },
+              ];
+              break;
+            case 10:
+              listData = [
+                { type: 'warning', content: 'This is warning event.' },
+                { type: 'success', content: 'This is usual event.' },
+                { type: 'error', content: 'This is error event.' },
+              ];
+              break;
+            case 15:
+              listData = [
+                { type: 'warning', content: 'This is warning event' },
+                { type: 'success', content: 'This is very long usual event。。....' },
+                { type: 'error', content: 'This is error event 1.' },
+                { type: 'error', content: 'This is error event 2.' },
+                { type: 'error', content: 'This is error event 3.' },
+                { type: 'error', content: 'This is error event 4.' },
+              ];
+              break;
+            default:
+          }
+          break;
+        default:
+      }
       break;
     default:
   }

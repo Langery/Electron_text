@@ -62,7 +62,6 @@
     ]
   },
   "devDependencies": {
-    "babel-eslint": "^10.1.0",
     "babel-plugin-import": "^1.13.0",
     "commitizen": "^4.1.2",
     "customize-cra": "^0.5.0",
