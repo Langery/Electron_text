@@ -164,6 +164,7 @@
   - [ ] 处理速度
   - [ ] CPU 与 GPU 耗能
 - [ ] electron 打包发布
+  - [ ] Github Actions
 - [ ] GUI 嵌入
 - [ ] 待续...
 
