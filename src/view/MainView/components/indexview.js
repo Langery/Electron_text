@@ -29,6 +29,7 @@ function getMonthData (value) {
 function monthCellRender (value) {
   const num = getMonthData(value)
   return num ? (
+    // this data from backstage
     <div className="notes-month">
       <section>{num}</section>
       <span>Backlog number</span>
@@ -81,11 +82,11 @@ function getListData (value) {
   let listData;
   // month 默认是 +1 的
   switch (value.year()) {
-    case 2020:
+    case 2020: // year
       switch (value.month()) {
-        case 8:
+        case 8: // month
           switch (value.date()) {
-            case 2:
+            case 2: // day
               listData = [
                 { type: 'warning', content: 'This is warning event.' },
                 { type: 'success', content: 'This is usual event.' },
