@@ -1,3 +1,5 @@
+import config from '../config/index'
+
 export function PostWay (sendData, urlnaem) {
   let options = {
     method: "POST", // Request way
@@ -6,6 +8,6 @@ export function PostWay (sendData, urlnaem) {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
   }
-  const url = 'http://0.0.0.0:5000/' + urlnaem
+  const url = config.website.url + urlnaem
   return [url, options]
 }

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import '../css/indexview.css'
 // Badge, Popover, Select
 import { Layout, Calendar, Input, Row, Col, Button, Badge } from 'antd'
-// import { PostWay } from '../../../common/common'
 import { PostWay } from '../../../server/request'
 
 const { Content, Header } = Layout
@@ -136,7 +135,7 @@ function getListData (value) {
       break;
     default:
   }
-  return listData || []
+  return listData || [];
 }
 
 function dateCellRender (value) {
