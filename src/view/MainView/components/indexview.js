@@ -17,8 +17,7 @@ const data = {
 }
 
 function getMonthData (value) {
-  if (value.month() === 8) {
-    // Sep has 1394
+  if (value.month() === 8) { // Sep has 1394, month add once
     return 1394
   } else if (value.month() === 2) {
     return 1234
@@ -30,45 +29,37 @@ function monthCellRender (value) {
   const num = getMonthData(value)
   return num ? (
     // this data from backstage
+    // TODO: restructure
     <div className="notes-month">
-      <section>{num}</section>
+      <section>{ num }</section>
       <span>Backlog number</span>
     </div>
   ) : null
 }
 
 function selectDay (date) {
-
   // get the time
   const clickTime = getDate(date)
-  // console.log(clickTime)
   data.dateBool.date = clickTime
   data.date = clickTime
-  // open a little window and write info
+  // open a little window and write infor
 }
 
-// deal time data
-/**
- * type 0 : yyyy-mm-dd
- * type 1 : yyyy-mm
- * type 2 : mm
- * type 3 : dd
- */
 function getDate (date, type = 0, addmonth = 1) {
-
-  let getdate = date === null ? new Date() : new Date(date)
-  let year = getdate.getFullYear()
-  let month = getdate.getMonth() + addmonth
-  month = month < 10 ? '0' + month : month
-  let day = getdate.getDate()
-  if (type === 0) {
-    return year + '-' + month + '-' + day
-  } else if (type === 1) {
-    return year + '-' + month
-  } else if (type === 2) {
-    return month
-  } else if (type === 3) {
-    return day
+  let [NORMAL, YEARMON, MONTH, DAY] = [0, 1, 2, 3];
+  let getdate = date === null ? new Date() : new Date(date);
+  let year = getdate.getFullYear();
+  let month = getdate.getMonth() + addmonth;
+  month = month < 10 ? '0' + month : month;
+  let day = getdate.getDate();
+  if (type === NORMAL) {
+    return year + '-' + month + '-' + day;
+  } else if (type === YEARMON) {
+    return year + '-' + month;
+  } else if (type === MONTH) {
+    return month;
+  } else if (type === DAY) {
+    return day;
   }
 }
 
@@ -150,7 +141,7 @@ function getListData (value) {
 
 function dateCellRender (value) {
   const listData = getListData(value);
-  console.log(listData)
+  console.log(listData);
   return (
     <ul>
       {listData.map(item => (
