@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import '../css/indexview.css'
 // Badge, Popover, Select
-import { Layout, Calendar, Input, Row, Col, Button, Badge } from 'antd'
+import { Layout, Calendar, Input, Row, Col, Button, Badge, Popconfirm } from 'antd'
 import { PostWay } from '../../../server/request'
 
 const { Content, Header } = Layout
@@ -140,15 +140,16 @@ function getListData (value) {
 
 function dateCellRender (value) {
   const listData = getListData(value);
-  console.log(listData);
   return (
-    <ul>
-      {listData.map(item => (
-        <li key={item.content}>
-          <Badge status={item.type} text={item.content} />
-        </li>
-      ))}
-    </ul>
+    <Popconfirm title="Are you sure？" okText="Add" cancelText="Cancel">
+      <ul>
+        {listData.map(item => (
+          <li key={item.content}>
+            <Badge status={item.type} text={item.content} />
+          </li>
+        ))}
+      </ul>
+    </Popconfirm>
   )
 }
 
