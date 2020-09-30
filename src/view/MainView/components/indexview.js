@@ -140,7 +140,7 @@ function getListData (value) {
 
 function dateCellRender (value) {
   const listData = getListData(value);
-  return (
+  let arrHTML = (
     <Popconfirm title="Are you sure？" okText="Add" cancelText="Cancel">
       <ul>
         {listData.map(item => (
@@ -151,6 +151,11 @@ function dateCellRender (value) {
       </ul>
     </Popconfirm>
   )
+  // const Popconfirm = document.createElement('Popconfirm');
+  // Popconfirm.appendChild(arrHTML);
+  // getChildrenNode.parentNode.insertBefore(Popconfirm);
+
+  return arrHTML
 }
 
 class IndexView extends Component {
