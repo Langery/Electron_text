@@ -140,20 +140,27 @@ function getListData (value) {
 
 function dateCellRender (value) {
   const listData = getListData(value);
+  let liList;
+  if (listData.length !== 0) {
+    liList = (
+      listData.map(item => (
+        <li key={item.content}>
+          <Badge status={item.type} text={item.content} />
+        </li>
+      ))
+    )
+  }else {
+    liList = (
+      <li></li>
+    )
+  }
   let arrHTML = (
-    <Popconfirm title="Are you sure？" okText="Add" cancelText="Cancel">
+    <Popconfirm title="Are you add Infor?" okText="Add" cancelText="Cancel">
       <ul>
-        {listData.map(item => (
-          <li key={item.content}>
-            <Badge status={item.type} text={item.content} />
-          </li>
-        ))}
+        {liList}
       </ul>
     </Popconfirm>
   )
-  // const Popconfirm = document.createElement('Popconfirm');
-  // Popconfirm.appendChild(arrHTML);
-  // getChildrenNode.parentNode.insertBefore(Popconfirm);
 
   return arrHTML
 }
