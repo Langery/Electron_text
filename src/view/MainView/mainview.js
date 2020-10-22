@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import './mainview.css'
+import './mainview.less'
 import { Route, Link, BrowserRouter } from 'react-router-dom'
 
 // Breadcrumb

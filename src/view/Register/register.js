@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Form, Input, Tooltip, Icon, Row, Col, Checkbox, Button, message } from 'antd'
-import './register.css'
+import './register.less'
 import '../../common/common.css'
 import { Link } from 'react-router-dom'
 // import { PostWay } from '../../common/common'

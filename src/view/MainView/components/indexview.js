@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
-import '../css/indexview.css'
+import React, { Component } from 'react';
+import '../css/indexview.less';
 // Badge, Popover, Select
-import { Layout, Calendar, Input, Row, Col, Button, Badge, Popconfirm } from 'antd'
-import { PostWay } from '../../../server/request'
+import { Layout, Calendar, Input, Row, Col, Button, Badge, Popconfirm } from 'antd';
+import { PostWay } from '../../../server/request';
 
-const { Content, Header } = Layout
+const { Content, Header } = Layout;
 
 const data = {
   flag: false,

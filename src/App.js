@@ -12,12 +12,12 @@ class App extends Component {
             routeMap.map(({path, ComponentName, exact = true, routes = []}, key) => {
               // console.log(routes)
               return <Route
-                      exact={exact}
-                      key={key}
-                      path={path}
-                      render = {props => (
-                        <ComponentName {...props} routes = {routes} />
-                      )}
+                        exact={exact}
+                        key={key}
+                        path={path}
+                        render = {props => (
+                          <ComponentName {...props} routes = {routes} />
+                        )}
                       />
             })
           }

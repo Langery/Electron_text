@@ -8,6 +8,6 @@ export function PostWay (sendData, urlnaem) {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
   }
-  const url = config.website.url + urlnaem
+  const url = config.baseUrl.dev + urlnaem
   return [url, options]
 }
