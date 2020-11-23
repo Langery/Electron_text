@@ -68,78 +68,71 @@ function timeStamp (time) {
   return backTime
 }
 
-function getListData (value) {
+function getListData (value, data) {
   let listData;
   // month 默认是 +1 的
-  switch (value.year()) {
-    case 2020: // year
-      switch (value.month()) {
-        case 8: // month
-          switch (value.date()) {
-            case 2: // day
-              listData = [
-                { type: 'warning', content: 'This is warning event.' },
-                { type: 'success', content: 'This is usual event.' },
-              ];
-              break;
-            case 18:
-              listData = [
-                { type: 'warning', content: 'This is warning event.' },
-                { type: 'success', content: 'This is usual event.' },
-                { type: 'error', content: 'This is error event.' },
-              ];
-              break;
-            case 20:
-              listData = [
-                { type: 'warning', content: 'This is warning event' },
-                { type: 'success', content: 'This is very long usual event。。....' },
-                { type: 'error', content: 'This is error event 1.' },
-                { type: 'error', content: 'This is error event 2.' },
-                { type: 'error', content: 'This is error event 3.' },
-                { type: 'error', content: 'This is error event 4.' },
-              ];
-              break;
-            default:
-          }
-          break;
-        case 9:
-          switch (value.date()) {
-            case 8:
-              listData = [
-                { type: 'warning', content: 'This is warning event.' },
-                { type: 'success', content: 'This is usual event.' },
-              ];
-              break;
-            case 10:
-              listData = [
-                { type: 'warning', content: 'This is warning event.' },
-                { type: 'success', content: 'This is usual event.' },
-                { type: 'error', content: 'This is error event.' },
-              ];
-              break;
-            case 15:
-              listData = [
-                { type: 'warning', content: 'This is warning event' },
-                { type: 'success', content: 'This is very long usual event。。....' },
-                { type: 'error', content: 'This is error event 1.' },
-                { type: 'error', content: 'This is error event 2.' },
-                { type: 'error', content: 'This is error event 3.' },
-                { type: 'error', content: 'This is error event 4.' },
-              ];
-              break;
-            default:
-          }
-          break;
-        default:
-      }
-      break;
-    default:
-  }
+  data.forEach(yearItem => {
+    value.year() === yearItem.year && yearItem.monthList.forEach(monItem => {
+      value.month() === monItem.month && monItem.dayList.forEach(dayItem => {
+        if (value.date() === dayItem.day) {
+          let tempArr = []
+          dayItem.contentList.forEach((item) => {
+            const sendTemp = {
+              type: item.type,
+              content: item.content
+            }
+            tempArr.push(sendTemp)
+          })
+          listData = tempArr;
+        }
+      })
+    })
+  })
   return listData || [];
 }
 
 function dateCellRender (value) {
-  const listData = getListData(value);
+  let date = [
+    {
+      "year": 2020,
+      "monthList": [
+        {
+          "month": 10,
+          "dayList": [
+            {
+              "day": 1,
+              "type": "warning",
+              "contentList": [
+                {
+                  "type": "success",
+                  "content": "hello"
+                },
+                {
+                  "type": "warning",
+                  "content": "world"
+                }
+              ]
+            },
+            {
+              "day": 2,
+              "type": "success",
+              "contentList": [
+                {
+                  "type": "success",
+                  "content": "你好"
+                },
+                {
+                  "type": "warning",
+                  "content": "欢迎"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+  const listData = getListData(value, date);
   let liList;
   if (listData.length !== 0) {
     liList = (

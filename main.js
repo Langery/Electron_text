@@ -1,3 +1,4 @@
+// Electron Config
 const { app, BrowserWindow } = require('electron')
 let win
 function createWindow() {

@@ -80,8 +80,16 @@ class MainView extends Component {
                   </span>
                 }
               >
-                <Menu.Item key="6">List</Menu.Item>
-                <Menu.Item key="8">Connection</Menu.Item>
+                <Menu.Item key="/list">
+                  <Link to={`${match.url}/list`}>
+                    <span>List</span>
+                  </Link>
+                </Menu.Item>
+                <Menu.Item key="/connection">
+                  <Link to={`${match.url}/connection`}>
+                    <span>Connection</span>
+                  </Link>
+                </Menu.Item>
               </SubMenu>
               <Menu.Item key="9">
                 <Icon type="appstore" />
