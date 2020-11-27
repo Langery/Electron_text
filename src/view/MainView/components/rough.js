@@ -1,9 +1,12 @@
-import React, { Component } from 'react'
-// import rough from 'roughjs'
-import { LineSeries, Tooltip, ChartProvider, XAxis, YAxis } from 'rough-charts'
-import ReactRough, { Rectangle, Path, Circle } from 'react-rough'
+import React, { Component } from 'react';
+import '../css/rough.less';
+import { Select } from 'antd';
+import { LineSeries, Tooltip, ChartProvider, XAxis, YAxis } from 'rough-charts';
+import ReactRough, { Rectangle, Path, Circle } from 'react-rough';
 
-const data = [
+const { Option } = Select;
+
+const chartData = [
   { name: 'A', value1: 30, value2: 35 },
   { name: 'B', value1: 90, value2: 17 },
   { name: 'C', value1: 50, value2: 23 },
@@ -18,31 +21,38 @@ const colors = ['#815c94', '', '', '#66c18c']
 class RoughIndex extends Component {
   render () {
     return (
-      <div className="hello-body">
-        {/* Chart */}
-        <ChartProvider
-          height={400}
-          width={480}
-          data={data}
-        >
-          <XAxis dataKey="name" />
-          <YAxis />
-          <LineSeries
-            dataKey="value1"
-            options={{
-              stroke: colors[0],
-              strokeWidth: 2,
-            }}
-          />
-          <LineSeries
-            dataKey="value2"
-            options={{
-              stroke: colors[3],
-              strokeWidth: 2,
-            }}
-          />
-          <Tooltip />
-        </ChartProvider>
+      <div className="rough-antd">
+        <div className="chart-module">
+          {/*select type of chart*/}
+          <Select
+            style={{width: 180, display: 'block'}}
+            placeholder="Selcet a type"
+          ></Select>
+          {/* Chart */}
+          <ChartProvider
+            height={400}
+            width={480}
+            data={chartData}
+          >
+            <XAxis dataKey="name" />
+            <YAxis />
+            <LineSeries
+              dataKey="value1"
+              options={{
+                stroke: colors[0],
+                strokeWidth: 2,
+              }}
+            />
+            <LineSeries
+              dataKey="value2"
+              options={{
+                stroke: colors[3],
+                strokeWidth: 2,
+              }}
+            />
+            <Tooltip />
+          </ChartProvider>
+        </div>
         {/* Rectangle */}
         <ReactRough>
           <Rectangle x={15} y={15} width={90} height={80} fill="red" />

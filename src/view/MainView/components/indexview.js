@@ -49,12 +49,12 @@ function getDate (date, type = 0, addmonth = 1) {
   let getdate = date === null ? new Date() : new Date(date);
   let year = getdate.getFullYear();
   let month = getdate.getMonth() + addmonth;
-  month = month < 10 ? '0' + month : month;
+  month = month < 10 ? `0${month}` : month;
   let day = getdate.getDate();
   if (type === NORMAL) {
-    return year + '-' + month + '-' + day;
+    return `${year}-${month}-${day}`;
   } else if (type === YEARMON) {
-    return year + '-' + month;
+    return `${year}-${month}`;
   } else if (type === MONTH) {
     return month;
   } else if (type === DAY) {
@@ -144,7 +144,9 @@ function dateCellRender (value) {
     )
   }else {
     liList = (
-      <li></li>
+      <li>
+        <p className="untext"></p>
+      </li>
     )
   }
   let arrHTML = (
