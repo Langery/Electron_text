@@ -1,6 +1,7 @@
 ## Electron_text
 
 ![](https://img.shields.io/badge/Frame-Ant--design-blue)
+![](https://img.shields.io/badge/branch-dev-green)
 
 ### 初识
 
@@ -86,10 +87,10 @@
   - [ ] 特殊功能实现...
   - [ ] 日历，用于记录一日常
     - [x] 点击日历中的每一天出现弹框
-    - [ ] 数据处理
+    - [x] 数据处理
       - [ ] 存新数据
       - [ ] 编辑旧数据
-      - [ ] 数据处理
+      - [x] 数据处理
       - [ ] 存数据
       - [ ] 取数据
     - [ ] 每一个日期可以点击记录，记录的信息录入后台数据库中

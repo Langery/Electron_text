@@ -4,7 +4,7 @@ import { Select } from 'antd';
 import { LineSeries, Tooltip, ChartProvider, XAxis, YAxis } from 'rough-charts';
 import ReactRough, { Rectangle, Path, Circle } from 'react-rough';
 
-const { Option } = Select;
+// const { Option } = Select;
 
 const chartData = [
   { name: 'A', value1: 30, value2: 35 },

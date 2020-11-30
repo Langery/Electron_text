@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import './mainview.less'
 import { Route, Link, BrowserRouter } from 'react-router-dom'
 
+// import { createBrowserHistory } from 'history';
+
 // Breadcrumb
 import { Layout, Menu, Icon } from 'antd'
 const { Content, Footer, Sider } = Layout
 const { SubMenu } = Menu
-
 class MainView extends Component {
   state = {
     collapsed: false
@@ -26,9 +27,9 @@ class MainView extends Component {
   }
   handle = (e) => {
     console.log(e)
-    // this.setState({
-    //   current: e.key
-    // })
+    // const history = createBrowserHistory();
+    // const location = history.location;
+    // console.log('history', history, location);
   }
   render () {
     let {match, routes} = this.props
