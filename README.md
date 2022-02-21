@@ -6,19 +6,25 @@
 ## Menu
 
 - [初识](#chu)
+- [启动项目](#qi)
+- [idea](#idea)
+- [To be resolved](#todo)
+- [Finished](#finish)
+- [Note](#note)
+- [Link](#link)
 
-### <a id="chu">初识</a>
+#### <a id="chu">初识</a>
 
 > 官网：[Electron](https://electronjs.org/)
 
-#### 启动项目
+#### <a id="qi">启动项目</a>
 
 ```node
   $ npm start
   $ npm run estart
 ```
 
-### idea
+#### <a id="idea">idea</a>
 
 > 业务层
 
@@ -147,7 +153,7 @@
 - [x] 提交 Commit 格式化
   - 使用 `git cz` 代替 `git commit`
 
-### To be resolved
+#### <a id="todo">To be resolved</a>
 
 - [x] 不实现新打开窗口，只是在当前状态下进行界面跳转
 - [x] react 嵌入到 electron 中
@@ -178,7 +184,7 @@
 - [ ] GUI 嵌入
 - [ ] 待续...
 
-### Finished
+#### <a id="finish">Finished</a>
 
 - [x] 实现 IPC 与主进程的交互功能，并实现新窗口的创建以及对应函数的响应操作
 - [x] 关闭当前打开窗口以及返回上一级时关闭当前窗口
@@ -186,7 +192,7 @@
 - [x] DOM 渲染前获取后台数据信息
 - [ ] 待续...
 
-### Note
+#### <a id="note">Note</a>
 
 > ajax 的 readyState
 
@@ -247,7 +253,7 @@
 6. 组件将要销毁时：componentWillUnmount
 7. 父组件中改变了props传值时：componentWillReceiveProps
 
-### Link
+#### <a id="link">Link</a>
 
 1. [React-router路由模块化封装](https://www.jianshu.com/p/d4283e7f3c3c)
 2. [React点击事件的两种写法](https://www.jianshu.com/p/2a5c525e9a28)
