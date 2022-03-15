@@ -191,6 +191,7 @@ class RegisterForm extends Component {
                   </Checkbox>
                 )}
               </Form.Item>
+              {/* register zone */}
               <Form.Item {...tailFormItemLayout}>
                 <Button type="primary" htmlType="submit" style={leftStyle}>
                   Register

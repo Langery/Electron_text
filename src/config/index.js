@@ -2,7 +2,7 @@
 
 export default {
   baseUrl: {
-    dev: 'http://0.0.0.0:5000/'
+    dev: 'http://127.0.0.1:5000/'
   },
   title: '',
   total: Number
