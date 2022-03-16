@@ -116,6 +116,7 @@
       - [ ] 小日历，点击后右侧显示编辑操作页
   - [ ] [mdx-deck](https://github.com/jxnblk/mdx-deck)
   - [ ] [code-surfer](https://github.com/pomber/code-surfer)
+      - [ ] code-hike
   - [ ] 拖拽模块
 - [ ] 待续...
 

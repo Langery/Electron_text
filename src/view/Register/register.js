@@ -39,12 +39,16 @@ class RegisterForm extends Component {
         }
         const getWay = PostWay(sendData, 'register')
         console.log(getWay)
+    
         fetch(getWay[0], getWay[1])
-          .then(response => {
-            return response.json()
+          .then(res => {
+            if (res.ok) {
+              return res.json()
+            } else {
+              console.log('error')
+            }
           })
           .then(data => {
-            console.log(data)
             if (!data.backData) {
               message.error('The username or nickname had exist, plase to use a new username or nickname~')
             } else {
