@@ -28,12 +28,11 @@ class NormalLoginForm extends Component {
             return response.json()
           })
           .then(data => {
-            // console.log(data)
             if (!data.backData) {
               message.error('The username or password is not exist, plase to register user~')
             } else {
-              console.log('log in success')
-              this.props.history.push('/mainView')
+              console.log('log in success');
+              this.props.history.push('/mainView');
             }
           })
       } else {

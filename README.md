@@ -1,19 +1,30 @@
 ## Electron_text
 
 ![](https://img.shields.io/badge/Frame-Ant--design-blue)
+![](https://img.shields.io/badge/branch-dev-green)
 
-### 初识
+## Menu
+
+- [初识](#chu)
+- [启动项目](#qi)
+- [idea](#idea)
+- [To be resolved](#todo)
+- [Finished](#finish)
+- [Note](#note)
+- [Link](#link)
+
+### <a id="chu">初识</a>
 
 > 官网：[Electron](https://electronjs.org/)
 
-#### 启动项目
+### <a id="qi">启动项目</a>
 
 ```node
   $ npm start
   $ npm run estart
 ```
 
-### idea
+### <a id="idea">idea</a>
 
 > 业务层
 
@@ -31,6 +42,7 @@
 - [ ] [redux](https://www.redux.org.cn/)
 - [ ] hook 机制
 - [ ] history
+- [ ] 算法
 - [ ] 待续...
 
 > 功能层
@@ -46,16 +58,23 @@
     - [ ] 图像验证
 - [ ] 用户守则
   - [ ] 中英文切换
+    - [ ] 多语言
   - [ ] 规则
 - [x] 欢迎界面 -> 过渡
 - [ ] 目录模块
   - [ ] 目录模块划分
   - [ ] 聊天 -> 通讯
-    - [ ] 文本通讯
-    - [ ] 语音通讯
-    - [ ] 视频通讯
+    - [ ] 文本/文本通讯
+    - [ ] 图片
+    - [ ] 音频/语音通讯
+    - [ ] 视频/视频通讯
   - [ ] 资讯
+    - [ ] 信息展示
+      - [ ] 传统新闻信息展示
+      - [ ] 卡片信息展示
+        - [ ] 超链接信息展示
   - [ ] 支付
+    - [ ] 接入第三方平台
   - [ ] 绘图
     - [ ] 二维
       - [ ] 图表
@@ -70,26 +89,23 @@
     - [ ] 三维
   - [ ] Three
   - [ ] 游戏
+    - [ ] 引擎
     - [ ] 游戏类型、模块细化
   - [ ] GIS
     - [ ] 地图
       - [ ] 第三方地图引入
         - [x] [百度地图](http://lbsyun.baidu.com/)
+          - [ ] 待开发...
       - [ ] 地图点位，点击后获取到位置坐标信息
       - [ ] 地图选点
   - [ ] 第三方
-  - [ ] 通讯
-    - [ ] 文本
-    - [ ] 图片
-    - [ ] 音频
-    - [ ] 视频
   - [ ] 特殊功能实现...
   - [ ] 日历，用于记录一日常
     - [x] 点击日历中的每一天出现弹框
-    - [ ] 数据处理
+    - [x] 数据处理
       - [ ] 存新数据
       - [ ] 编辑旧数据
-      - [ ] 数据处理
+      - [x] 数据处理
       - [ ] 存数据
       - [ ] 取数据
     - [ ] 每一个日期可以点击记录，记录的信息录入后台数据库中
@@ -100,6 +116,7 @@
       - [ ] 小日历，点击后右侧显示编辑操作页
   - [ ] [mdx-deck](https://github.com/jxnblk/mdx-deck)
   - [ ] [code-surfer](https://github.com/pomber/code-surfer)
+      - [ ] code-hike
   - [ ] 拖拽模块
 - [ ] 待续...
 
@@ -137,7 +154,7 @@
 - [x] 提交 Commit 格式化
   - 使用 `git cz` 代替 `git commit`
 
-### To be resolved
+### <a id="todo">To be resolved</a>
 
 - [x] 不实现新打开窗口，只是在当前状态下进行界面跳转
 - [x] react 嵌入到 electron 中
@@ -151,8 +168,8 @@
   - [x] 点击图标触发跳转事件
   - [x] 默认进入第一个子页面
   - [x] 多级路由切换问题未解决，需特殊考虑其他子层路由关系
-  - [ ] 多级路由的子路由数据传递
-  - [ ] 子路由的数据存储以及与父级之间的数据交换
+  - [x] 多级路由的子路由数据传递
+  - [x] 子路由的数据存储以及与父级之间的数据交换
 - [ ] **视图处理方式**
   - [ ] 处理过程分类
   - [ ] 视图属性
@@ -164,10 +181,11 @@
   - [ ] 处理速度
   - [ ] CPU 与 GPU 耗能
 - [ ] electron 打包发布
+  - [ ] Github Actions
 - [ ] GUI 嵌入
 - [ ] 待续...
 
-### Finished
+### <a id="finish">Finished</a>
 
 - [x] 实现 IPC 与主进程的交互功能，并实现新窗口的创建以及对应函数的响应操作
 - [x] 关闭当前打开窗口以及返回上一级时关闭当前窗口
@@ -175,7 +193,7 @@
 - [x] DOM 渲染前获取后台数据信息
 - [ ] 待续...
 
-### Note
+### <a id="note">Note</a>
 
 > ajax 的 readyState
 
@@ -236,7 +254,7 @@
 6. 组件将要销毁时：componentWillUnmount
 7. 父组件中改变了props传值时：componentWillReceiveProps
 
-### Link
+### <a id="link">Link</a>
 
 1. [React-router路由模块化封装](https://www.jianshu.com/p/d4283e7f3c3c)
 2. [React点击事件的两种写法](https://www.jianshu.com/p/2a5c525e9a28)

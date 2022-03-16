@@ -18,13 +18,30 @@
           "dayList": [
             {
               "day": 1,
-              "type": "",
-              "content": ""
+              "contentList": [
+                {
+                  "type": "",
+                  "content": ""
+                },
+                {
+                  "type": "",
+                  "content": ""
+                }
+              ]
             },
             {
               "day": 2,
               "type": "",
-              "content": ""
+              "contentList": [
+                {
+                  "type": "",
+                  "content": ""
+                },
+                {
+                  "type": "",
+                  "content": ""
+                }
+              ]
             }
           ]
         }

@@ -6,6 +6,8 @@ import MapView from '../view/MainView/components/map'
 import IndexView from '../view/MainView/components/indexview'
 import RoughIndex from '../view/MainView/components/rough'
 import ChartxkcdIndex from '../view/MainView/components/chartxkcd'
+import ListIndex from '../view/MainView/components/listed';
+import ConnectIndex from '../view/MainView/components/connenct';
 
 
 const routeMap = [
@@ -41,6 +43,14 @@ const routeMap = [
       {
         path: '/mainView/chartxkcd',
         ComponentName: ChartxkcdIndex
+      },
+      {
+        path: '/mainView/list',
+        ComponentName: ListIndex
+      },
+      {
+        path: '/mainView/connection',
+        ComponentName: ConnectIndex
       }
     ]
   }

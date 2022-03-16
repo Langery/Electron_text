@@ -1,11 +1,10 @@
-import React, { Component } from 'react'
-import '../css/indexview.css'
+import React, { Component } from 'react';
+import '../css/indexview.less';
 // Badge, Popover, Select
-import { Layout, Calendar, Input, Row, Col, Button, Badge } from 'antd'
-// import { PostWay } from '../../../common/common'
-import { PostWay } from '../../../server/request'
+import { Layout, Calendar, Input, Row, Col, Button, Badge, Popconfirm } from 'antd';
+import { PostWay } from '../../../server/request';
 
-const { Content, Header } = Layout
+const { Content, Header } = Layout;
 
 const data = {
   flag: false,
@@ -17,8 +16,7 @@ const data = {
 }
 
 function getMonthData (value) {
-  if (value.month() === 8) {
-    // Sep has 1394
+  if (value.month() === 8) { // Sep has 1394, month add once
     return 1394
   } else if (value.month() === 2) {
     return 1234
@@ -30,45 +28,37 @@ function monthCellRender (value) {
   const num = getMonthData(value)
   return num ? (
     // this data from backstage
+    // TODO: restructure
     <div className="notes-month">
-      <section>{num}</section>
+      <section>{ num }</section>
       <span>Backlog number</span>
     </div>
   ) : null
 }
 
 function selectDay (date) {
-
   // get the time
   const clickTime = getDate(date)
-  // console.log(clickTime)
   data.dateBool.date = clickTime
   data.date = clickTime
-  // open a little window and write info
+  // open a little window and write infor
 }
 
-// deal time data
-/**
- * type 0 : yyyy-mm-dd
- * type 1 : yyyy-mm
- * type 2 : mm
- * type 3 : dd
- */
 function getDate (date, type = 0, addmonth = 1) {
-
-  let getdate = date === null ? new Date() : new Date(date)
-  let year = getdate.getFullYear()
-  let month = getdate.getMonth() + addmonth
-  month = month < 10 ? '0' + month : month
-  let day = getdate.getDate()
-  if (type === 0) {
-    return year + '-' + month + '-' + day
-  } else if (type === 1) {
-    return year + '-' + month
-  } else if (type === 2) {
-    return month
-  } else if (type === 3) {
-    return day
+  let [NORMAL, YEARMON, MONTH, DAY] = [0, 1, 2, 3];
+  let getdate = date === null ? new Date() : new Date(date);
+  let year = getdate.getFullYear();
+  let month = getdate.getMonth() + addmonth;
+  month = month < 10 ? `0${month}` : month;
+  let day = getdate.getDate();
+  if (type === NORMAL) {
+    return `${year}-${month}-${day}`;
+  } else if (type === YEARMON) {
+    return `${year}-${month}`;
+  } else if (type === MONTH) {
+    return month;
+  } else if (type === DAY) {
+    return day;
   }
 }
 
@@ -78,88 +68,96 @@ function timeStamp (time) {
   return backTime
 }
 
-function getListData (value) {
+function getListData (value, data) {
   let listData;
   // month 默认是 +1 的
-  switch (value.year()) {
-    case 2020: // year
-      switch (value.month()) {
-        case 8: // month
-          switch (value.date()) {
-            case 2: // day
-              listData = [
-                { type: 'warning', content: 'This is warning event.' },
-                { type: 'success', content: 'This is usual event.' },
-              ];
-              break;
-            case 18:
-              listData = [
-                { type: 'warning', content: 'This is warning event.' },
-                { type: 'success', content: 'This is usual event.' },
-                { type: 'error', content: 'This is error event.' },
-              ];
-              break;
-            case 20:
-              listData = [
-                { type: 'warning', content: 'This is warning event' },
-                { type: 'success', content: 'This is very long usual event。。....' },
-                { type: 'error', content: 'This is error event 1.' },
-                { type: 'error', content: 'This is error event 2.' },
-                { type: 'error', content: 'This is error event 3.' },
-                { type: 'error', content: 'This is error event 4.' },
-              ];
-              break;
-            default:
-          }
-          break;
-        case 9:
-          switch (value.date()) {
-            case 8:
-              listData = [
-                { type: 'warning', content: 'This is warning event.' },
-                { type: 'success', content: 'This is usual event.' },
-              ];
-              break;
-            case 10:
-              listData = [
-                { type: 'warning', content: 'This is warning event.' },
-                { type: 'success', content: 'This is usual event.' },
-                { type: 'error', content: 'This is error event.' },
-              ];
-              break;
-            case 15:
-              listData = [
-                { type: 'warning', content: 'This is warning event' },
-                { type: 'success', content: 'This is very long usual event。。....' },
-                { type: 'error', content: 'This is error event 1.' },
-                { type: 'error', content: 'This is error event 2.' },
-                { type: 'error', content: 'This is error event 3.' },
-                { type: 'error', content: 'This is error event 4.' },
-              ];
-              break;
-            default:
-          }
-          break;
-        default:
-      }
-      break;
-    default:
-  }
-  return listData || []
+  data.forEach(yearItem => {
+    value.year() === yearItem.year && yearItem.monthList.forEach(monItem => {
+      value.month() === monItem.month && monItem.dayList.forEach(dayItem => {
+        if (value.date() === dayItem.day) {
+          let tempArr = []
+          dayItem.contentList.forEach((item) => {
+            const sendTemp = {
+              type: item.type,
+              content: item.content
+            }
+            tempArr.push(sendTemp)
+          })
+          listData = tempArr;
+        }
+      })
+    })
+  })
+  return listData || [];
 }
 
 function dateCellRender (value) {
-  const listData = getListData(value);
-  console.log(listData)
-  return (
-    <ul>
-      {listData.map(item => (
+  let date = [
+    {
+      "year": 2020,
+      "monthList": [
+        {
+          "month": 10,
+          "dayList": [
+            {
+              "day": 1,
+              "type": "warning",
+              "contentList": [
+                {
+                  "type": "success",
+                  "content": "hello"
+                },
+                {
+                  "type": "warning",
+                  "content": "world"
+                }
+              ]
+            },
+            {
+              "day": 2,
+              "type": "success",
+              "contentList": [
+                {
+                  "type": "success",
+                  "content": "你好"
+                },
+                {
+                  "type": "warning",
+                  "content": "欢迎"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+  const listData = getListData(value, date);
+  let liList;
+  if (listData.length !== 0) {
+    liList = (
+      listData.map(item => (
         <li key={item.content}>
           <Badge status={item.type} text={item.content} />
         </li>
-      ))}
-    </ul>
+      ))
+    )
+  }else {
+    liList = (
+      <li>
+        <p className="untext"></p>
+      </li>
+    )
+  }
+  let arrHTML = (
+    <Popconfirm title="Are you add Infor?" okText="Add" cancelText="Cancel">
+      <ul>
+        {liList}
+      </ul>
+    </Popconfirm>
   )
+
+  return arrHTML
 }
 
 class IndexView extends Component {

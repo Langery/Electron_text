@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import './mainview.css'
+import './mainview.less'
 import { Route, Link, BrowserRouter } from 'react-router-dom'
+
+// import { createBrowserHistory } from 'history';
 
 // Breadcrumb
 import { Layout, Menu, Icon } from 'antd'
 const { Content, Footer, Sider } = Layout
 const { SubMenu } = Menu
-
 class MainView extends Component {
   state = {
     collapsed: false
@@ -26,9 +27,9 @@ class MainView extends Component {
   }
   handle = (e) => {
     console.log(e)
-    // this.setState({
-    //   current: e.key
-    // })
+    // const history = createBrowserHistory();
+    // const location = history.location;
+    // console.log('history', history, location);
   }
   render () {
     let {match, routes} = this.props
@@ -80,8 +81,16 @@ class MainView extends Component {
                   </span>
                 }
               >
-                <Menu.Item key="6">List</Menu.Item>
-                <Menu.Item key="8">Connection</Menu.Item>
+                <Menu.Item key="/list">
+                  <Link to={`${match.url}/list`}>
+                    <span>List</span>
+                  </Link>
+                </Menu.Item>
+                <Menu.Item key="/connection">
+                  <Link to={`${match.url}/connection`}>
+                    <span>Connection</span>
+                  </Link>
+                </Menu.Item>
               </SubMenu>
               <Menu.Item key="9">
                 <Icon type="appstore" />

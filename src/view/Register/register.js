@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Form, Input, Tooltip, Icon, Row, Col, Checkbox, Button, message } from 'antd'
-import './register.css'
+import './register.less'
 import '../../common/common.css'
 import { Link } from 'react-router-dom'
 // import { PostWay } from '../../common/common'
@@ -39,12 +39,16 @@ class RegisterForm extends Component {
         }
         const getWay = PostWay(sendData, 'register')
         console.log(getWay)
+    
         fetch(getWay[0], getWay[1])
-          .then(response => {
-            return response.json()
+          .then(res => {
+            if (res.ok) {
+              return res.json()
+            } else {
+              console.log('error')
+            }
           })
           .then(data => {
-            console.log(data)
             if (!data.backData) {
               message.error('The username or nickname had exist, plase to use a new username or nickname~')
             } else {
@@ -191,6 +195,7 @@ class RegisterForm extends Component {
                   </Checkbox>
                 )}
               </Form.Item>
+              {/* register zone */}
               <Form.Item {...tailFormItemLayout}>
                 <Button type="primary" htmlType="submit" style={leftStyle}>
                   Register
