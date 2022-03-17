@@ -1,5 +1,7 @@
 .home-body{
   /* background: #a4cab6; */
+  height: 100vh;
+  background: url(../../images/home.jpg);
 }
 
 .text-style{

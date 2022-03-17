@@ -27,7 +27,8 @@ class NormalLoginForm extends Component {
               message.error('The username or password is not exist, plase to register user~')
             } else {
               console.log('log in success');
-              this.props.history.push('/mainView');
+              // this.props.history.push('/mainView');
+              this.props.history.push('/mainpage');
             }
           })
       } else {

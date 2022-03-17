@@ -105,7 +105,7 @@ class RegisterForm extends Component {
       },
     }
     return (
-      <div className="login-box">
+      <div className="register-box">
         <Row>
           <Col span={6} style={leftTop}>
             <Link to='/'>
