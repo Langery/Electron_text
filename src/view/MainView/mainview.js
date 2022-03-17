@@ -27,9 +27,6 @@ class MainView extends Component {
   }
   handle = (e) => {
     console.log(e)
-    // const history = createBrowserHistory();
-    // const location = history.location;
-    // console.log('history', history, location);
   }
   render () {
     let {match, routes} = this.props

@@ -38,7 +38,8 @@
 }
 
 .main-style {
-  background: #a4cab6;
+  /* background: #a4cab6; */
+  background: url('images/home.jpg');
   height: 100%;
   width: 100%;
   position: absolute;

@@ -1,17 +1,19 @@
 import React, { Component } from "react";
-import './hello.css'
+import './home.css'
 import { Button } from 'antd';
 import { Link } from 'react-router-dom';
 
-class HelloIndex extends Component {
+class HomeIndex extends Component {
   render () {
     return (
-      <div className="hello-body">
+      <div className="home-body">
         <p className="text-style">
           The heart of Bohemia
         </p>
-        <p className="p-text">It is a index to welcome</p>
-        <p className="p-text">Please login or register</p>
+        <p className="p-text">
+          It is a index to welcome.<br/>
+          Please login or register
+        </p>
         <div className="btn-box">
           <Link to='/login/'>
             <Button type="primary">Log In</Button>
@@ -25,4 +27,4 @@ class HelloIndex extends Component {
   }
 }
 
-export default HelloIndex;
+export default HomeIndex;

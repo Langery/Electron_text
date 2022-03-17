@@ -1,4 +1,4 @@
-import HelloIndex from '../view/Hello/hello'
+import HomeIndex from '../view/Home/home'
 import LoginIndex from '../view/Login/login'
 import RegisterIndex from '../view/Register/register'
 import MainView from '../view/MainView/mainview'
@@ -13,7 +13,7 @@ import ConnectIndex from '../view/MainView/components/connenct';
 const routeMap = [
   {
     path: '/',
-    ComponentName: HelloIndex,
+    ComponentName: HomeIndex,
     exact: true
   },
   {

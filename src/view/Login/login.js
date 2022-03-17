@@ -6,11 +6,6 @@ import { Link } from 'react-router-dom'
 // import { PostWay } from '../../common/common'
 import { PostWay } from '../../server/request'
 
-
-const leftTop = {
-  paddingLeft: '20px'
-}
-
 class NormalLoginForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
@@ -49,7 +44,7 @@ class NormalLoginForm extends Component {
     return (
       <div className="login-box">
         <Row>
-          <Col span={6} style={leftTop}>
+          <Col span={6} className="leftTop">
             <Link to='/'>
               <Button.Group size={size}>
                 <Button type="primary">

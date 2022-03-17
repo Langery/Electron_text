@@ -10,12 +10,6 @@ import { PostWay } from '../../server/request'
 const leftTop = {
   paddingLeft: '20px'
 }
-const leftStyle = {
-  float: 'left'
-}
-const rightStyle = {
-  float: 'right'
-}
 
 class RegisterForm extends Component {
   state = {
@@ -45,6 +39,7 @@ class RegisterForm extends Component {
             if (res.ok) {
               return res.json()
             } else {
+              // TODO
               console.log('error')
             }
           })
@@ -52,6 +47,7 @@ class RegisterForm extends Component {
             if (!data.backData) {
               message.error('The username or nickname had exist, plase to use a new username or nickname~')
             } else {
+              // TODO
               console.log('add success')
             }
           })
@@ -89,11 +85,11 @@ class RegisterForm extends Component {
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
-        sm: { span: 8 },
+        sm: { span: 6 },
       },
       wrapperCol: {
         xs: { span: 24 },
-        sm: { span: 16 },
+        sm: { span: 18 },
       }
     }
     const tailFormItemLayout = {
@@ -190,17 +186,17 @@ class RegisterForm extends Component {
                 {getFieldDecorator('agreement', {
                   valuePropName: 'checked',
                 })(
-                  <Checkbox style={leftStyle}>
+                  <Checkbox className="leftStyle">
                     I have read the <a href="/">agreement</a>
                   </Checkbox>
                 )}
               </Form.Item>
               {/* register zone */}
               <Form.Item {...tailFormItemLayout}>
-                <Button type="primary" htmlType="submit" style={leftStyle}>
+                <Button type="primary" htmlType="submit" className="leftStyle">
                   Register
                 </Button>
-                <Button type="primary" onClick={this.clearData} style={rightStyle}>
+                <Button type="primary" onClick={this.clearData} className="rightStyle">
                   Clear Infor
                 </Button>
               </Form.Item>

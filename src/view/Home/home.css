@@ -1,18 +1,20 @@
-.hello-body{
+.home-body{
   /* background: #a4cab6; */
 }
 
 .text-style{
   padding-top: 50px;
   text-align: center;
-  color: #1CA57A;;
-  font-size: 20px;
+  color: #1CA57A;
+  font-family: 'Edwardian Script ITC';
+  font-size: 50px;
   margin-bottom: 30px;
 }
 .p-text{
   margin: 10px 60px;
   color: #131124;
-  font-size: 16px;
+  font-size: 18px;
+  font-family: 'Ink Free';
 }
 
 .btn-box{
@@ -20,4 +22,6 @@
 }
 .btn-box button{
   margin: 0 10px;
+  font-size: 19px;
+  font-family: 'Bradley Hand ITC';
 }
