@@ -8,7 +8,7 @@ import RegisterIndex from '../view/Register/register'
 // import ChartxkcdIndex from '../view/MainView/components/chartxkcd'
 // import ListIndex from '../view/MainView/components/listed';
 // import ConnectIndex from '../view/MainView/components/connenct';
-import MainPage from '../view/Pages/main'
+import MainPage from '../view/Pages/mainpage'
 
 
 const routeMap = [

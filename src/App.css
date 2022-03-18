@@ -44,3 +44,7 @@
   width: 100%;
   position: absolute;
 }
+
+ion-icon {
+  font-size: 30px;
+}

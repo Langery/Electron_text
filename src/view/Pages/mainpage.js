@@ -8,7 +8,7 @@ class MainPage extends Component {
   render () {
     return (
       <div className="mainpage">
-
+        {/* <ion-icon name="add-circle-outline"></ion-icon> */}
       </div>
     )
   }
