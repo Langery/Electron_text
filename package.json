@@ -7,6 +7,7 @@
   "main": "main.js",
   "license": "ISC",
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "antd": "^3.26.20",
     "chart.xkcd": "^1.1.13",
     "chart.xkcd-react": "0.0.6",
