@@ -3,6 +3,10 @@
   background: url(../images/mainpage.jpg);
 }
 
+:root{
+  --common-white: #fff;
+}
+
 ion-icon{
   font-size: 18px;
   padding-right: 3px;
@@ -10,15 +14,19 @@ ion-icon{
 
 .ant-layout-header {
   padding: 0;
-  background: #fff;
+  background: var(--common-white);
   height: auto;
 }
 
 .maincontent{
   height: 88vh;
   margin: 2%;
-  background: #fff;
-  overflow: hidden;
+  background: var(--common-white);
+  overflow-y: hidden;
+}
+
+.mainmenu{
+  text-align: right;
 }
 
 .ant-row{

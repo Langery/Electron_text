@@ -51,7 +51,7 @@ class MainPage extends Component {
     return (
       <div className="mainpage">
         <Header>
-          <Menu onClick={this.handleClick} selectedKeys={[current]} mode="horizontal">
+          <Menu className="mainmenu" onClick={this.handleClick} selectedKeys={[current]} mode="horizontal">
             <Menu.Item key="nav1">
               <ion-icon name="balloon-outline"></ion-icon>
               Nav1
