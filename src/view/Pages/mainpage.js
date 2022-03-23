@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import '../../style/main.less';
 
-import { Col, Layout, Menu, PageHeader, Row, Tree } from 'antd';
+import { Col, Layout, Menu, Modal, PageHeader, Row, Tree } from 'antd';
 
 const { SubMenu } = Menu;
 const { Header, Content } = Layout;
@@ -25,15 +25,36 @@ const treeData = [
     ],
   },
 ];
+
 class MainPage extends Component {
   state = {
-    current: 'nav1'
+    current: 'nav1',
+    isModalVisible: false
   }
 
   handleClick = e => {
     console.log('click ', e);
     this.setState({ current: e.key });
   };
+
+  addListInfor = e => {
+    console.log('click add icon');
+    this.setState({
+      isModalVisible: true
+    })
+  }
+
+  handleModalOk = e => {
+    this.setState({
+      isModalVisible: false
+    })
+  }
+
+  handleModalCancel = e => {
+    this.setState({
+      isModalVisible: false
+    })
+  }
 
   render () {
 
@@ -85,6 +106,9 @@ class MainPage extends Component {
           <PageHeader
             title="Components list"
             subTitle="This is a subtitle"
+            extra={[
+              <ion-icon key='1' class="add_icon" onClick={this.addListInfor}  name="add-circle-outline"></ion-icon>
+            ]}
           >
           </PageHeader>
           <Row>
@@ -118,6 +142,9 @@ class MainPage extends Component {
             </Col>
           </Row>
         </Content>
+        <Modal title="Add List info modal" visible={this.state.isModalVisible} onOk={this.handleModalOk} onCancel={this.handleModalCancel}>
+
+        </Modal>
       </div>
     )
   }
