@@ -143,7 +143,7 @@ class MainPage extends Component {
           </Row>
         </Content>
         <Modal title="Add List info modal" visible={this.state.isModalVisible} onOk={this.handleModalOk} onCancel={this.handleModalCancel}>
-
+            Add list informations
         </Modal>
       </div>
     )
