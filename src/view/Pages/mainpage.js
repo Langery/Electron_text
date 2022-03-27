@@ -28,13 +28,28 @@ const treeData = [
 
 class MainPage extends Component {
   state = {
-    current: 'nav1',
+    current: 'nav1_content',
     isModalVisible: false
   }
 
+  // nav click function
   handleClick = e => {
     console.log('click ', e);
+    console.log(this.state);
+    let getOldClass = document.getElementsByClassName(this.state.current)
+    let oldClassSyle = getOldClass[0].style;
+    oldClassSyle.display = 'none';
     this.setState({ current: e.key });
+
+    if (e.keyPath.length > 1) {
+      let getFatherClass = document.getElementsByClassName(e.keyPath[1]);
+      let classFatherStyle = getFatherClass[0].style;
+      classFatherStyle.display = 'block';
+    }
+    let getClass = document.getElementsByClassName(e.key);
+
+    let classStyle = getClass[0].style;
+    classStyle.display = 'block';
   };
 
   addListInfor = e => {
@@ -69,20 +84,21 @@ class MainPage extends Component {
     // tree =====================================================> end
 
     const { current } = this.state;
+
     return (
       <div className="mainpage">
         <Header>
           <Menu className="mainmenu" onClick={this.handleClick} selectedKeys={[current]} mode="horizontal">
-            <Menu.Item key="nav1">
+            <Menu.Item key="nav1_content">
               <ion-icon name="balloon-outline"></ion-icon>
               Nav1
             </Menu.Item>
-            <Menu.Item key="nva2">
+            <Menu.Item key="nav2_content">
               <ion-icon name="beer-outline"></ion-icon>
               Nav2
             </Menu.Item>
             <SubMenu
-              key="nva3"
+              key="nav3_content"
               title={
                 <span>
                   <ion-icon name="bandage-outline"></ion-icon>
@@ -91,56 +107,81 @@ class MainPage extends Component {
               }
             >
               <Menu.ItemGroup title="Item 1">
-                <Menu.Item key="setting:1">Option 1</Menu.Item>
-                <Menu.Item key="setting:2">Option 2</Menu.Item>
+                <Menu.Item key="setting_1">Option 1</Menu.Item>
+                <Menu.Item key="setting_2">Option 2</Menu.Item>
               </Menu.ItemGroup>
               <Menu.ItemGroup title="Item 2">
-                <Menu.Item key="setting:3">Option 3</Menu.Item>
-                <Menu.Item key="setting:4">Option 4</Menu.Item>
+                <Menu.Item key="setting_3">Option 3</Menu.Item>
+                <Menu.Item key="setting_4">Option 4</Menu.Item>
               </Menu.ItemGroup>
             </SubMenu>
           </Menu>
         </Header>
         {/* Content */}
         <Content className="maincontent">
-          <PageHeader
-            title="Components list"
-            subTitle="This is a subtitle"
-            extra={[
-              <ion-icon key='1' class="add_icon" onClick={this.addListInfor}  name="add-circle-outline"></ion-icon>
-            ]}
-          >
-          </PageHeader>
-          <Row>
-            <Col span={8} className="main_col_1">
-              <PageHeader
-                title="Menu Area"
-                subTitle="This is a subtitle"
-              >
-              </PageHeader>
-              <DirectoryTree
-                multiple
-                defaultExpandAll
-                onSelect={onSelect}
-                onExpand={onExpand}
-                treeData={treeData}
-              />
-            </Col>
-            <Col span={8} className="main_col_2">
-              <PageHeader
-                title="Detail Area"
-                subTitle="This is a subtitle"
-              >
-              </PageHeader>
-            </Col>
-            <Col span={8} className="main_col_3">
-              <PageHeader
-                title="Operation Area"
-                subTitle="This is a subtitle"
-              >
-              </PageHeader>
-            </Col>
-          </Row>
+          <div className="nav1_content">
+            <PageHeader
+              title="Components list"
+              subTitle="This is a subtitle"
+              extra={[
+                <ion-icon key='1' class="add_icon" onClick={this.addListInfor}  name="add-circle-outline"></ion-icon>
+              ]}
+            >
+            </PageHeader>
+            <Row>
+              <Col span={8} className="main_col_1">
+                <PageHeader
+                  title="Menu Area"
+                  subTitle="This is a subtitle"
+                >
+                </PageHeader>
+                <DirectoryTree
+                  multiple
+                  defaultExpandAll
+                  onSelect={onSelect}
+                  onExpand={onExpand}
+                  treeData={treeData}
+                />
+              </Col>
+              <Col span={8} className="main_col_2">
+                <PageHeader
+                  title="Detail Area"
+                  subTitle="This is a subtitle"
+                >
+                </PageHeader>
+              </Col>
+              <Col span={8} className="main_col_3">
+                <PageHeader
+                  title="Operation Area"
+                  subTitle="This is a subtitle"
+                >
+                </PageHeader>
+              </Col>
+            </Row>
+          </div>
+          <div className="nav2_content">
+            <p style={{color: '#fff'}}>
+              Content 2
+            </p>
+          </div>
+          <div className="nav3_content">
+            <div className="nav3_item1">
+              <div className="setting_1">
+                <p style={{color: '#fff'}}>
+                  Content 3_1
+                </p>
+              </div>
+              <div className="setting_2">
+                <p style={{color: '#fff'}}>
+                  Content 3_2
+                </p>
+              </div>
+            </div>
+            <div className="nav3_item2">
+              <div className="setting_3"></div>
+              <div className="setting_4"></div>
+            </div>
+          </div>
         </Content>
         <Modal title="Add List info modal" visible={this.state.isModalVisible} onOk={this.handleModalOk} onCancel={this.handleModalCancel}>
             Add list informations
