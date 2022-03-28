@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import '../../style/main.less';
 
-import { Col, Layout, Menu, Modal, PageHeader, Row, Tree } from 'antd';
+import { Col, Layout, Menu, Modal, PageHeader, Row, Tree, Card } from 'antd';
 
 const { SubMenu } = Menu;
 const { Header, Content } = Layout;
@@ -26,17 +26,63 @@ const treeData = [
   },
 ];
 
+// defined component
+function NewCol (props) {
+  return (
+    <Col xs={24} sm={12} md={8} lg={6} xl={6}>
+      <Card title="Model Card by self">
+      </Card>
+    </Col>
+  )
+}
+
+function NewList () {
+  return (
+    <NewCol></NewCol>
+  )
+}
+
+// function defHook () {
+//   // hook
+//   // defined data
+//   const [current, setCurrent] = useState['nav1_content']
+// }
+
 class MainPage extends Component {
-  state = {
-    current: 'nav1_content',
-    isModalVisible: false
+  constructor(props) {
+    super(props);
+    this.state = {
+      current: 'nav1_content',
+      isModalVisible: false,
+      cardList: [
+        {
+          name: 1
+        },
+        {
+          name: 2
+        },
+        {
+          name: 3
+        },
+        {
+          name: 4
+        },
+        {
+          name: 5
+        },
+        {
+          name: 6
+        },
+        {
+          name: 7
+        }
+      ]
+    }
   }
 
   // nav click function
   handleClick = e => {
-    console.log('click ', e);
-    console.log(this.state);
-    let getOldClass = document.getElementsByClassName(this.state.current)
+    let getOldClass = document.getElementsByClassName(this.state.current);
     let oldClassSyle = getOldClass[0].style;
     oldClassSyle.display = 'none';
     this.setState({ current: e.key });
@@ -128,7 +174,7 @@ class MainPage extends Component {
               ]}
             >
             </PageHeader>
-            <Row>
+            <Row className="nav1_row">
               <Col span={8} className="main_col_1">
                 <PageHeader
                   title="Menu Area"
@@ -149,6 +195,7 @@ class MainPage extends Component {
                   subTitle="This is a subtitle"
                 >
                 </PageHeader>
+
               </Col>
               <Col span={8} className="main_col_3">
                 <PageHeader
@@ -160,9 +207,10 @@ class MainPage extends Component {
             </Row>
           </div>
           <div className="nav2_content">
-            <p style={{color: '#fff'}}>
-              Content 2
-            </p>
+            <Row className="nav2_row">
+              <NewCol></NewCol>
+              <NewList></NewList>
+            </Row>
           </div>
           <div className="nav3_content">
             <div className="nav3_item1">
@@ -178,8 +226,16 @@ class MainPage extends Component {
               </div>
             </div>
             <div className="nav3_item2">
-              <div className="setting_3"></div>
-              <div className="setting_4"></div>
+              <div className="setting_3">
+                <p style={{color: '#fff'}}>
+                  Content 3_3
+                </p>
+              </div>
+              <div className="setting_4">
+                <p style={{color: '#fff'}}>
+                  Content 3_4
+                </p>
+              </div>
             </div>
           </div>
         </Content>
