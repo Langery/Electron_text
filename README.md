@@ -39,7 +39,7 @@
   - [ ] 逻辑函数处理
   - [ ] 共用函数体处理以及特殊情况应用
 - [ ] [redux](https://www.redux.org.cn/)
-- [ ] hook 机制
+- [x] hook 机制
 - [ ] history
 - [ ] 算法
 - [ ] 待续...
