@@ -1,10 +1,19 @@
 import React, { useState } from "react";
 import '../../style/main.less';
 
+import card01 from "../../images/card_01.jpg"
+import card02 from "../../images/card_02.jpg"
+import card03 from "../../images/card_03.jpg"
+import card04 from "../../images/card_04.jpg"
+import card05 from "../../images/card_05.jpg"
+import card06 from "../../images/card_06.jpg"
+
 import { Col, Layout, Menu, Modal, PageHeader, Row, Tree, Card } from 'antd';
 
 const { SubMenu } = Menu;
 const { Header, Content } = Layout;
+
+const { Meta } = Card;
 
 const { DirectoryTree } = Tree;
 const treeData = [
@@ -28,12 +37,22 @@ const treeData = [
 
 // defined component
 function NewCol (item) {
-  const i = item;
-  const titleWord = i.item ? "Model Card by self " + i.item : "Model Card by self ";
+  // cover={<img src={i.item}/>}
+  const i = item.item;
+  let titleWord = '';
+  let Iimg = '';
+  if (i) {
+    const Iname = i.cardname;
+    titleWord = "Model Card by self " + Iname;
+    Iimg = i.img
+  } else {
+    titleWord = "Model Card by self ";
+  }
+  
   let returnLabel = (
     <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-      <Card title={titleWord}>
-        {i.item}
+      <Card title={titleWord} cover={<img alt="== 我的照片丢了~" src={Iimg}/>} >
+        <Meta title="title" description="text" />
       </Card>
     </Col>
   )
@@ -54,38 +73,44 @@ const MainPage = props => {
   // eslint-disable-next-line
   const [cardList, setCardList] = useState([
     {
-      name: 1
+      cardname: 1,
+      img: card01
     },
     {
-      name: 2
+      cardname: 2,
+      img: card02
     },
     {
-      name: 3
+      cardname: 3,
+      img: card03
     },
     {
-      name: 4
+      cardname: 4,
+      img: card04
     },
     {
-      name: 5
+      cardname: 5,
+      img: card05
     },
     {
-      name: 6
+      cardname: 6,
+      img: card06
     },
     {
-      name: 7
+      cardname: 7
     },
     {
-      name: 8
+      cardname: 8
     },
     {
-      name: 9
+      cardname: 9
     }
   ])
 
   // defined a label
   const NewCreatCol = () => {
     return cardList.map(item => {
-      return <NewCol item={item.name} key={item.name}></NewCol>
+      return <NewCol item={item} key={item.cardname}></NewCol>
     })
   }
 
