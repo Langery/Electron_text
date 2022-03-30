@@ -51,10 +51,10 @@
 
 > 生命周期
 
-1. 组件将要挂载时：componentWillMount
-2. 组件挂载完成时：componentDidMount
-3. 是否要更新数据时：shouldComponentUpdate
-4. 将要更新数据时：componentWillUpdate
-5. 数据更新完成时：componentDidUpdate
-6. 组件将要销毁时：componentWillUnmount
-7. 父组件中改变了props传值时：componentWillReceiveProps
+1. 组件将要挂载时：componentWillMount&emsp;|&emsp;
+2. 组件挂载完成时：componentDidMount&emsp;|&emsp;useEffect
+3. 是否要更新数据时：shouldComponentUpdate&emsp;|&emsp;
+4. 将要更新数据时：componentWillUpdate&emsp;|&emsp;
+5. 数据更新完成时：componentDidUpdate&emsp;|&emsp;useEffect
+6. 组件将要销毁时：componentWillUnmount&emsp;|&emsp;useEffect 里面返回的函数
+7. 父组件中改变了props传值时：componentWillReceiveProps&emsp;|&emsp;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import '../../style/main.less';
 
 import card01 from "../../images/card_01.jpg"
@@ -10,40 +10,22 @@ import card06 from "../../images/card_06.jpg"
 
 import { Col, Layout, Menu, Modal, PageHeader, Row, Tree, Card } from 'antd';
 
+import { PostWay } from '../../server/request'
+
 const { SubMenu } = Menu;
 const { Header, Content } = Layout;
 
 const { Meta } = Card;
 
 const { DirectoryTree } = Tree;
-const treeData = [
-  {
-    title: 'parent 0',
-    key: '0-0',
-    children: [
-      { title: 'leaf 0-0', key: '0-0-0', isLeaf: true },
-      { title: 'leaf 0-1', key: '0-0-1', isLeaf: true },
-    ],
-  },
-  {
-    title: 'parent 1',
-    key: '0-1',
-    children: [
-      { title: 'leaf 1-0', key: '0-1-0', isLeaf: true },
-      { title: 'leaf 1-1', key: '0-1-1', isLeaf: true },
-    ],
-  },
-];
 
 // defined component
 function NewCol (item) {
-  // cover={<img src={i.item}/>}
   const i = item.item;
   let titleWord = '';
   let Iimg = '';
   if (i) {
-    const Iname = i.cardname;
-    titleWord = "Model Card by self " + Iname;
+    titleWord = "Model Card by self " + i.cardname;
     Iimg = i.img
   } else {
     titleWord = "Model Card by self ";
@@ -59,17 +41,30 @@ function NewCol (item) {
   return returnLabel;
 }
 
-// useEffect(() => {
-//   // run function
-//   return(() => {
-//     console.log('COMPONENT WILL UNMOUNT ...');
-//   })
-// }, [])
 
 const MainPage = props => {
 
   const [current, setCurrent] = useState('nav1_content');
   const [isModalVisible, setIsModalVisible] = useState(false);
+  // eslint-disable-next-line
+  const [treeData, setTreeData] = useState([
+    {
+      title: 'parent 0',
+      key: '0-0',
+      children: [
+        { title: 'leaf 0-0', key: '0-0-0', isLeaf: true },
+        { title: 'leaf 0-1', key: '0-0-1', isLeaf: true },
+      ],
+    },
+    {
+      title: 'parent 1',
+      key: '0-1',
+      children: [
+        { title: 'leaf 1-0', key: '0-1-0', isLeaf: true },
+        { title: 'leaf 1-1', key: '0-1-1', isLeaf: true },
+      ],
+    },
+  ])
   // eslint-disable-next-line
   const [cardList, setCardList] = useState([
     {
@@ -106,6 +101,33 @@ const MainPage = props => {
       cardname: 9
     }
   ])
+
+  useEffect(() => {
+    // run function
+    getTreeData();
+    return(() => {
+      console.log('COMPONENT WILL UNMOUNT ...');
+    })
+  }, [setTreeData])
+
+  const getTreeData = () => {
+    const getWay = PostWay('', 'getTree')
+    fetch(getWay[0], getWay[1])
+      .then(res => {
+        if (res.ok) {
+          return res.json()
+        } else {
+          console.log('error')
+        }
+      })
+      .then(data => {
+        console.log(data)
+        setTreeData(data);
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
 
   // defined a label
   const NewCreatCol = () => {
@@ -266,4 +288,4 @@ const MainPage = props => {
   )
 }
 
-export default MainPage;
+export default React.memo(MainPage);
