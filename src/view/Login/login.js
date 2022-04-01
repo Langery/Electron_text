@@ -17,7 +17,7 @@ class LoginIndex extends Component {
           username: values.username,
           password: values.password
         }
-        const getWay = PostWay(sendData, 'login')
+        const getWay = PostWay('login', sendData)
         console.log(getWay)
         fetch(getWay[0], getWay[1])
           .then(response => {
@@ -28,7 +28,6 @@ class LoginIndex extends Component {
               message.error('The username or password is not exist, plase to register user~')
             } else {
               console.log('log in success');
-              // this.props.history.push('/mainView');
               this.props.history.push('/mainpage');
             }
           })

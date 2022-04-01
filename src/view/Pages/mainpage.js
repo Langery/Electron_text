@@ -32,19 +32,15 @@ function NewCol (item) {
     titleWord = "Model Card by self ";
   }
   
-  // cover={<img alt="== 我的照片丢了~" src={Iimg}/>}
   let returnLabel = (
     <Col xs={24} sm={12} md={8} lg={6} xl={6}>
       <Card className="card_content" title={titleWord} cover={<img alt="== 我的照片丢了~" src={Iimg}/>}>
-      {/* <Card className="card_content" title={titleWord}>
-        <Image alt="== 我的照片丢了~" src={Iimg}/> */}
         <Meta title="title" description="text" />
       </Card>
     </Col>
   )
   return returnLabel;
 }
-
 
 const MainPage = props => {
 
@@ -108,7 +104,7 @@ const MainPage = props => {
   }, [setTreeData])
 
   const getTreeData = () => {
-    const getWay = PostWay('', 'getTree')
+    const getWay = PostWay('getTree', '')
     fetch(getWay[0], getWay[1])
       .then(res => {
         if (res.ok) {

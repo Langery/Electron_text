@@ -35,7 +35,7 @@ class RegisterIndex extends Component {
           password: values.password,
           nickname: values.nickname
         }
-        const getWay = PostWay(sendData, 'register')
+        const getWay = PostWay('register', sendData)
         console.log(getWay)
     
         fetch(getWay[0], getWay[1])
