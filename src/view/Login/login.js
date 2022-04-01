@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import { Row, Col, Button, Icon, Form, Input, Checkbox, message  } from 'antd';
+import { Row, Col, Button, Form, Input, Checkbox, message  } from 'antd';
+import { LeftOutlined, UserAddOutlined, LockOutlined } from '@ant-design/icons';
 import './login.css'
 import '../../common/common.css'
 import { Link } from 'react-router-dom'
 // import { PostWay } from '../../common/common'
 import { PostWay } from '../../server/request'
 
-class NormalLoginForm extends Component {
+class LoginIndex extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -41,7 +42,6 @@ class NormalLoginForm extends Component {
   }
   render () {
     const { size } = this.state
-    const { getFieldDecorator } = this.props.form
     return (
       <div className="login-box">
         <Row>
@@ -49,7 +49,7 @@ class NormalLoginForm extends Component {
             <Link to='/'>
               <Button.Group size={size}>
                 <Button type="primary">
-                  <Icon type="left" />
+                  <LeftOutlined />
                   Backward
                 </Button>
               </Button.Group>
@@ -58,32 +58,21 @@ class NormalLoginForm extends Component {
           <Col span={12}>
             <p className="title-p">Log In</p>
             <Form onSubmit={this.handleSubmit} className="login-form">
-              <Form.Item>
-                {getFieldDecorator('username', {
-                  rules: [{ required: true, message: 'Please input your username!' }],
-                })(
+              <Form.Item name="username" rules={[{ required: true, message: 'Please input your username!' }]}>
                   <Input
-                    prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                    prefix={<UserAddOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
                     placeholder="Username"
-                  />,
-                )}
+                  />
               </Form.Item>
-              <Form.Item>
-                {getFieldDecorator('password', {
-                  rules: [{ required: true, message: 'Please input your Password!' }],
-                })(
+              <Form.Item name="password" rules={[{ required: true, message: 'Please input your Password!' }]}>
                   <Input
-                    prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                    prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
                     type="password"
                     placeholder="Password"
-                  />,
-                )}
+                  />
               </Form.Item>
-              <Form.Item>
-                {getFieldDecorator('remember', {
-                  valuePropName: 'checked',
-                  initialValue: false,
-                })(<Checkbox>Remember me</Checkbox>)}
+              <Form.Item name="remember" valuePropName="checked" initialValue={false}>
+                <Checkbox>Remember me</Checkbox>
                 <a className="login-form-forgot" href="/">
                   Forgot password
                 </a>
@@ -100,5 +89,5 @@ class NormalLoginForm extends Component {
     )
   }
 }
-const LoginIndex = Form.create({ name: 'normal_login' })(NormalLoginForm)
+
 export default LoginIndex;

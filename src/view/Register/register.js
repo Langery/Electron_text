@@ -1,5 +1,9 @@
 import React, { Component } from "react"
-import { Form, Input, Tooltip, Icon, Row, Col, Checkbox, Button, message } from 'antd'
+import { Form, Input, Tooltip, Row, Col, Checkbox, Button, message } from 'antd';
+
+// UserAddOutlined
+import { LeftOutlined } from '@ant-design/icons';
+
 import './register.less'
 import '../../common/common.css'
 import { Link } from 'react-router-dom'
@@ -11,7 +15,7 @@ const leftTop = {
   paddingLeft: '20px'
 }
 
-class RegisterForm extends Component {
+class RegisterIndex extends Component {
   state = {
     size: 'large',
     autoCompleteResult: [],
@@ -81,7 +85,7 @@ class RegisterForm extends Component {
   }
   render () {
     const { size } = this.state
-    const { getFieldDecorator } = this.props.form
+    // const { getFieldDecorator } = this.props.form
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
@@ -111,7 +115,7 @@ class RegisterForm extends Component {
             <Link to='/'>
               <Button.Group size={size}>
                 <Button type="primary">
-                  <Icon type="left" />
+                  <LeftOutlined />
                   Backward
                 </Button>
               </Button.Group>
@@ -120,9 +124,7 @@ class RegisterForm extends Component {
           <Col span={12}>
             <p className="title-p">Register</p>
             <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-              <Form.Item label="name">
-                {getFieldDecorator('username', {
-                  rules: [
+              <Form.Item label="name" name="username" rules={[
                     {
                       message: 'The input is not valid username!'
                     },
@@ -130,16 +132,10 @@ class RegisterForm extends Component {
                       required: true,
                       message: 'Please input your username',
                     },
-                  ],
-                })(
-                  <Input
-                    placeholder="Name"
-                  />
-                )}
+                  ]}>
+                  <Input placeholder="Name" />
               </Form.Item>
-              <Form.Item label="Password" hasFeedback>
-                {getFieldDecorator('password', {
-                  rules: [
+              <Form.Item label="Password" hasFeedback name="password" rules={[
                     {
                       required: true,
                       message: 'Please input your password!',
@@ -147,17 +143,10 @@ class RegisterForm extends Component {
                     {
                       validator: this.validateToNextPassword,
                     }
-                  ],
-                })(
-                  <Input
-                    type="password"
-                    placeholder="Password"
-                  />
-                )}
+                  ]}>
+                  <Input type="password" placeholder="Password" />
               </Form.Item>
-              <Form.Item label="Confirm Password" hasFeedback>
-                {getFieldDecorator('confirm', {
-                  rules: [
+              <Form.Item label="Confirm Password" hasFeedback name="confirm" rules={[
                     {
                       required: true,
                       message: 'Please confirm your password!',
@@ -165,31 +154,27 @@ class RegisterForm extends Component {
                     {
                       validator: this.compareToFirstPassword,
                     }
-                  ],
-                })(<Input type="password" onBlur={this.handleConfirmBlur} />)}
+                  ]}>
+                <Input type="password" onBlur={this.handleConfirmBlur} />
               </Form.Item>
               <Form.Item
                 label={
                   <span>
                     Nickname&nbsp;
                     <Tooltip title="What do you want others to call you?">
-                      <Icon type="question-circle-o" />
+                      {/* <UserAddOutlined /> */}
                     </Tooltip>
                   </span>
                 }
+                name="nickname"
+                rules={[{ required: true, message: 'Please input your nickname!', whitespace: true }]}
               >
-                {getFieldDecorator('nickname', {
-                  rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
-                })(<Input />)}
+                <Input />
               </Form.Item>
-              <Form.Item {...tailFormItemLayout}>
-                {getFieldDecorator('agreement', {
-                  valuePropName: 'checked',
-                })(
+              <Form.Item {...tailFormItemLayout} name="agreement" valuePropName="checked">
                   <Checkbox className="leftStyle">
                     I have read the <a href="/">agreement</a>
                   </Checkbox>
-                )}
               </Form.Item>
               {/* register zone */}
               <Form.Item {...tailFormItemLayout}>
@@ -208,5 +193,5 @@ class RegisterForm extends Component {
     )
   }
 }
-const RegisterIndex = Form.create({ name: 'normal_register' })(RegisterForm)
+// const RegisterIndex = Form({ name: 'normal_register' })(RegisterForm)
 export default RegisterIndex;

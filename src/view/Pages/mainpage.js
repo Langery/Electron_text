@@ -8,6 +8,7 @@ import card04 from "../../images/card_04.jpg"
 import card05 from "../../images/card_05.jpg"
 import card06 from "../../images/card_06.jpg"
 
+// Image
 import { Col, Layout, Menu, Modal, PageHeader, Row, Tree, Card } from 'antd';
 
 import { PostWay } from '../../server/request'
@@ -31,9 +32,12 @@ function NewCol (item) {
     titleWord = "Model Card by self ";
   }
   
+  // cover={<img alt="== 我的照片丢了~" src={Iimg}/>}
   let returnLabel = (
     <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-      <Card title={titleWord} cover={<img alt="== 我的照片丢了~" src={Iimg}/>} >
+      <Card className="card_content" title={titleWord} cover={<img alt="== 我的照片丢了~" src={Iimg}/>}>
+      {/* <Card className="card_content" title={titleWord}>
+        <Image alt="== 我的照片丢了~" src={Iimg}/> */}
         <Meta title="title" description="text" />
       </Card>
     </Col>
@@ -55,15 +59,7 @@ const MainPage = props => {
         { title: 'leaf 0-0', key: '0-0-0', isLeaf: true },
         { title: 'leaf 0-1', key: '0-0-1', isLeaf: true },
       ],
-    },
-    {
-      title: 'parent 1',
-      key: '0-1',
-      children: [
-        { title: 'leaf 1-0', key: '0-1-0', isLeaf: true },
-        { title: 'leaf 1-1', key: '0-1-1', isLeaf: true },
-      ],
-    },
+    }
   ])
   // eslint-disable-next-line
   const [cardList, setCardList] = useState([
@@ -102,6 +98,7 @@ const MainPage = props => {
     }
   ])
 
+  // 数据更新
   useEffect(() => {
     // run function
     getTreeData();
