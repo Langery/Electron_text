@@ -10,6 +10,7 @@
 - [idea](#idea)
 - [To be resolved](#todo)
 - [Finished](#finish)
+- [独立组件库](#components)
 - [Link](#link)
 
 ### <a id="chu">初识</a>
@@ -99,7 +100,7 @@
       - [ ] 地图选点
   - [ ] 第三方
   - [ ] 特殊功能实现...
-  - [ ] ~~日历，用于记录一日常~~
+  - [ ] ~~日历，用于记录一日常~~&ensp;[此节点下所有开发暂停或取消]
     - [x] 点击日历中的每一天出现弹框
     - [x] 数据处理
       - [ ] 存新数据
@@ -184,6 +185,10 @@
 - [ ] electron 打包发布
   - [ ] Github Actions
 - [ ] GUI 嵌入
+- [ ] React 底层函数
+  - [ ] forwardRef
+  - [ ] ref
+    - [ ] createRef
 - [ ] 待续...
 
 ### <a id="finish">Finished</a>
@@ -193,6 +198,12 @@
 - [x] react 的 fetch 数据请求，目前传入的格式数据为 json
 - [x] DOM 渲染前获取后台数据信息
 - [ ] 待续...
+
+### <a id="components">独立组件库 [页面必用组件库]</a>
+*基于 Ant Design 的封装组件库，持续扩展中...*
+*当前组件为页面必须使用组件，后期做非页面必须组件，持续扩展中...*
+- [ ] Form
+
 
 ### <a id="link">Link</a>
 

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import '../../style/main.less';
 
+import FormSelf from '../components/form';
+
 import card01 from "../../images/card_01.jpg"
 import card02 from "../../images/card_02.jpg"
 import card03 from "../../images/card_03.jpg"
@@ -8,7 +10,7 @@ import card04 from "../../images/card_04.jpg"
 import card05 from "../../images/card_05.jpg"
 import card06 from "../../images/card_06.jpg"
 
-// Image
+// Image, Skeleton
 import { Col, Layout, Menu, Modal, PageHeader, Row, Tree, Card } from 'antd';
 
 import { PostWay } from '../../server/request'
@@ -45,8 +47,8 @@ function NewCol (item) {
 const MainPage = props => {
 
   const [current, setCurrent] = useState('nav1_content');
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  // eslint-disable-next-line
+  // const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(true);
   const [treeData, setTreeData] = useState([
     {
       title: 'parent 0',
@@ -57,7 +59,7 @@ const MainPage = props => {
       ],
     }
   ])
-  // eslint-disable-next-line
+  // eslint-disable-next-line 
   const [cardList, setCardList] = useState([
     {
       cardname: 1,
@@ -93,6 +95,10 @@ const MainPage = props => {
       cardname: 9
     }
   ])
+  // eslint-disable-next-line
+  const [detailInfor, setDetailInfor] = useState('Detail');
+  // eslint-disable-next-line
+  const [operationInfor, setOperationInfor] = useState('Operation');
 
   // 数据更新
   useEffect(() => {
@@ -101,7 +107,7 @@ const MainPage = props => {
     return(() => {
       console.log('COMPONENT WILL UNMOUNT ...');
     })
-  }, [setTreeData])
+  }, [treeData])
 
   const getTreeData = () => {
     const getWay = PostWay('getTree', '')
@@ -230,7 +236,9 @@ const MainPage = props => {
                 subTitle="This is a subtitle"
               >
               </PageHeader>
-
+              <p className="content_infor">
+                {detailInfor}
+              </p>
             </Col>
             <Col span={8} className="main_col_3">
               <PageHeader
@@ -238,6 +246,9 @@ const MainPage = props => {
                 subTitle="This is a subtitle"
               >
               </PageHeader>
+              <p className="content_infor">
+                {operationInfor}
+              </p>
             </Col>
           </Row>
         </div>
@@ -275,7 +286,7 @@ const MainPage = props => {
         </div>
       </Content>
       <Modal title="Add List info modal" visible={isModalVisible} onOk={handleModalOk} onCancel={handleModalCancel}>
-        Add list informations
+        <FormSelf></FormSelf>
       </Modal>
     </div>
   )
