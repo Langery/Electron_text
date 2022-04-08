@@ -4,15 +4,9 @@ import '../../style/form.less';
 
 import { Form, Input, Select } from "antd";
 
-/**
- * Ant-design API
- * Input:
- *    size: large | middle | small
- */
-
 const FormItemInput = React.forwardRef((props, ref) => {
   console.log(props) // { name: 'name' }
-  const _formInput = props.formInput
+  const _formInput = props.formInput;
 
   useImperativeHandle(ref, ()=> ({
     // a function about the ref event
@@ -24,12 +18,11 @@ const FormItemInput = React.forwardRef((props, ref) => {
     }
   }))
   return (
-    _formInput.map(item => {
-      // let _ref = !item ? useRef(null) : item.ref
+    _formInput.map((item) => {
+      let _ref = !item ? useRef(null) : item.ref;
       return (
         <Form.Item label={item.title} key={item.id}>
-          <Input type={item.type} placeholder={item.placeholder} size={item.size} prefix={item.prefix}/>
-          {/* <InputSelf ref={_ref}></InputSelf> */}
+          <InputSelf props={item} ref={_ref}/>
         </Form.Item>
       )
     })
@@ -37,10 +30,9 @@ const FormItemInput = React.forwardRef((props, ref) => {
 });
 
 const InputSelf = React.forwardRef((props, ref) => {
-  console.log(props)
-  console.log(ref)
+  const _props = props.props;
   return (
-    <Input />
+    <Input type={_props.type} placeholder={_props.placeholder} size={_props.size} prefix={_props.prefix} ref={ref} />
   )
 });
 
@@ -59,22 +51,20 @@ const { Option } = Select;
 
 const FormSelf = props => {
 
-  const formRef = props.formRef;
   const formInput = props.formInput;
 
   console.log(formInput);
 
   useEffect(() => {
-    formRef.current.refFun()
     return(() => {
       console.log('COMPONENT WILL UNMOUNT ...');
     })
-  }, [props, formRef])
+  }, [props])
 
   return (
     <div className="formmain">
       <Form>
-        <FormItemInput name={'name'} ref={formRef} formInput={formInput}></FormItemInput>
+        <FormItemInput name={'name'} formInput={formInput}></FormItemInput>
         <FormItemSelect></FormItemSelect>
       </Form>
     </div>

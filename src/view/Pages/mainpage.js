@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import '../../style/main.less';
 
 import FormSelf from '../components/form';
@@ -15,6 +15,7 @@ import card06 from "../../images/card_06.jpg"
 import { Col, Layout, Menu, Modal, PageHeader, Row, Tree, Card } from 'antd';
 
 import { PostWay } from '../../server/request'
+import { refFun } from '../../common/common'
 
 const { SubMenu } = Menu;
 const { Header, Content } = Layout;
@@ -26,8 +27,7 @@ const { DirectoryTree } = Tree;
 // defined component
 function NewCol (item) {
   const i = item.item;
-  let titleWord = '';
-  let Iimg = '';
+  let [titleWord, Iimg] = ['', ''];
   if (i) {
     titleWord = "Model Card by self " + i.cardname;
     Iimg = i.img
@@ -112,7 +112,7 @@ const MainPage = props => {
       type: 'text',
       size: 'small',
       placeholder: 'This is name',
-      ref: 'nameRef'
+      ref: refFun('name')
     },
     {
       id: 2,
@@ -120,10 +120,9 @@ const MainPage = props => {
       type: 'text',
       size: 'small',
       placeholder: 'This is age',
-      ref: 'ageRef'
+      ref: refFun('age')
     }
   ])
-  const dataRef = useRef('textRef');
 
   // 数据更新
   useEffect(() => {
@@ -148,9 +147,7 @@ const MainPage = props => {
         console.log(data)
         setTreeData(data);
       })
-      .catch(error => {
-        console.log(error)
-      })
+      .catch(error => { console.log(error) })
   }
 
   // defined a label
@@ -229,7 +226,6 @@ const MainPage = props => {
           </SubMenu>
         </Menu>
       </Header>
-      {/* Content */}
       <Content className="maincontent">
         <div className="nav1_content">
           <PageHeader
@@ -312,7 +308,6 @@ const MainPage = props => {
       </Content>
       <Modal title="Add List info modal" visible={isModalVisible} onOk={handleModalOk} onCancel={handleModalCancel}>
         <FormSelf
-          formRef={dataRef}
           formInput={dataInput}
         ></FormSelf>
       </Modal>
