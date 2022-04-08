@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+// eslint-disable-next-line
+import React, { useState, useEffect, useRef } from "react";
 import '../../style/main.less';
 
 import FormSelf from '../components/form';
@@ -99,6 +100,30 @@ const MainPage = props => {
   const [detailInfor, setDetailInfor] = useState('Detail');
   // eslint-disable-next-line
   const [operationInfor, setOperationInfor] = useState('Operation');
+
+  /**
+   * This is Form Data
+   */
+  // eslint-disable-next-line
+  const [dataInput, setDataInput] = useState([
+    {
+      id: 1,
+      title: 'name',
+      type: 'text',
+      size: 'small',
+      placeholder: 'This is name',
+      ref: 'nameRef'
+    },
+    {
+      id: 2,
+      title: 'age',
+      type: 'text',
+      size: 'small',
+      placeholder: 'This is age',
+      ref: 'ageRef'
+    }
+  ])
+  const dataRef = useRef('textRef');
 
   // 数据更新
   useEffect(() => {
@@ -286,7 +311,10 @@ const MainPage = props => {
         </div>
       </Content>
       <Modal title="Add List info modal" visible={isModalVisible} onOk={handleModalOk} onCancel={handleModalCancel}>
-        <FormSelf></FormSelf>
+        <FormSelf
+          formRef={dataRef}
+          formInput={dataInput}
+        ></FormSelf>
       </Modal>
     </div>
   )
