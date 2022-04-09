@@ -10,6 +10,7 @@
 - [idea](#idea)
 - [To be resolved](#todo)
 - [Finished](#finish)
+- [React 底层逻辑](#underlying)
 - [独立组件库](#components)
 - [Link](#link)
 
@@ -185,11 +186,6 @@
 - [ ] electron 打包发布
   - [ ] Github Actions
 - [ ] GUI 嵌入
-- [ ] **React 底层函数**
-  - [ ] forwardRef
-  - [ ] useImperativeHandle
-  - [ ] ref
-    - [x] createRef & useRef
 - [ ] 待续...
 
 ### <a id="finish">Finished</a>
@@ -200,10 +196,22 @@
 - [x] DOM 渲染前获取后台数据信息
 - [ ] 待续...
 
+### <a id="underlying">React 底层逻辑</a>
+
+- [ ] forwardRef
+- [ ] useImperativeHandle
+- [ ] ref
+  - [x] createRef & useRef
+- [ ] useContext
+- [ ] getPrefixCls
+- [ ] getMergedStatus
+- [ ] as
+
 ### <a id="components">独立组件库 [页面必用组件库]</a>
 *基于 Ant Design 的封装组件库，持续扩展中...*<br />
 *当前组件为页面必须使用组件，后期做非页面必须组件，持续扩展中...*
 - [ ] Form
+- [ ] Input
 
 
 ### <a id="link">Link</a>

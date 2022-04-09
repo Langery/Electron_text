@@ -14,8 +14,7 @@ import card06 from "../../images/card_06.jpg"
 // Image, Skeleton
 import { Col, Layout, Menu, Modal, PageHeader, Row, Tree, Card } from 'antd';
 
-import { PostWay } from '../../server/request'
-import { refFun } from '../../common/common'
+import { PostWay } from '../../server/request';
 
 const { SubMenu } = Menu;
 const { Header, Content } = Layout;
@@ -110,17 +109,16 @@ const MainPage = props => {
       id: 1,
       title: 'name',
       type: 'text',
-      size: 'small',
+      size: 'middle',
       placeholder: 'This is name',
-      ref: refFun('name')
+      required: true
     },
     {
       id: 2,
       title: 'age',
       type: 'text',
-      size: 'small',
-      placeholder: 'This is age',
-      ref: refFun('age')
+      size: 'middle',
+      placeholder: 'This is age'
     }
   ])
 
@@ -180,7 +178,10 @@ const MainPage = props => {
     setIsModalVisible(true);
   }
 
-  const handleModalOk = e => { setIsModalVisible(false); }
+  const handleModalOk = e => {
+    // set a event to the child component
+    setIsModalVisible(false);
+  }
 
   const handleModalCancel = e => { setIsModalVisible(false); }
 

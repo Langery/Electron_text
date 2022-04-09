@@ -5,24 +5,14 @@ import '../../style/form.less';
 import { Form, Input, Select } from "antd";
 
 const FormItemInput = React.forwardRef((props, ref) => {
-  console.log(props) // { name: 'name' }
   const _formInput = props.formInput;
 
-  useImperativeHandle(ref, ()=> ({
-    // a function about the ref event
-    refFun() {
-      // deal event
-      console.log('ref')
-      console.log(ref)
-      return 'hello'
-    }
-  }))
   return (
     _formInput.map((item) => {
-      let _ref = !item ? useRef(null) : item.ref;
+      let _required = !item ? false : item.required
       return (
-        <Form.Item label={item.title} key={item.id}>
-          <InputSelf props={item} ref={_ref}/>
+        <Form.Item required={_required} label={item.title} key={item.id}>
+          <InputSelf props={item} />
         </Form.Item>
       )
     })
@@ -31,8 +21,22 @@ const FormItemInput = React.forwardRef((props, ref) => {
 
 const InputSelf = React.forwardRef((props, ref) => {
   const _props = props.props;
+
+  // useImperativeHandle(ref, ()=> ({
+  //   // a function about the ref event
+  //   refFun() {
+  //     // deal event
+  //     console.log('ref')
+  //     console.log(ref)
+  //     return 'hello'
+  //   }
+  // }))
+
+  const storageRef = `${_props.title}Ref`;
+  const _ref = useRef(storageRef);
+
   return (
-    <Input type={_props.type} placeholder={_props.placeholder} size={_props.size} prefix={_props.prefix} ref={ref} />
+    <Input type={_props.type} placeholder={_props.placeholder} size={_props.size} prefix={_props.prefix} ref={_ref} />
   )
 });
 
@@ -64,7 +68,7 @@ const FormSelf = props => {
   return (
     <div className="formmain">
       <Form>
-        <FormItemInput name={'name'} formInput={formInput}></FormItemInput>
+        <FormItemInput formInput={formInput}></FormItemInput>
         <FormItemSelect></FormItemSelect>
       </Form>
     </div>
