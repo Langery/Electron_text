@@ -1,11 +1,15 @@
 // eslint-disable-next-line
-import React, { useState, useEffect, useRef, useImperativeHandle } from "react";
+import React, { useState, useEffect, useRef, useImperativeHandle, createRef } from "react";
 import '../../style/form.less';
 
 import { Form, Input, Select } from "antd";
 
 const FormItemInput = React.forwardRef((props, ref) => {
   const _formInput = props.formInput;
+
+  useImperativeHandle(ref, () => ({
+
+  }))
 
   return (
     _formInput.map((item) => {
@@ -22,18 +26,15 @@ const FormItemInput = React.forwardRef((props, ref) => {
 const InputSelf = React.forwardRef((props, ref) => {
   const _props = props.props;
 
-  // useImperativeHandle(ref, ()=> ({
-  //   // a function about the ref event
-  //   refFun() {
-  //     // deal event
-  //     console.log('ref')
-  //     console.log(ref)
-  //     return 'hello'
-  //   }
-  // }))
-
   const storageRef = `${_props.title}Ref`;
   const _ref = useRef(storageRef);
+
+  // useImperativeHandle(ref, ()=> ({
+  //   // a function about the ref event
+  //   focus: () => {
+  //     _ref.current.focus()
+  //   }
+  // }))
 
   return (
     <Input type={_props.type} placeholder={_props.placeholder} size={_props.size} prefix={_props.prefix} ref={_ref} />
@@ -56,7 +57,6 @@ const { Option } = Select;
 const FormSelf = props => {
 
   const formInput = props.formInput;
-
   console.log(formInput);
 
   useEffect(() => {
@@ -65,13 +65,18 @@ const FormSelf = props => {
     })
   }, [props])
 
+  const formRef = createRef(null);
+  
+  // eslint-disable-next-line
+  const [backdata, setBackdata] = useState({name: '111', age: 8})
+  // TODO: backdata is a obj to deal a mass of data and save the form input data to parent component
+  props.getBackData(backdata);
+
   return (
-    <div className="formmain">
-      <Form>
-        <FormItemInput formInput={formInput}></FormItemInput>
-        <FormItemSelect></FormItemSelect>
-      </Form>
-    </div>
+    <Form ref={formRef} className="formmain">
+      <FormItemInput formInput={formInput}></FormItemInput>
+      <FormItemSelect></FormItemSelect>
+    </Form>
   )
 }
 

@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import '../../style/main.less';
 
 import FormSelf from '../components/form';
@@ -179,7 +179,7 @@ const MainPage = props => {
   }
 
   const handleModalOk = e => {
-    // set a event to the child component
+    // set a event to the child component data
     setIsModalVisible(false);
   }
 
@@ -194,6 +194,10 @@ const MainPage = props => {
     console.log('Trigger Expand');
   };
   // tree =====================================================> end
+
+  const childRef = (data) => {
+    console.log(data)
+  }
 
   return (
     <div className="mainpage">
@@ -309,6 +313,7 @@ const MainPage = props => {
       </Content>
       <Modal title="Add List info modal" visible={isModalVisible} onOk={handleModalOk} onCancel={handleModalCancel}>
         <FormSelf
+          getBackData = {childRef}
           formInput={dataInput}
         ></FormSelf>
       </Modal>
