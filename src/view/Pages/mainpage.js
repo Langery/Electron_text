@@ -121,6 +121,12 @@ const MainPage = props => {
       placeholder: 'This is age'
     }
   ])
+  
+  // eslint-disable-next-line
+  const [dataLayout, setDataLayout] = useState({
+    labelCol: 4,
+    wrapperCol: 20
+  })
 
   // 数据更新
   useEffect(() => {
@@ -316,6 +322,7 @@ const MainPage = props => {
         <FormSelf
           getBackData = {childRef}
           formInput={dataInput}
+          formLayout={dataLayout}
         ></FormSelf>
       </Modal>
     </div>

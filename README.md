@@ -171,7 +171,7 @@
   - [x] 多级路由切换问题未解决，需特殊考虑其他子层路由关系
   - [x] 多级路由的子路由数据传递
   - [x] 子路由的数据存储以及与父级之间的数据交换
-- [ ] **重新定义视图，删除之前所有逻辑**
+- [x] **重新定义视图，删除之前所有逻辑**
 - [ ] TypeScript
 - [ ] 视图处理方式
   - [ ] 处理过程分类
@@ -198,7 +198,7 @@
 
 ### <a id="underlying">React 底层逻辑</a>
 
-- [ ] forwardRef
+- [x] forwardRef
 - [ ] useImperativeHandle
 - [ ] ref
   - [x] createRef & useRef
@@ -206,6 +206,8 @@
 - [ ] getPrefixCls
 - [ ] getMergedStatus
 - [ ] as
+- [x] interface
+  - [x] extends
 
 ### <a id="components">独立组件库 [页面必用组件库]</a>
 *基于 Ant Design 的封装组件库，持续扩展中...*<br />
