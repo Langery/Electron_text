@@ -195,6 +195,7 @@ const MainPage = props => {
   };
   // tree =====================================================> end
 
+  // child component data
   const childRef = (data) => {
     console.log(data)
   }

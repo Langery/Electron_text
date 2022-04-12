@@ -4,6 +4,8 @@ import '../../style/form.less';
 
 import { Form, Input, Select } from "antd";
 
+import DemoSelf from "./demo";
+
 const FormItemInput = React.forwardRef((props, ref) => {
   const _formInput = props.formInput;
 
@@ -76,6 +78,7 @@ const FormSelf = props => {
     <Form ref={formRef} className="formmain">
       <FormItemInput formInput={formInput}></FormItemInput>
       <FormItemSelect></FormItemSelect>
+      <DemoSelf></DemoSelf>
     </Form>
   )
 }
