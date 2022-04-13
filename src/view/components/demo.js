@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-interface IDemoProps {
+export interface IDemoProps {
   /**
    * ? 表示 props 是可选的
    */
@@ -12,8 +12,11 @@ interface IDemoProps {
 /**
  * 定义扩展组件，用于添加扩展项
  */
-interface extendDemoProps extends IDemoProps {
+export interface extendDemoProps extends IDemoProps {
   years: number
+}
+
+export interface IDemoState { 
 }
 
 /**

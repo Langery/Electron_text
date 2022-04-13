@@ -4,7 +4,7 @@ import '../../style/form.less';
 
 import { Form, Input, Select } from "antd";
 
-// import DemoSelf from "./demo";
+import DemoSelf from "./demo";
 
 interface IFormInputProps {
   props: null
@@ -80,7 +80,7 @@ const FormSelf = props => {
     <Form {...layout} ref={formRef} className="formmain">
       <FormItemInput formInput={formInput}></FormItemInput>
       <FormItemSelect></FormItemSelect>
-      {/* <DemoSelf></DemoSelf> */}
+      <DemoSelf></DemoSelf>
     </Form>
   )
 }
