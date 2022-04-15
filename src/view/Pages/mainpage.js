@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import '../../style/main.less';
 
+// import FormSelf from '../components/form2';
 import FormSelf from '../components/form';
 
 import card01 from "../../images/card_01.jpg"
@@ -104,11 +105,18 @@ const MainPage = props => {
    * This is Form Data
    */
   // eslint-disable-next-line
-  const [dataInput, setDataInput] = useState([
+  const [dataLayout, setDataLayout] = useState({
+    labelCol: 4,
+    wrapperCol: 20
+  })
+
+
+  // eslint-disable-next-line
+  const [dataItem, setDataItem] = useState([
     {
       id: 1,
       title: 'name',
-      type: 'text',
+      type: 'input',
       size: 'middle',
       placeholder: 'This is name',
       required: true
@@ -116,17 +124,31 @@ const MainPage = props => {
     {
       id: 2,
       title: 'age',
-      type: 'text',
+      type: 'input',
       size: 'middle',
       placeholder: 'This is age'
+    },
+    {
+      id: 3,
+      title: 'time',
+      type: 'select',
+      size: 'middle',
+      placeholder: 'This is select',
+      selectData: [
+        {
+          id: 1,
+          name: 'Tom',
+          value: 'tom'
+        },
+        {
+          id: 2,
+          name: 'Jack',
+          value: 'jack'
+        }
+      ],
+      defaultSelect: 'Tom'
     }
   ])
-  
-  // eslint-disable-next-line
-  const [dataLayout, setDataLayout] = useState({
-    labelCol: 4,
-    wrapperCol: 20
-  })
 
   // 数据更新
   useEffect(() => {
@@ -321,7 +343,7 @@ const MainPage = props => {
       <Modal title="Add List info modal" visible={isModalVisible} onOk={handleModalOk} onCancel={handleModalCancel}>
         <FormSelf
           getBackData = {childRef}
-          formInput={dataInput}
+          formItemData={dataItem}
           formLayout={dataLayout}
         ></FormSelf>
       </Modal>

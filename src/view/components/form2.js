@@ -64,18 +64,16 @@ const FormSelf = props => {
   console.log(formItem);
   const formLayout = props.formLayout;
 
-  // eslint-disable-next-line
-  const [backdata, setBackdata] = useState({name: '111', age: 8})
-
   useEffect(() => {
     return(() => {
       console.log('COMPONENT WILL UNMOUNT ...');
     })
-  }, [props, backdata])
+  }, [props])
 
   const formRef = createRef(null);
   
-  
+  // eslint-disable-next-line
+  const [backdata, setBackdata] = useState({name: '111', age: 8})
   /**
    * when after deal with the style of form
    * TODO: backdata is a obj to deal a mass of data and save the form input data to parent component
