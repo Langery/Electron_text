@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import '../../style/main.less';
 
-// import FormSelf from '../components/form2';
 import FormSelf from '../components/form';
 
 import card01 from "../../images/card_01.jpg"
@@ -119,6 +118,7 @@ const MainPage = props => {
       type: 'input',
       size: 'middle',
       placeholder: 'This is name',
+      // inputType: 'text', // text | number
       required: true
     },
     {
@@ -130,7 +130,7 @@ const MainPage = props => {
     },
     {
       id: 3,
-      title: 'time',
+      title: 'nickname',
       type: 'select',
       size: 'middle',
       placeholder: 'This is select',
@@ -147,8 +147,18 @@ const MainPage = props => {
         }
       ],
       defaultSelect: 'Tom'
+    },
+    {
+      id: 4,
+      title: 'time',
+      type: 'datepick',
+      size: 'middle',
+      placeholder: 'This is data pick',
+      disabled: false
     }
   ])
+
+  const [clearData, setClearData] = useState(false)
 
   // 数据更新
   useEffect(() => {
@@ -211,7 +221,10 @@ const MainPage = props => {
     setIsModalVisible(false);
   }
 
-  const handleModalCancel = e => { setIsModalVisible(false); }
+  const handleModalCancel = e => {
+    setClearData(true);
+    setIsModalVisible(false);
+  }
 
   // tree =====================================================> start
   const onSelect = (keys, info) => {
@@ -345,6 +358,7 @@ const MainPage = props => {
           getBackData = {childRef}
           formItemData={dataItem}
           formLayout={dataLayout}
+          formClear={clearData}
         ></FormSelf>
       </Modal>
     </div>

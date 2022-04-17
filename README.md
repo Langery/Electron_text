@@ -228,3 +228,4 @@
 8. [useCallBack,useMemo,forwardRef,useImperativeHandle用法总结](https://www.jianshu.com/p/75d15003b4fc)
 9. [教你写一个 React 状态管理库](https://baijiahao.baidu.com/s?id=1716945978446095405&wfr=spider&for=pc)
 10. [用TypeScript编写React的最佳实践](https://baijiahao.baidu.com/s?id=1716649947174314729&wfr=spider&for=pc)
+11. [React Class Component ref Antd Form resetFields](https://zhuanlan.zhihu.com/p/394150319)
