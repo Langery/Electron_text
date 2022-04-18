@@ -14,7 +14,7 @@ import card06 from "../../images/card_06.jpg"
 // Image, Skeleton
 import { Col, Layout, Menu, Modal, PageHeader, Row, Tree, Card } from 'antd';
 
-import { PostWay } from '../../server/request';
+import { PostWay, GetWay } from '../../server/request';
 
 const { SubMenu } = Menu;
 const { Header, Content } = Layout;
@@ -47,8 +47,8 @@ function NewCol (item) {
 const MainPage = props => {
 
   const [current, setCurrent] = useState('nav1_content');
-  // const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(true);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  // const [isModalVisible, setIsModalVisible] = useState(true);
   const [treeData, setTreeData] = useState([
     {
       title: 'parent 0',
@@ -167,7 +167,7 @@ const MainPage = props => {
     return(() => {
       console.log('COMPONENT WILL UNMOUNT ...');
     })
-  }, [treeData])
+  }, [])
 
   const getTreeData = () => {
     const getWay = PostWay('getTree', '')
@@ -229,6 +229,26 @@ const MainPage = props => {
   // tree =====================================================> start
   const onSelect = (keys, info) => {
     console.log('Trigger Select', keys, info);
+    /**
+     * enter reference: keys
+     * out reference: describe , name, id == keys
+     */
+    const sendData = {
+      id: keys
+    }
+    const getWay = GetWay('getListInfor', sendData);
+    fetch(getWay[0], getWay[1])
+      .then(res => {
+        if (res.ok) {
+          return res.json()
+        } else {
+          console.log('error')
+        }
+      })
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => { console.log(error) })
   };
 
   const onExpand = () => {

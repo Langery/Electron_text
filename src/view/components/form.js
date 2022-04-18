@@ -49,6 +49,11 @@ const InputSelf = React.forwardRef(props => {
 
   const storageRef = `${_props.title}Ref`;
   const _ref = useRef(storageRef);
+  useImperativeHandle(_ref, ()=> ({
+    focus: () => {
+      _ref.current.focus();
+    }
+  }))
 
   return (
     <Input type={_props.type} key={_props.id} placeholder={_props.placeholder} size={_props.size} prefix={_props.prefix} ref={_ref} />

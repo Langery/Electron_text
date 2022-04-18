@@ -19,7 +19,6 @@ export function PostWay (urlname, sendData) {
 export function GetWay (urlname, ...sendData) {
   let options = {
     method: 'GET',
-    body: {},
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
