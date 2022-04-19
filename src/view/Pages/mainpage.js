@@ -44,6 +44,22 @@ function NewCol (item) {
   return returnLabel;
 }
 
+function useCallbackState(state) {
+  const _cb = useRef();
+  const [data, setData] = useState(state);
+  useEffect(() => {
+    _cb.current && _cb.current(data);
+  }, [data])
+
+  return [
+    data,
+    function (val, callback) {
+      _cb.current = callback;
+      setData(val);
+    }
+  ]
+}
+
 const MainPage = props => {
 
   const [current, setCurrent] = useState('nav1_content');
@@ -150,24 +166,38 @@ const MainPage = props => {
     },
     {
       id: 4,
-      title: 'time',
+      title: 'create time',
       type: 'datepick',
       size: 'middle',
       placeholder: 'This is data pick',
       disabled: false
+    },
+    {
+      id: 5,
+      title: 'infor',
+      type: 'text',
+      size: 'middle',
+      placeholder: 'This is TextArea',
+      row: 4
     }
   ])
 
-  const [clearData, setClearData] = useState(false)
+  const [clearData, setClearData] = useCallbackState(false);
+  const [backInfor, setBackInfor] = useCallbackState(false);
+
+  const childSendRef = useRef(null);
 
   // 数据更新
   useEffect(() => {
     // run function
     getTreeData();
+    if (backInfor) {
+      childSendRef.current.getChildData()
+    }
     return(() => {
       console.log('COMPONENT WILL UNMOUNT ...');
     })
-  }, [])
+  }, [backInfor])
 
   const getTreeData = () => {
     const getWay = PostWay('getTree', '')
@@ -212,27 +242,29 @@ const MainPage = props => {
   };
 
   const addListInfor = e => {
-    console.log('click add icon');
+    console.log('CLICK ADD ICON ...');
     setIsModalVisible(true);
   }
 
   const handleModalOk = e => {
+    console.log('CLICK MODAL OK ...')
     // set a event to the child component data
+    setBackInfor((true), data => {
+      console.log(data);
+    })
     setIsModalVisible(false);
   }
 
   const handleModalCancel = e => {
-    setClearData(true);
+    setClearData((true), (data) => {
+      console.log(data)
+    });
     setIsModalVisible(false);
   }
 
   // tree =====================================================> start
   const onSelect = (keys, info) => {
     console.log('Trigger Select', keys, info);
-    /**
-     * enter reference: keys
-     * out reference: describe , name, id == keys
-     */
     const sendData = {
       id: keys
     }
@@ -247,6 +279,7 @@ const MainPage = props => {
       })
       .then(data => {
         console.log(data);
+        setDetailInfor(data.describe);
       })
       .catch(error => { console.log(error) })
   };
@@ -375,10 +408,12 @@ const MainPage = props => {
       </Content>
       <Modal title="Add List info modal" visible={isModalVisible} onOk={handleModalOk} onCancel={handleModalCancel}>
         <FormSelf
+          ref={childSendRef}
           getBackData = {childRef}
           formItemData={dataItem}
           formLayout={dataLayout}
           formClear={clearData}
+          formBackInfor={backInfor}
         ></FormSelf>
       </Modal>
     </div>
