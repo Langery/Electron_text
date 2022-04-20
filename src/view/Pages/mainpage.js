@@ -243,6 +243,9 @@ const MainPage = props => {
 
   const addListInfor = e => {
     console.log('CLICK ADD ICON ...');
+    setBackInfor((false), data => {
+      console.log(data);
+    })
     setIsModalVisible(true);
   }
 
