@@ -12,7 +12,7 @@ import card05 from "../../images/card_05.jpg"
 import card06 from "../../images/card_06.jpg"
 
 // Image, Skeleton
-import { Col, Layout, Menu, Modal, PageHeader, Row, Tree, Card } from 'antd';
+import { Col, Layout, Menu, Modal, PageHeader, Row, Tree, Card, Carousel } from 'antd';
 
 import { PostWay, GetWay } from '../../server/request';
 
@@ -363,6 +363,20 @@ const MainPage = props => {
               <p className="content_infor">
                 {detailInfor}
               </p>
+              <Carousel>
+                <div className="carousel_style">
+                  <h3>1</h3>
+                </div>
+                <div className="carousel_style">
+                  <h3>2</h3>
+                </div>
+                <div className="carousel_style">
+                  <h3>3</h3>
+                </div>
+                <div className="carousel_style">
+                  <h3>4</h3>
+                </div>
+              </Carousel>
             </Col>
             <Col span={8} className="main_col_3">
               <PageHeader
@@ -377,6 +391,9 @@ const MainPage = props => {
           </Row>
         </div>
         <div className="nav2_content">
+          {/* <Header>
+            Header
+          </Header> */}
           <Row className="nav2_row">
             <NewCol></NewCol>
             <NewCreatCol></NewCreatCol>
