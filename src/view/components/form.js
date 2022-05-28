@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, useImperativeHandle, createRef, cre
 import '../../style/form.less';
 
 // eslint-disable-next-line
-import { Form, Input, Select, DatePicker, InputNumber } from "antd";
+import { Form, Input, Select, DatePicker, InputNumber, Button } from "antd";
 
 const { TextArea } = Input;
 
@@ -22,8 +22,13 @@ const FormItem: React.FC<IFormItem> = (props) => {
       /**
        * rule
        */
+
+      const InputChangeValue = (data) => {
+        props.backInputUpData(data);
+      }
+
       if (i.type === 'input') {
-        OperationComponent = <InputSelf props={i}/>;
+        OperationComponent = <InputSelf backInput={InputChangeValue} props={i}/>;
       } else if (i.type === 'select') {
         OperationComponent = <SelectSelf props={i} />
       } else if (i.type === 'datepick') {
@@ -32,8 +37,9 @@ const FormItem: React.FC<IFormItem> = (props) => {
         OperationComponent = <TextSelf props={i} />
       }
       return (
-        <Form.Item name={i.type} required={_required} label={i.title} key={i.id}>
+        <Form.Item name={i.title} required={_required} label={i.title} key={i.id}>
           {OperationComponent}
+          {/* <InputSelf props={i} /> */}
         </Form.Item>
       )
     })
@@ -50,12 +56,16 @@ const DatePickerSelf = React.forwardRef(props => {
 
 const InputSelf = React.forwardRef(props => {
   const _props = props.props;
+  // const storageRef = `${_props.title}Ref`;
+  // const _ref = useRef(storageRef);
 
-  const storageRef = `${_props.title}Ref`;
-  const _ref = useRef(storageRef);
+  const handleChange = (e) => {
+    const { value } = e.target;
+    props.backInput(value);
+  }
 
   return (
-    <Input type={_props.type} key={_props.id} placeholder={_props.placeholder} size={_props.size} prefix={_props.prefix} ref={_ref} />
+    <Input onChange={handleChange} type={_props.type} key={_props.id} placeholder={_props.placeholder} size={_props.size} prefix={_props.prefix} />
   )
 });
 
@@ -90,18 +100,29 @@ const FormSelf = React.forwardRef((props, ref) => {
   const formClear = props.formClear;
 
   const formBackInfor = props.formBackInfor
-  console.log(formBackInfor)
+  console.log(formBackInfor);
 
   // eslint-disable-next-line
   const [backdata, setBackdata] = useState({name: '111', age: 8})
 
   const formRef = createRef(null);
 
+  const [form] = Form.useForm();
+  // const userName = Form.useWatch('name', form);
+  // console.log(userName);
+
   const clearType = ['input', 'select', 'datepick', 'text']
+
+  /**
+   * setFormData start
+   */
+  const [formName, setFormName] = useState(null)
+  /**
+   * setFormData end
+   */
 
   useEffect(() => {
     // clear form data
-    onFinish();
     if (formClear) formRef.current.resetFields(clearType);
 
     return(() => {
@@ -111,12 +132,14 @@ const FormSelf = React.forwardRef((props, ref) => {
   
   useImperativeHandle(ref, ()=> ({
     getChildData: () => {
+      // onFinish();
       // console.log(formRef)
       console.log(formRef.current)
       /**
        * send data to up level
        */
       console.log('GET CHILD DATA TO UP LEVEL ...')
+      // console.log(form.getFieldsValue());
       props.getBackData(backdata);
     }
   }))
@@ -127,18 +150,39 @@ const FormSelf = React.forwardRef((props, ref) => {
    * Thinking: when trigger the modal sumbit button, the form data should sumbit the handleOk to collet the form data ...
    */
 
-  const layout = {
-    labelCol: { span: formLayout.labelCol },
-    wrapperCol: { span: formLayout.wrapperCol },
+  const labelLayout = {
+    span: formLayout.labelCol
+  }
+  const wrapperLayout = {
+    span: formLayout.wrapperCol
   }
 
-  const onFinish = values => {
-    console.log(values)
+  const onFinish = value => {
+    console.log(value)
+    value.name = formName;
+    // props.getBackData(value);
+    setBackdata(value)
+    form.resetFields();
+  }
+
+  const InputValue = (data) => {
+    setFormName(data)
   }
 
   return (
-    <Form onFinish={onFinish} {...layout} ref={formRef} className="formmain">
-      <FormItem formItem={formItem}></FormItem>
+    <Form onFinish={onFinish} labelCol={labelLayout} wrapperCol={wrapperLayout} form={form} ref={formRef} layout="horizontal" className="formmain">
+      <FormItem backInputUpData={InputValue} formItem={formItem}></FormItem>
+      <Form.Item
+        label="input"
+        name="input"
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
     </Form>
   )
 })

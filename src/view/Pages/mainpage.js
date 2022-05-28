@@ -53,7 +53,7 @@ function useCallbackState(state) {
 
   return [
     data,
-    function (val, callback) {
+    (val, callback) => {
       _cb.current = callback;
       setData(val);
     }
@@ -137,49 +137,49 @@ const MainPage = props => {
       // inputType: 'text', // text | number
       required: true
     },
-    {
-      id: 2,
-      title: 'age',
-      type: 'input',
-      size: 'middle',
-      placeholder: 'This is age'
-    },
-    {
-      id: 3,
-      title: 'nickname',
-      type: 'select',
-      size: 'middle',
-      placeholder: 'This is select',
-      selectData: [
-        {
-          id: 1,
-          name: 'Tom',
-          value: 'tom'
-        },
-        {
-          id: 2,
-          name: 'Jack',
-          value: 'jack'
-        }
-      ],
-      defaultSelect: 'Tom'
-    },
-    {
-      id: 4,
-      title: 'create time',
-      type: 'datepick',
-      size: 'middle',
-      placeholder: 'This is data pick',
-      disabled: false
-    },
-    {
-      id: 5,
-      title: 'infor',
-      type: 'text',
-      size: 'middle',
-      placeholder: 'This is TextArea',
-      row: 4
-    }
+    // {
+    //   id: 2,
+    //   title: 'age',
+    //   type: 'input',
+    //   size: 'middle',
+    //   placeholder: 'This is age'
+    // },
+    // {
+    //   id: 3,
+    //   title: 'nickname',
+    //   type: 'select',
+    //   size: 'middle',
+    //   placeholder: 'This is select',
+    //   selectData: [
+    //     {
+    //       id: 1,
+    //       name: 'Tom',
+    //       value: 'tom'
+    //     },
+    //     {
+    //       id: 2,
+    //       name: 'Jack',
+    //       value: 'jack'
+    //     }
+    //   ],
+    //   defaultSelect: 'Tom'
+    // },
+    // {
+    //   id: 4,
+    //   title: 'create time',
+    //   type: 'datepick',
+    //   size: 'middle',
+    //   placeholder: 'This is data pick',
+    //   disabled: false
+    // },
+    // {
+    //   id: 5,
+    //   title: 'infor',
+    //   type: 'text',
+    //   size: 'middle',
+    //   placeholder: 'This is TextArea',
+    //   row: 4
+    // }
   ])
 
   const [clearData, setClearData] = useCallbackState(false);
@@ -252,9 +252,10 @@ const MainPage = props => {
   const handleModalOk = e => {
     console.log('CLICK MODAL OK ...')
     // set a event to the child component data
-    setBackInfor((true), data => {
-      console.log(data);
-    })
+    // setBackInfor((true), data => {
+    //   console.log(data);
+    // })
+    setBackInfor(true)
     setIsModalVisible(false);
   }
 
