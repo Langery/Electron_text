@@ -23,23 +23,30 @@ const FormItem: React.FC<IFormItem> = (props) => {
        * rule
        */
 
-      const InputChangeValue = (data) => {
+      const InputChangeValue = data => {
         props.backInputUpData(data);
+      }
+
+      const SelectChangeValue = data => {
+        props.backSelectUpData(data);
+      }
+
+      const DateChangeValue = data => {
+        props.backDateUpData(data);
       }
 
       if (i.type === 'input') {
         OperationComponent = <InputSelf backInput={InputChangeValue} props={i}/>;
       } else if (i.type === 'select') {
-        OperationComponent = <SelectSelf props={i} />
+        OperationComponent = <SelectSelf backSelect={SelectChangeValue} props={i} />
       } else if (i.type === 'datepick') {
-        OperationComponent = <DatePickerSelf props={i} />
+        OperationComponent = <DatePickerSelf backDate={DateChangeValue} props={i} />
       } else if (i.type === 'text') {
         OperationComponent = <TextSelf props={i} />
       }
       return (
         <Form.Item name={i.title} required={_required} label={i.title} key={i.id}>
           {OperationComponent}
-          {/* <InputSelf props={i} /> */}
         </Form.Item>
       )
     })
@@ -49,15 +56,18 @@ const FormItem: React.FC<IFormItem> = (props) => {
 const DatePickerSelf = React.forwardRef(props => {
   const _props = props.props;
 
+  const handleChange = (e) => {
+    const { value } = e.target;
+    props.backDate(value);
+  }
+
   return (
-    <DatePicker disabled={_props.disabled} />
+    <DatePicker onchange={handleChange} disabled={_props.disabled} />
   )
 })
 
 const InputSelf = React.forwardRef(props => {
   const _props = props.props;
-  // const storageRef = `${_props.title}Ref`;
-  // const _ref = useRef(storageRef);
 
   const handleChange = (e) => {
     const { value } = e.target;
@@ -78,8 +88,13 @@ const SelectSelf = React.forwardRef(props => {
       <Select.Option value={i.key} key={i.id}>{i.name}</Select.Option>
     )
   })
+
+  const handleChange = (e) => {
+    const { value } = e.target;
+    props.backSelect(value);
+  }
   return (
-    <Select defaultValue={propdata.defaultSelect}>
+    <Select onChange={handleChange} defaultValue={propdata.defaultSelect}>
       {optionsItem}
     </Select>
   )
@@ -169,9 +184,17 @@ const FormSelf = React.forwardRef((props, ref) => {
     setFormName(data)
   }
 
+  const SelectValue = (data) => {
+    console.log(data)
+  }
+
+  const DateValue = (data) => {
+    console.log(data)
+  }
+
   return (
     <Form onFinish={onFinish} labelCol={labelLayout} wrapperCol={wrapperLayout} form={form} ref={formRef} layout="horizontal" className="formmain">
-      <FormItem backInputUpData={InputValue} formItem={formItem}></FormItem>
+      <FormItem backInputUpData={InputValue} backSelectUpData={SelectValue} backDateUpData={DateValue} formItem={formItem}></FormItem>
       <Form.Item
         label="input"
         name="input"
