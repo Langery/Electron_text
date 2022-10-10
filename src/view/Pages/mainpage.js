@@ -140,7 +140,7 @@ const MainPage = props => {
     {
       id: 2,
       title: 'age',
-      type: 'input',
+      type: 'inputnumber',
       size: 'middle',
       placeholder: 'This is age'
     },

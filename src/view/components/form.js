@@ -5,6 +5,7 @@ import '../../style/form.less';
 // eslint-disable-next-line
 import { Form, Input, Select, DatePicker, InputNumber, Button } from "antd";
 
+const { Option } = Select;
 const { TextArea } = Input;
 
 interface IFormItem {
@@ -34,6 +35,9 @@ const FormItem: React.FC<IFormItem> = (props) => {
       const DateChangeValue = data => {
         props.backDateUpData(data);
       }
+      const NumberChangeValue = data => {
+        console.log('number data: ', data);
+      }
 
       if (i.type === 'input') {
         OperationComponent = <InputSelf backInput={InputChangeValue} props={i}/>;
@@ -43,6 +47,8 @@ const FormItem: React.FC<IFormItem> = (props) => {
         OperationComponent = <DatePickerSelf backDate={DateChangeValue} props={i} />
       } else if (i.type === 'text') {
         OperationComponent = <TextSelf props={i} />
+      } else if (i.type === 'inputnumber') {
+        OperationComponent = <InputNumberSelf props={i} backNumber={NumberChangeValue}/>
       }
       return (
         <Form.Item name={i.title} required={_required} label={i.title} key={i.id}>
@@ -53,29 +59,43 @@ const FormItem: React.FC<IFormItem> = (props) => {
   )
 }
 
+const InputNumberSelf = React.forwardRef(props => {
+
+  const handleNumberChange = (e) => {
+    const { value } = e;
+    props.backNumber(value);
+  }
+
+  return (
+    <InputNumber onChange={handleNumberChange} />
+  )
+})
+
 const DatePickerSelf = React.forwardRef(props => {
   const _props = props.props;
 
-  const handleChange = (e) => {
-    const { value } = e.target;
+  const handleDataPickChange = (date, dateString) => {
+    // console.log(date, dateString)
+    const value = dateString;
+
     props.backDate(value);
   }
 
   return (
-    <DatePicker onchange={handleChange} disabled={_props.disabled} />
+    <DatePicker onChange={handleDataPickChange} disabled={_props.disabled} />
   )
 })
 
 const InputSelf = React.forwardRef(props => {
   const _props = props.props;
 
-  const handleChange = (e) => {
+  const handleInputChange = (e) => {
     const { value } = e.target;
     props.backInput(value);
   }
 
   return (
-    <Input onChange={handleChange} type={_props.type} key={_props.id} placeholder={_props.placeholder} size={_props.size} prefix={_props.prefix} />
+    <Input onChange={handleInputChange} type={_props.type} key={_props.id} placeholder={_props.placeholder} size={_props.size} prefix={_props.prefix} />
   )
 });
 
@@ -85,16 +105,16 @@ const SelectSelf = React.forwardRef(props => {
   const selectData = propdata.selectData;
   let optionsItem = selectData.map(i => {
     return (
-      <Select.Option value={i.key} key={i.id}>{i.name}</Select.Option>
+      <Option value={i.name} key={i.id}>{i.name}</Option>
     )
   })
 
-  const handleChange = (e) => {
-    const { value } = e.target;
+  const handleSelectChange = (e) => {
+    const value = e;
     props.backSelect(value);
   }
   return (
-    <Select onChange={handleChange} defaultValue={propdata.defaultSelect}>
+    <Select onChange={handleSelectChange} defaultValue={propdata.defaultSelect}>
       {optionsItem}
     </Select>
   )
@@ -131,7 +151,9 @@ const FormSelf = React.forwardRef((props, ref) => {
   /**
    * setFormData start
    */
-  const [formName, setFormName] = useState(null)
+  const [formName, setFormName] = useState(null);
+  const [formSelect, setFormSelect] = useState(null);
+  const [formDate, setFormDate] = useState(null);
   /**
    * setFormData end
    */
@@ -172,11 +194,14 @@ const FormSelf = React.forwardRef((props, ref) => {
     span: formLayout.wrapperCol
   }
 
-  const onFinish = value => {
-    console.log(value)
-    value.name = formName;
+  const onFinish = values => {
+    console.log(values)
+    console.log(formRef)
+    values.name = formName;
+    values.select = formSelect;
+    values.date = formDate;
     // props.getBackData(value);
-    setBackdata(value)
+    setBackdata(values)
     form.resetFields();
   }
 
@@ -185,22 +210,22 @@ const FormSelf = React.forwardRef((props, ref) => {
   }
 
   const SelectValue = (data) => {
-    console.log(data)
+    setFormSelect(data);
   }
 
   const DateValue = (data) => {
-    console.log(data)
+    setFormDate(data);
   }
 
   return (
     <Form onFinish={onFinish} labelCol={labelLayout} wrapperCol={wrapperLayout} form={form} ref={formRef} layout="horizontal" className="formmain">
       <FormItem backInputUpData={InputValue} backSelectUpData={SelectValue} backDateUpData={DateValue} formItem={formItem}></FormItem>
-      <Form.Item
+      {/* <Form.Item
         label="input"
         name="input"
       >
         <Input />
-      </Form.Item>
+      </Form.Item> */}
       <Form.Item>
         <Button type="primary" htmlType="submit">
           Submit
