@@ -37,6 +37,7 @@ const FormItem: React.FC<IFormItem> = (props) => {
       }
       const NumberChangeValue = data => {
         console.log('number data: ', data);
+        props.backNumberData(data);
       }
 
       if (i.type === 'input') {
@@ -62,12 +63,12 @@ const FormItem: React.FC<IFormItem> = (props) => {
 const InputNumberSelf = React.forwardRef(props => {
 
   const handleNumberChange = (e) => {
-    const { value } = e;
+    const value = e;
     props.backNumber(value);
   }
 
   return (
-    <InputNumber onChange={handleNumberChange} />
+    <InputNumber style={{ width: '100%' }} onChange={handleNumberChange} />
   )
 })
 
@@ -150,10 +151,12 @@ const FormSelf = React.forwardRef((props, ref) => {
 
   /**
    * setFormData start
+   * form list data SAVE
    */
   const [formName, setFormName] = useState(null);
   const [formSelect, setFormSelect] = useState(null);
   const [formDate, setFormDate] = useState(null);
+  const [formNumber, setFormNumber] = useState(0);
   /**
    * setFormData end
    */
@@ -197,9 +200,13 @@ const FormSelf = React.forwardRef((props, ref) => {
   const onFinish = values => {
     console.log(values)
     console.log(formRef)
+    /**
+     * form list data
+     */
     values.name = formName;
     values.select = formSelect;
     values.date = formDate;
+    values.age = formNumber;
     // props.getBackData(value);
     setBackdata(values)
     form.resetFields();
@@ -217,9 +224,13 @@ const FormSelf = React.forwardRef((props, ref) => {
     setFormDate(data);
   }
 
+  const NumberValue = (data) => {
+    setFormNumber(data);
+  }
+
   return (
     <Form onFinish={onFinish} labelCol={labelLayout} wrapperCol={wrapperLayout} form={form} ref={formRef} layout="horizontal" className="formmain">
-      <FormItem backInputUpData={InputValue} backSelectUpData={SelectValue} backDateUpData={DateValue} formItem={formItem}></FormItem>
+      <FormItem backInputUpData={InputValue} backSelectUpData={SelectValue} backDateUpData={DateValue} backNumberData={NumberValue} formItem={formItem}></FormItem>
       {/* <Form.Item
         label="input"
         name="input"
