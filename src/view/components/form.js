@@ -28,8 +28,8 @@ const FormItem: React.FC<IFormItem> = (props) => {
         props.backInputUpData(data);
       }
 
-      const SelectChangeValue = data => {
-        props.backSelectUpData(data);
+      const NicknameChangeValue = data => {
+        props.backNicknameUpData(data);
       }
 
       const DateChangeValue = data => {
@@ -42,8 +42,8 @@ const FormItem: React.FC<IFormItem> = (props) => {
 
       if (i.type === 'input') {
         OperationComponent = <InputSelf backInput={InputChangeValue} props={i}/>;
-      } else if (i.type === 'select') {
-        OperationComponent = <SelectSelf backSelect={SelectChangeValue} props={i} />
+      } else if (i.type === 'nickname') {
+        OperationComponent = <NicknameSelf backNickname={NicknameChangeValue} props={i} />
       } else if (i.type === 'datepick') {
         OperationComponent = <DatePickerSelf backDate={DateChangeValue} props={i} />
       } else if (i.type === 'text') {
@@ -100,7 +100,7 @@ const InputSelf = React.forwardRef(props => {
   )
 });
 
-const SelectSelf = React.forwardRef(props => {
+const NicknameSelf = React.forwardRef(props => {
 
   const propdata = props.props;
   const selectData = propdata.selectData;
@@ -112,7 +112,7 @@ const SelectSelf = React.forwardRef(props => {
 
   const handleSelectChange = (e) => {
     const value = e;
-    props.backSelect(value);
+    props.backNickname(value);
   }
   return (
     <Select onChange={handleSelectChange} defaultValue={propdata.defaultSelect}>
@@ -154,8 +154,9 @@ const FormSelf = React.forwardRef((props, ref) => {
    * form list data SAVE
    */
   const [formName, setFormName] = useState(null);
-  const [formSelect, setFormSelect] = useState(null);
+  // const [formSelect, setFormSelect] = useState(null);
   const [formDate, setFormDate] = useState(null);
+  const [formNickname, setFormNickname] = useState(null);
   const [formNumber, setFormNumber] = useState(0);
   /**
    * setFormData end
@@ -204,9 +205,10 @@ const FormSelf = React.forwardRef((props, ref) => {
      * form list data
      */
     values.name = formName;
-    values.select = formSelect;
+    // values.select = formSelect;
     values.date = formDate;
     values.age = formNumber;
+    values.nickname = formNickname;
     // props.getBackData(value);
     setBackdata(values)
     form.resetFields();
@@ -216,8 +218,9 @@ const FormSelf = React.forwardRef((props, ref) => {
     setFormName(data)
   }
 
-  const SelectValue = (data) => {
-    setFormSelect(data);
+  const NicknameValue = (data) => {
+    console.log(data);
+    setFormNickname(data);
   }
 
   const DateValue = (data) => {
@@ -230,7 +233,7 @@ const FormSelf = React.forwardRef((props, ref) => {
 
   return (
     <Form onFinish={onFinish} labelCol={labelLayout} wrapperCol={wrapperLayout} form={form} ref={formRef} layout="horizontal" className="formmain">
-      <FormItem backInputUpData={InputValue} backSelectUpData={SelectValue} backDateUpData={DateValue} backNumberData={NumberValue} formItem={formItem}></FormItem>
+      <FormItem backInputUpData={InputValue} backNicknameUpData={NicknameValue} backDateUpData={DateValue} backNumberData={NumberValue} formItem={formItem}></FormItem>
       {/* <Form.Item
         label="input"
         name="input"

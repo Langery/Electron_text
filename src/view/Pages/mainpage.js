@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import '../../style/main.less';
 
 import FormSelf from '../components/form';
+import ExcelSelf from '../components/excel';
 
 import card01 from "../../images/card_01.jpg"
 import card02 from "../../images/card_02.jpg"
@@ -147,7 +148,7 @@ const MainPage = props => {
     {
       id: 3,
       title: 'nickname',
-      type: 'select',
+      type: 'nickname',
       size: 'middle',
       placeholder: 'This is select',
       selectData: [
@@ -320,7 +321,7 @@ const MainPage = props => {
             }
           >
             <Menu.ItemGroup title="Item 1">
-              <Menu.Item key="setting_1">Option 1</Menu.Item>
+              <Menu.Item key="setting_1">Excel</Menu.Item>
               <Menu.Item key="setting_2">Option 2</Menu.Item>
             </Menu.ItemGroup>
             <Menu.ItemGroup title="Item 2">
@@ -403,9 +404,8 @@ const MainPage = props => {
         <div className="nav3_content">
           <div className="nav3_item1">
             <div className="setting_1">
-              <p style={{color: '#fff'}}>
-                Content 3_1
-              </p>
+              {/* TODO: Excel */}
+              <ExcelSelf></ExcelSelf>
             </div>
             <div className="setting_2">
               <p style={{color: '#fff'}}>
