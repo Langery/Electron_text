@@ -42,7 +42,7 @@ const FormItem: React.FC<IFormItem> = (props) => {
 
       if (i.type === 'input') {
         OperationComponent = <InputSelf backInput={InputChangeValue} props={i}/>;
-      } else if (i.type === 'nickname') {
+      } else if (i.type === 'select') {
         OperationComponent = <NicknameSelf backNickname={NicknameChangeValue} props={i} />
       } else if (i.type === 'datepick') {
         OperationComponent = <DatePickerSelf backDate={DateChangeValue} props={i} />
@@ -181,7 +181,15 @@ const FormSelf = React.forwardRef((props, ref) => {
        */
       console.log('GET CHILD DATA TO UP LEVEL ...')
       // console.log(form.getFieldsValue());
-      props.getBackData(backdata);
+      const returnForm = {
+        name: formName,
+        date: formDate,
+        age: formNumber,
+        nickname: formNickname
+      }
+      console.log(returnForm)
+      props.getBackData(returnForm);
+      form.resetFields();
     }
   }))
 
@@ -196,22 +204,6 @@ const FormSelf = React.forwardRef((props, ref) => {
   }
   const wrapperLayout = {
     span: formLayout.wrapperCol
-  }
-
-  const onFinish = values => {
-    console.log(values)
-    console.log(formRef)
-    /**
-     * form list data
-     */
-    values.name = formName;
-    // values.select = formSelect;
-    values.date = formDate;
-    values.age = formNumber;
-    values.nickname = formNickname;
-    // props.getBackData(value);
-    setBackdata(values)
-    form.resetFields();
   }
 
   const InputValue = (data) => {
@@ -232,19 +224,8 @@ const FormSelf = React.forwardRef((props, ref) => {
   }
 
   return (
-    <Form onFinish={onFinish} labelCol={labelLayout} wrapperCol={wrapperLayout} form={form} ref={formRef} layout="horizontal" className="formmain">
+    <Form labelCol={labelLayout} wrapperCol={wrapperLayout} form={form} ref={formRef} layout="horizontal" className="formmain">
       <FormItem backInputUpData={InputValue} backNicknameUpData={NicknameValue} backDateUpData={DateValue} backNumberData={NumberValue} formItem={formItem}></FormItem>
-      {/* <Form.Item
-        label="input"
-        name="input"
-      >
-        <Input />
-      </Form.Item> */}
-      <Form.Item>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
     </Form>
   )
 })

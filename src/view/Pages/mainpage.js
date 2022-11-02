@@ -148,7 +148,7 @@ const MainPage = props => {
     {
       id: 3,
       title: 'nickname',
-      type: 'nickname',
+      type: 'select',
       size: 'middle',
       placeholder: 'This is select',
       selectData: [
