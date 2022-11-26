@@ -9,6 +9,7 @@ import RegisterIndex from '../view/Register/register'
 // import ListIndex from '../view/MainView/components/listed';
 // import ConnectIndex from '../view/MainView/components/connenct';
 import MainPage from '../view/Pages/mainpage'
+import DemoPage from '../view/demo/demopage'
 
 
 const routeMap = [
@@ -28,6 +29,10 @@ const routeMap = [
   {
     path: '/mainpage',
     ComponentName: MainPage
+  },
+  {
+    path: '/demo',
+    ComponentName: DemoPage
   }
   // {
   //   path: '/mainview',

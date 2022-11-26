@@ -25,7 +25,7 @@ class LoginIndex extends Component {
           })
           .then(data => {
             if (!data.backData) {
-              message.error('The username or password is not exist, plase to register user~')
+              message.error('The username or password is not exist, please to register user~')
             } else {
               console.log('log in success');
               this.props.history.push('/mainpage');
