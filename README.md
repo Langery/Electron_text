@@ -21,8 +21,8 @@
 ### <a id="qi">启动项目</a>
 
 ```node
-  $ npm start
-  $ npm run estart
+  $ npm start // step 1
+  $ npm run estart // step 2
 ```
 
 ### <a id="idea">idea</a>
