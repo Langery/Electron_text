@@ -24,11 +24,11 @@ const list = [
   }
 ];
 
-const DragDemo = () => {
+const DemoPage = () => {
 
-  const [leftDragList, setLeftDragList] = useState(list)
-  const [rightDragList, setRightDragList] = useState([])
-  const dataRef = useRef(null)
+  const [leftDragList, setLeftDragList] = useState(list);
+  const [rightDragList, setRightDragList] = useState([]);
+  const dataRef = useRef(null);
 
   // 初始化
   dataRef.current = {
@@ -75,37 +75,55 @@ const DragDemo = () => {
   // 拖拽开始时触发事件-通过dataTransfer对象设置所需要的数据
   const handleDragStart = data => e => e.dataTransfer.setData('itemData', JSON.stringify(data))
 
+  const [[_leftKey, _leftlist], [_rightKey, _rightlist]] = Object.entries(dataRef.current);
+
   return (
     <div className="dragEvent-wrap">
-      {
-        Object.entries(dataRef.current).map(([key, { callback, list }]) => {
-          return (
+      <div
+        key={_leftKey}
+        className="left-wrap"
+        onDragOver={handleDragOver}
+        onDragEnter={handleDragEnter}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop(_leftlist.callback, _leftKey)}
+      >
+        {
+          _leftlist.list.map(item => 
+          (<div
+            className="item-text"
+            key={item.id}
+            data-id={item.id}
+            draggable
+            onDragStart={handleDragStart(item)}
+          >
+            {item.text}
+          </div>))
+        }
+      </div>
+      <div
+        key={_rightKey}
+        className="right-wrap"
+        onDragOver={handleDragOver}
+        onDragEnter={handleDragEnter}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop(_rightlist.callback, _rightKey)}
+      >
+        {
+          _rightlist.list.map(item => (
             <div
-              key={key}
-              className="content-wrap"
-              onDragOver={handleDragOver}
-              onDragEnter={handleDragEnter}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop(callback, key)}
+              className="item-text"
+              key={item.id}
+              data-id={item.id}
+              draggable
+              onDragStart={handleDragStart(item)}
             >
-              {
-                list.map(item => 
-                (<div
-                  className="item-text"
-                  key={item.id}
-                  data-id={item.id}
-                  draggable
-                  onDragStart={handleDragStart(item)}
-                >
-                  {item.text}
-                </div>))
-              }
+              {item.text}
             </div>
-          )
-        })
-      }
+          ))
+        }
+      </div>
     </div>
   )
 }
 
-export default DragDemo;
+export default DemoPage;
