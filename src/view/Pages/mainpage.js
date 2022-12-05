@@ -192,9 +192,8 @@ const MainPage = props => {
   useEffect(() => {
     // run function
     getTreeData();
-    if (backInfor) {
-      childSendRef.current.getChildData()
-    }
+    if (backInfor) childSendRef.current.getChildData();
+
     return(() => {
       console.log('COMPONENT WILL UNMOUNT ...');
     })
