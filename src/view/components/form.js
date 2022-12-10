@@ -194,7 +194,6 @@ const FormSelf = React.forwardRef((props, ref) => {
   }))
 
   /**
-   * when after deal with the style of form
    * TODO: backdata is a obj to deal a mass of data and save the form input data to parent component
    * Thinking: when trigger the modal sumbit button, the form data should sumbit the handleOk to collet the form data ...
    */

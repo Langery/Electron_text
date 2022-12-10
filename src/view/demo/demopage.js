@@ -2,6 +2,9 @@ import React, { useState, useRef } from "react";
 import { createFromIconfontCN } from '@ant-design/icons';
 import './demo.css'
 
+// eg: import component
+import { Input, Select, Button } from "antd";
+
 const IconFont = createFromIconfontCN({
   scriptUrl: '//at.alicdn.com/t/c/font_3819225_cvuht688sxe.js', // 阿里图标库链接
 });
@@ -9,35 +12,66 @@ const IconFont = createFromIconfontCN({
 const list = [
   {
     id: 1,
-    text: 'Num 1',
+    name: 'Input',
     icon: 'icon-instagram-co',
     iconTwoTone: false
   },
   {
     id: 2,
-    text: 'Num 2',
+    name: 'Select',
     icon: 'icon-food-pizza',
     iconTwoTone: true // 双色图标配置
   },
   {
     id: 3,
-    text: 'Num 3',
+    name: 'Button',
     icon: '',
     iconTwoTone: false
   },
   {
     id: 4,
-    text: 'Num 4',
+    name: 'Num 4',
     icon: '',
     iconTwoTone: false
   },
   {
     id: 5,
-    text: 'Num 5',
+    name: 'Num 5',
     icon: '',
     iconTwoTone: false
   }
 ];
+
+// const showComponentList = [];
+
+interface ISideItem {
+  props: null
+}
+
+const SumSide: React.FC<ISideItem> = (props) => {
+
+  const rightList = props.selfList.list;
+
+  return (
+    rightList.map(i => {
+      let ShowComponent = null
+
+      if (i.name === 'Input') {
+        ShowComponent = <Input />
+      } else if (i.name === 'Select') {
+        ShowComponent = <Select></Select>;
+      } else if (i.name === 'Button') {
+        ShowComponent = <Button>Button</Button>
+      }
+
+      return (
+        <div>
+          {ShowComponent}
+        </div>
+      )
+    })
+  )
+}
 
 const DemoPage = () => {
 
@@ -76,8 +110,7 @@ const DemoPage = () => {
         return mapPreData
       })
 
-      if (arrow === 'left') setRightDragList(preData => preData.filter(item => item.id !== curData.id))
-      else setLeftDragList(preData => preData.filter(item => item.id !== curData.id))
+      arrow === 'left' ? setRightDragList(preData => preData.filter(item => item.id !== curData.id)) : setLeftDragList(preData => preData.filter(item => item.id !== curData.id))
     }
   }
 
@@ -112,7 +145,7 @@ const DemoPage = () => {
             onDragStart={handleDragStart(item)}
           >
             <IconFont type={item.icon ? item.icon : null} twoToneColor={item.iconColor} />
-            {item.text}
+            {item.name}
           </div>))
         }
       </div>
@@ -125,18 +158,19 @@ const DemoPage = () => {
         onDrop={handleDrop(_rightlist.callback, _rightKey)}
       >
         {
-          _rightlist.list.map(item => (
-            <div
-              className="item-text"
-              key={item.id}
-              data-id={item.id}
-              draggable
-              onDragStart={handleDragStart(item)}
-            >
-              <IconFont type={item.icon ? item.icon : null} twoToneColor={item.iconColor} />
-              {item.text}
-            </div>
-          ))
+          // _rightlist.list.map(item => (
+          //   <div
+          //     className="item-text"
+          //     key={item.id}
+          //     data-id={item.id}
+          //     draggable
+          //     onDragStart={handleDragStart(item)}
+          //   >
+          //     <IconFont type={item.icon ? item.icon : null} twoToneColor={item.iconColor} />
+          //     {item.text}
+          //   </div>
+          // ))
+          <SumSide selfList={_rightlist}></SumSide>
         }
       </div>
     </div>
