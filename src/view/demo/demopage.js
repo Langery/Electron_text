@@ -1,26 +1,41 @@
 import React, { useState, useRef } from "react";
+import { createFromIconfontCN } from '@ant-design/icons';
 import './demo.css'
+
+const IconFont = createFromIconfontCN({
+  scriptUrl: '//at.alicdn.com/t/c/font_3819225_cvuht688sxe.js', // 阿里图标库链接
+});
 
 const list = [
   {
-    id: '1',
-    text: 'Num 1'
+    id: 1,
+    text: 'Num 1',
+    icon: 'icon-instagram-co',
+    iconTwoTone: false
   },
   {
-    id: '2',
-    text: 'Num 2'
+    id: 2,
+    text: 'Num 2',
+    icon: 'icon-food-pizza',
+    iconTwoTone: true // 双色图标配置
   },
   {
-    id: '3',
-    text: 'Num 3'
+    id: 3,
+    text: 'Num 3',
+    icon: '',
+    iconTwoTone: false
   },
   {
-    id: '4',
-    text: 'Num 4'
+    id: 4,
+    text: 'Num 4',
+    icon: '',
+    iconTwoTone: false
   },
   {
-    id: '5',
-    text: 'Num 5'
+    id: 5,
+    text: 'Num 5',
+    icon: '',
+    iconTwoTone: false
   }
 ];
 
@@ -96,6 +111,7 @@ const DemoPage = () => {
             draggable
             onDragStart={handleDragStart(item)}
           >
+            <IconFont type={item.icon ? item.icon : null} twoToneColor={item.iconColor} />
             {item.text}
           </div>))
         }
@@ -117,6 +133,7 @@ const DemoPage = () => {
               draggable
               onDragStart={handleDragStart(item)}
             >
+              <IconFont type={item.icon ? item.icon : null} twoToneColor={item.iconColor} />
               {item.text}
             </div>
           ))
