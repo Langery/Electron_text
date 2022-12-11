@@ -1,0 +1,60 @@
+:root{
+  --common-white: #fff;
+}
+
+.block{
+  width: 100%;
+  display: block;
+}
+
+.dragpage{
+  height: 100vh;
+  background: url(../images/drag.jpg);
+  header{
+    padding: 0;
+    background: var(--common-white);
+    .block();
+  }
+  main{
+    margin-top: 10px;
+    .ant-row{
+      margin-top: 5px;
+    }
+  }
+}
+
+.over{
+  border: red solid 2px;
+}
+
+.main-warp{
+  width: 100%;
+}
+
+.left-wrap{
+  height: 85vh;
+  background: fade(#fff, 45%);
+  border: solid 1px var(--common-white);
+  margin-left: 0px;
+  margin-right: 10px;
+  padding: 2px;
+}
+
+.right-wrap{
+  height: 85vh;
+  background: fade(#fff, 45%);
+  border: solid 1px var(--common-white);
+  margin-left: 0px;
+  padding: 2px;
+  padding-top: 10px;
+}
+
+.item-text {
+  display: inline-block;
+  background-color: #00ff88;
+  width: 49%;
+  text-align: center;
+  margin: 2px;
+  margin-top: 8px;
+  border: 1px dotted lightskyblue;
+}

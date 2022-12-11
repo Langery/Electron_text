@@ -1,6 +1,11 @@
 .mainpage{
   height: 100vh;
   background: url(../images/mainpage.jpg);
+  header{
+    padding: 0;
+    background: var(--common-white);
+    height: auto;
+  }
 }
 
 :root{
@@ -10,12 +15,6 @@
 ion-icon{
   font-size: 18px;
   padding-right: 3px;
-}
-
-.ant-layout-header {
-  padding: 0;
-  background: var(--common-white);
-  height: auto;
 }
 
 .nav1_content{
@@ -53,8 +52,22 @@ ion-icon{
 }
 
 .add_icon{
+  position: absolute;
+  top: 24px;
+  right: 120px;
   font-size: 25px;
   cursor: pointer;
+}
+
+.drag_btn{
+  display: inline-block;
+}
+
+.btn_drag_icon {
+  display: inline-block;
+  position: absolute;
+  top: 9px;
+  right: 4px;
 }
 
 .ant-btn{

@@ -2,6 +2,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import '../../style/main.less';
 
+import { Link } from 'react-router-dom';
+
 import FormSelf from '../components/form';
 import ExcelSelf from '../components/excel';
 
@@ -13,7 +15,7 @@ import card05 from "../../images/card_05.jpg"
 import card06 from "../../images/card_06.jpg"
 
 // Image, Skeleton
-import { Col, Layout, Menu, Modal, PageHeader, Row, Tree, Card, Carousel } from 'antd';
+import { Col, Layout, Menu, Modal, PageHeader, Row, Tree, Card, Carousel, Button } from 'antd';
 
 import { PostWay, GetWay } from '../../server/request';
 
@@ -336,7 +338,15 @@ const MainPage = props => {
             title="Components list"
             subTitle="This is a subtitle"
             extra={[
-              <ion-icon key='1' class="add_icon" onClick={addListInfor}  name="add-circle-outline"></ion-icon>
+              <div>
+                <ion-icon key='2' class="add_icon" onClick={addListInfor} name="add-circle-outline"></ion-icon>
+                <Link to="/dragpage">
+                  <Button shape="round" class="drag_btn" type="primary" key='1'>
+                    Drag&emsp;
+                    <ion-icon class="btn_drag_icon" name="arrow-forward-outline"></ion-icon>
+                  </Button>
+                </Link>
+              </div>
             ]}
           >
           </PageHeader>
