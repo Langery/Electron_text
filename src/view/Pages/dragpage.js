@@ -5,6 +5,8 @@ import '../../style/drag.less';
 // eg: import component
 import { Input, Select, Button, Layout, PageHeader, Col, Row } from "antd";
 
+import { Link } from 'react-router-dom';
+
 const { Header, Content } = Layout;
 
 const IconFont = createFromIconfontCN({
@@ -131,10 +133,16 @@ const DragPage = () => {
       </Header>
       <Content>
         {/* initialization  */}
-        <div className="drag_ability">
-          <Button>Reset</Button>
+        <div className="operatio_zone">
+          <Button className="drag_ability">Reset</Button>
+          <Link to="/mainpage">
+            <Button shape="round" className="back_btn">
+              Back to MainPage&emsp;
+              <ion-icon class="btn_drag_icon" name="arrow-forward-outline"></ion-icon>
+            </Button>
+          </Link>
         </div>
-        <Row>
+        <Row justify="space-around">
           <Col span={8}>
             <div
               key={_leftKey}
