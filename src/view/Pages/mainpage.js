@@ -330,6 +330,10 @@ const MainPage = props => {
               <Menu.Item key="setting_4">Option 4</Menu.Item>
             </Menu.ItemGroup>
           </SubMenu>
+          <Menu.Item key="nav4_content">
+            <ion-icon name="chatbubbles-outline"></ion-icon>
+            Talking
+          </Menu.Item>
         </Menu>
       </Header>
       <Content className="maincontent">
@@ -434,6 +438,9 @@ const MainPage = props => {
               </p>
             </div>
           </div>
+        </div>
+        <div className="nav4_content">
+          
         </div>
       </Content>
       <Modal title="Add List info modal" visible={isModalVisible} onOk={handleModalOk} onCancel={handleModalCancel}>

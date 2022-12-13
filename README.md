@@ -69,6 +69,9 @@
     - [ ] 图片
     - [ ] 音频/语音通讯
     - [ ] 视频/视频通讯
+    - [ ] Link
+      - [Open IM](https://doc.rentsoft.cn/#/)
+      - [声网](https://www.agora.io/cn/)
   - [ ] 资讯
     - [ ] 信息展示
       - [ ] 传统新闻信息展示
