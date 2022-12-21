@@ -46,6 +46,9 @@ const list = [
   }
 ];
 
+// 拖拽开始时触发事件-通过dataTransfer对象设置所需要的数据
+const handleDragStart = data => e => e.dataTransfer.setData('itemData', JSON.stringify(data));
+
 interface ISideItem {
   props: null
 }
@@ -55,20 +58,15 @@ const SumSide: React.FC<ISideItem> = (props) => {
   const rightList = props.selfList.list;
 
   return (
-    rightList.map(i => {
-      let ShowComponent = null
-
-      if (i.name === 'Input') {
-        ShowComponent = <Input />
-      } else if (i.name === 'Select') {
-        ShowComponent = <Select></Select>;
-      } else if (i.name === 'Button') {
-        ShowComponent = <Button>Button</Button>
-      }
-
+    rightList.map(item => {
       return (
-        <div>
-          {ShowComponent}
+        <div
+          key={item.id}
+          data-id={item.id}
+          draggable
+          onDragStart={handleDragStart(item)}
+        >
+          {item.name}
         </div>
       )
     })
@@ -120,9 +118,6 @@ const DragPage = () => {
 
   // 拖拽元素离开目标元素时触发事件-移除目标元素的样式效果
   const handleDragLeave = e => e.target.classList.remove('over')
-
-  // 拖拽开始时触发事件-通过dataTransfer对象设置所需要的数据
-  const handleDragStart = data => e => e.dataTransfer.setData('itemData', JSON.stringify(data))
 
   const [[_leftKey, _leftlist], [_rightKey, _rightlist]] = Object.entries(dataRef.current);
 
