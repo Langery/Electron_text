@@ -63,7 +63,7 @@ function useCallbackState(state) {
   ]
 }
 
-const MainPage = props => {
+const MainPage = () => {
 
   const [current, setCurrent] = useState('nav1_content');
   const [isModalVisible, setIsModalVisible] = useState(false);

@@ -8,11 +8,7 @@ import { Form, Input, Select, DatePicker, InputNumber, Button } from "antd";
 const { Option } = Select;
 const { TextArea } = Input;
 
-interface IFormItem {
-  props: null
-}
-
-const FormItem: React.FC<IFormItem> = (props) => {
+const FormItem = (props) => {
 
   const formItem = props.formItem;
   
@@ -21,7 +17,7 @@ const FormItem: React.FC<IFormItem> = (props) => {
       let _required = !i ? false : i.required;
       let OperationComponent = null;
       /**
-       * rule
+       * rule ...
        */
 
       const InputChangeValue = data => {
@@ -151,7 +147,7 @@ const FormSelf = React.forwardRef((props, ref) => {
 
   /**
    * setFormData start
-   * form list data SAVE
+   * form list data had save
    */
   const [formName, setFormName] = useState(null);
   // const [formSelect, setFormSelect] = useState(null);
@@ -210,7 +206,6 @@ const FormSelf = React.forwardRef((props, ref) => {
   }
 
   const NicknameValue = (data) => {
-    console.log(data);
     setFormNickname(data);
   }
 

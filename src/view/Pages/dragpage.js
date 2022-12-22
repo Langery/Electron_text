@@ -30,7 +30,8 @@ const list = [
     id: 3,
     name: 'Button',
     icon: '',
-    iconTwoTone: false
+    iconTwoTone: false,
+    infor: 'default'
   },
   {
     id: 4,
@@ -49,16 +50,24 @@ const list = [
 // 拖拽开始时触发事件-通过dataTransfer对象设置所需要的数据
 const handleDragStart = data => e => e.dataTransfer.setData('itemData', JSON.stringify(data));
 
-interface ISideItem {
-  props: null
-}
 
-const SumSide: React.FC<ISideItem> = (props) => {
+const SumSide = (props) => {
 
   const rightList = props.selfList.list;
 
   return (
     rightList.map(item => {
+
+      let ItemComponent = null;
+
+      if (item.name === 'Input') {
+        ItemComponent = <Input/>
+      } else if (item.name === 'Select') {
+        ItemComponent = <Select></Select>
+      } else if (item.name === 'Button') {
+        ItemComponent = <ButtonSelf props={item} />
+      }
+
       return (
         <div
           key={item.id}
@@ -66,10 +75,19 @@ const SumSide: React.FC<ISideItem> = (props) => {
           draggable
           onDragStart={handleDragStart(item)}
         >
-          {item.name}
+          {ItemComponent}
         </div>
       )
     })
+  )
+}
+
+const ButtonSelf = (props) => {
+
+  const infor = props.props.infor;
+
+  return (
+    <Button type="primary">{infor}</Button>
   )
 }
 
