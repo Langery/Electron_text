@@ -50,7 +50,9 @@ const list = [
 // 拖拽开始时触发事件-通过dataTransfer对象设置所需要的数据
 const handleDragStart = data => e => e.dataTransfer.setData('itemData', JSON.stringify(data));
 
-
+/**
+ * TODO: 目前右侧拖拽位置变更可能需要重新修订，存在拖拽不方便的地方
+ */
 const SumSide = (props) => {
 
   const rightList = props.selfList.list;
@@ -70,6 +72,7 @@ const SumSide = (props) => {
 
       return (
         <div
+          className="right_item"
           key={item.id}
           data-id={item.id}
           draggable

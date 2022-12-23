@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 import FormSelf from '../components/form';
 import ExcelSelf from '../components/excel';
+import TalkSelf from '../components/talk';
 
 import card01 from "../../images/card_01.jpg"
 import card02 from "../../images/card_02.jpg"
@@ -440,7 +441,7 @@ const MainPage = () => {
           </div>
         </div>
         <div className="nav4_content">
-          
+          <TalkSelf></TalkSelf>
         </div>
       </Content>
       <Modal title="Add List info modal" visible={isModalVisible} onOk={handleModalOk} onCancel={handleModalCancel}>
