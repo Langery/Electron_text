@@ -15,7 +15,7 @@ import card04 from "../../images/card_04.jpg"
 import card05 from "../../images/card_05.jpg"
 import card06 from "../../images/card_06.jpg"
 
-// Image, Skeleton
+// Skeleton
 import { Col, Layout, Menu, Modal, PageHeader, Row, Tree, Card, Carousel, Button } from 'antd';
 
 import { PostWay, GetWay } from '../../server/request';
@@ -115,7 +115,7 @@ const MainPage = () => {
       cardname: 9
     }
   ])
-  // eslint-disable-next-line
+
   const [detailInfor, setDetailInfor] = useState('Detail');
   // eslint-disable-next-line
   const [operationInfor, setOperationInfor] = useState('Operation');
