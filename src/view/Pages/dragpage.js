@@ -13,7 +13,7 @@ const IconFont = createFromIconfontCN({
   scriptUrl: '//at.alicdn.com/t/c/font_3819225_cvuht688sxe.js', // 阿里图标库链接
 });
 
-const list = [
+const menuList = [
   {
     id: 1,
     name: 'Input',
@@ -96,7 +96,8 @@ const ButtonSelf = (props) => {
 
 const DragPage = () => {
 
-  const [leftDragList, setLeftDragList] = useState(list);
+  const cleanList = menuList;
+  const [leftDragList, setLeftDragList] = useState(cleanList);
   const [rightDragList, setRightDragList] = useState([]);
   const dataRef = useRef(null);
 
@@ -126,8 +127,8 @@ const DragPage = () => {
         if (!id) return [...mapPreData, curData]
 
         const index = mapPreData.findIndex(item => item.id === id)
-        mapPreData.splice(index, 0, curData)
-        return mapPreData
+        mapPreData.splice(index, 0, curData);
+        return mapPreData;
       })
 
       arrow === 'left' ? setRightDragList(preData => preData.filter(item => item.id !== curData.id)) : setLeftDragList(preData => preData.filter(item => item.id !== curData.id))
@@ -140,6 +141,23 @@ const DragPage = () => {
   // 拖拽元素离开目标元素时触发事件-移除目标元素的样式效果
   const handleDragLeave = e => e.target.classList.remove('over')
 
+
+  let clearList = menuList;
+  // reset list infor
+  // unfinished ! ! !
+  const resetList = () => {
+    dataRef.current = { // 初始化
+      left: {
+        callback: setLeftDragList,
+        list: clearList,
+      },
+      right: {
+        callback: setRightDragList,
+        list: [],
+      }
+    }
+  }
+
   const [[_leftKey, _leftlist], [_rightKey, _rightlist]] = Object.entries(dataRef.current);
 
   return (
@@ -150,7 +168,7 @@ const DragPage = () => {
       <Content>
         {/* initialization  */}
         <div className="operatio_zone">
-          <Button className="drag_ability">Reset</Button>
+          <Button className="drag_ability" onClick={resetList}>Reset List</Button>
           <Link to="/mainpage">
             <Button shape="round" className="back_btn">
               Back to MainPage&emsp;
