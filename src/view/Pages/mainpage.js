@@ -193,6 +193,7 @@ const MainPage = () => {
 
   // 数据更新
   useEffect(() => {
+    setSessionFun(); // 临时数据
     // run function
     getTreeData();
     if (backInfor) childSendRef.current.getChildData();
@@ -201,6 +202,16 @@ const MainPage = () => {
       console.log('COMPONENT WILL UNMOUNT ...');
     })
   }, [backInfor])
+
+  /**
+   * 存储 session 数据
+   * 临时数据
+   */
+  const setSessionFun = () => {
+    sessionStorage.setItem('name', 'demo1')
+    sessionStorage.setItem('key', '950214')
+  }
+
 
   const getTreeData = () => {
     const getWay = PostWay('getTree', '')

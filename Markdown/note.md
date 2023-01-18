@@ -58,3 +58,8 @@
 5. 数据更新完成时：componentDidUpdate&emsp;|&emsp;useEffect
 6. 组件将要销毁时：componentWillUnmount&emsp;|&emsp;useEffect 里面返回的函数
 7. 父组件中改变了props传值时：componentWillReceiveProps&emsp;|&emsp;
+
+> session & local & cookie
+
+- session 临时会话存储
+- local 永久存储
