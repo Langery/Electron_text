@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import '../../style/talk.less';
 
-import { Button } from "antd";
+import { Button, Input } from "antd";
 
 const TalkSelf = () => {
 
   const [sessionName, setSessionName] = useState(sessionStorage.getItem('name'));
+  
+  // eslint-disable-next-line
+  const [sessionKey, setSessionKey] = useState(sessionStorage.getItem('key'))
 
   // session deal
   /**
@@ -27,19 +30,33 @@ const TalkSelf = () => {
 
   useEffect(() => {
     UserProfile();
-  }, [sessionName]);
+  }, [sessionName, sessionKey]);
+
+  const sendMess = () => {
+    
+  }
 
   return (
     <div className="talk_page">
       <div className="talk_show">
         <ul>
           <li>
-
+            1
+          </li>
+          <li>
+            2
+          </li>
+          <li>
+            3
+          </li>
+          <li>
+            4
           </li>
         </ul>
       </div>
-      <div className="edit_zone">
-        <Button className="send_btn" type="primary">Send</Button>
+      <div className="talk_input">
+        <Input.TextArea onPressEnter={sendMess} />
+        <Button className="send_btn" type="primary" onClick={sendMess}>Send</Button>
       </div>
     </div>
   )
