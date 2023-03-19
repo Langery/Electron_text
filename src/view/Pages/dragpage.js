@@ -201,16 +201,21 @@ const DragPage = () => {
               }
             </div>
           </Col>
-          <Col span={16}>
+          <Col span={12}>
             <div
               key={_rightKey}
-              className="right-wrap"
+              className="min-wrap"
               onDragOver={handleDragOver}
               onDragEnter={handleDragEnter}
               onDragLeave={handleDragLeave}
               onDrop={handleDrop(_rightlist.callback, _rightKey)}
             >
               <SumSide selfList={_rightlist}></SumSide>
+            </div>
+          </Col>
+          <Col span={4}>
+            <div className="right-wrap">
+              {/* Setting */}
             </div>
           </Col>
         </Row>

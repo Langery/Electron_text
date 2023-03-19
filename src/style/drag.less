@@ -2,6 +2,12 @@
   --common-white: #fff;
 }
 
+#warp_style{
+  height: 85vh;
+  background: fade(#fff, 45%);
+  border: solid 1px var(--common-white);
+}
+
 .block{
   width: 100%;
   display: block;
@@ -32,21 +38,22 @@
 }
 
 .left-wrap{
-  height: 85vh;
-  background: fade(#fff, 45%);
-  border: solid 1px var(--common-white);
+  #warp_style;
   margin-left: 0px;
-  margin-right: 10px;
+  margin-right: 5px;
   padding: 2px;
 }
 
-.right-wrap{
-  height: 85vh;
-  background: fade(#fff, 45%);
-  border: solid 1px var(--common-white);
+.min-wrap{
+  #warp_style;
   margin-left: 0px;
   padding: 2px;
   padding-top: 10px;
+}
+
+.right-wrap{
+  #warp_style;
+  margin-left: 5px;
 }
 
 .item-text {

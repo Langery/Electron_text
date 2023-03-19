@@ -8,33 +8,27 @@ import { Link } from 'react-router-dom'
 import { PostWay } from '../../server/request'
 
 class LoginIndex extends Component {
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values)
-        let sendData = {
-          username: values.username,
-          password: values.password
+  handleSubmit = value => {
+    // e.preventDefault();
+    console.log('Received values of form: ', value)
+    let sendData = {
+      username: value.username,
+      password: value.password
+    }
+    const getWay = PostWay('login', sendData)
+    console.log(getWay)
+    fetch(getWay[0], getWay[1])
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        if (!data.backData) {
+          message.error('The username or password is not exist, please to register user~')
+        } else {
+          console.log('log in success');
+          this.props.history.push('/mainpage');
         }
-        const getWay = PostWay('login', sendData)
-        console.log(getWay)
-        fetch(getWay[0], getWay[1])
-          .then(response => {
-            return response.json()
-          })
-          .then(data => {
-            if (!data.backData) {
-              message.error('The username or password is not exist, please to register user~')
-            } else {
-              console.log('log in success');
-              this.props.history.push('/mainpage');
-            }
-          })
-      } else {
-        console.log('No get the received values of form')
-      }
-    })
+      })
   }
   state = {
     size: 'large'
@@ -56,7 +50,7 @@ class LoginIndex extends Component {
           </Col>
           <Col span={12}>
             <p className="title-p">Log In</p>
-            <Form onSubmit={this.handleSubmit} className="login-form">
+            <Form onFinish={this.handleSubmit} className="login-form">
               <Form.Item name="username" rules={[{ required: true, message: 'Please input your username!' }]}>
                   <Input
                     prefix={<UserAddOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}

@@ -224,7 +224,7 @@
 ### <a id="link">Link</a>
 
 1. [React-router路由模块化封装](https://www.jianshu.com/p/d4283e7f3c3c)
-2. [React点击事件的两种写法](https://www.jianshu.com/p/2a5c525e9a28)
+2. ~~[React点击事件的两种写法](https://www.jianshu.com/p/2a5c525e9a28)~~
 3. [30分钟精通React今年最劲爆的新特性——React Hooks](https://segmentfault.com/a/1190000016950339)
 4. [svg之path详解](https://www.jianshu.com/p/c819ae16d29b)
 5. [React-Redux 中文文档](https://segmentfault.com/a/1190000017064759?utm_source=tag-newest)
