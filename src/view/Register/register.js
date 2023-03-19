@@ -69,7 +69,9 @@ class RegisterIndex extends Component {
     this.setState({ confirmDirty: this.state.confirmDirty || !!value });
   }
   compareToFirstPassword = (rule, value, callback) => {
-    const { form } = this.props
+    // const { form } = this.props;
+    console.log(this.refs.registerForm)
+    const form = this.refs.registerForm
     if (value && value !== form.getFieldValue('password')) {
       callback('Two passwords that you enter is inconsistent!')
     } else {
@@ -78,6 +80,7 @@ class RegisterIndex extends Component {
   }
   validateToNextPassword = (rule, value, callback) => {
     const { form } = this.props
+    console.log(value, this.state.confirmDirty)
     if (value && this.state.confirmDirty) {
       form.validateFields(['confirm'], { force: true });
     }
@@ -123,7 +126,7 @@ class RegisterIndex extends Component {
           </Col>
           <Col span={12}>
             <p className="title-p">Register</p>
-            <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+            <Form {...formItemLayout} onSubmit={this.handleSubmit} ref="registerForm">
               <Form.Item label="name" name="username" rules={[
                     {
                       message: 'The input is not valid username!'
@@ -136,26 +139,26 @@ class RegisterIndex extends Component {
                   <Input placeholder="Name" />
               </Form.Item>
               <Form.Item label="Password" hasFeedback name="password" rules={[
-                    {
-                      required: true,
-                      message: 'Please input your password!',
-                    },
-                    {
-                      validator: this.validateToNextPassword,
-                    }
-                  ]}>
-                  <Input type="password" placeholder="Password" />
+                  {
+                    required: true,
+                    message: 'Please input your password!',
+                  },
+                  {
+                    validator: this.validateToNextPassword,
+                  }
+                ]}>
+                <Input type="password" placeholder="Password" />
               </Form.Item>
               <Form.Item label="Confirm Password" hasFeedback name="confirm" rules={[
-                    {
-                      required: true,
-                      message: 'Please confirm your password!',
-                    },
-                    {
-                      validator: this.compareToFirstPassword,
-                    }
-                  ]}>
-                <Input type="password" onBlur={this.handleConfirmBlur} />
+                  {
+                    required: true,
+                    message: 'Please confirm your password!',
+                  },
+                  {
+                    validator: this.compareToFirstPassword,
+                  }
+                ]}>
+              <Input type="password" onBlur={this.handleConfirmBlur} />
               </Form.Item>
               <Form.Item
                 label={
