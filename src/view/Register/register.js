@@ -70,7 +70,6 @@ class RegisterIndex extends Component {
   }
   compareToFirstPassword = (rule, value, callback) => {
     // const { form } = this.props;
-    console.log(this.refs.registerForm)
     const form = this.refs.registerForm
     if (value && value !== form.getFieldValue('password')) {
       callback('Two passwords that you enter is inconsistent!')
@@ -79,10 +78,11 @@ class RegisterIndex extends Component {
     }
   }
   validateToNextPassword = (rule, value, callback) => {
-    const { form } = this.props
+    // const { form } = this.props
     console.log(value, this.state.confirmDirty)
     if (value && this.state.confirmDirty) {
-      form.validateFields(['confirm'], { force: true });
+      this.refs.registerForm.validateFields(['confirm'], { force: true });
+      // this.props.history.push('/login');
     }
     callback();
   }
