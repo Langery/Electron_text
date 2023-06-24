@@ -282,9 +282,10 @@ const MainPage = () => {
 
   // tree =====================================================> start
   const onSelect = (keys, info) => {
-    console.log('Trigger Select', keys, info);
+    let sendKey = keys[0];
+    console.log('Trigger Select', sendKey, info);
     const sendData = {
-      id: keys
+      id: sendKey
     }
     const getWay = GetWay('getListInfor', sendData);
     fetch(getWay[0], getWay[1])
