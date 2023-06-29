@@ -17,6 +17,7 @@
 ### <a id="chu">初识</a>
 
 > 官网：[Electron](https://electronjs.org/)
+> 图标库：[ionic](https://ionic.io/ionicons/)
 
 ### <a id="qi">启动项目</a>
 

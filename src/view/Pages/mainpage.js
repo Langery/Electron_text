@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import FormSelf from '../components/form';
 import ExcelSelf from '../components/excel';
 import TalkSelf from '../components/talk';
+import OperationSelf from "../mainpage/Operagtion";
 
 import card01 from "../../images/card_01.jpg"
 import card02 from "../../images/card_02.jpg"
@@ -16,7 +17,7 @@ import card05 from "../../images/card_05.jpg"
 import card06 from "../../images/card_06.jpg"
 
 // Skeleton
-import { Col, Layout, Menu, Modal, PageHeader, Row, Tree, Card, Carousel, Button } from 'antd';
+import { Col, Layout, Menu, Modal, PageHeader, Row, Tree, Card, Carousel, Button, Popover } from 'antd';
 
 import { PostWay, GetWay } from '../../server/request';
 
@@ -118,7 +119,7 @@ const MainPage = () => {
 
   const [detailInfor, setDetailInfor] = useState('Detail');
   // eslint-disable-next-line
-  const [operationInfor, setOperationInfor] = useState('Operation');
+  const [operationInfor, setOperationInfor] = useState('This is Operation');
 
   /**
    * This is Form Data
@@ -190,6 +191,15 @@ const MainPage = () => {
   const [backInfor, setBackInfor] = useCallbackState(false);
 
   const childSendRef = useRef(null);
+
+  // popover
+  const popoverText = <span>Menu List</span>;
+  const popoverContent = (
+    <div>
+      <p>Content</p>
+      <p>Content</p>
+    </div>
+  )
 
   // 数据更新
   useEffect(() => {
@@ -347,6 +357,12 @@ const MainPage = () => {
             <ion-icon name="chatbubbles-outline"></ion-icon>
             Talking
           </Menu.Item>
+          {/* 购物车 */}
+          <Popover className="popover_main" placement="leftTop" title={popoverText} content={popoverContent} trigger="click">
+            <Button>
+              <ion-icon name="cart-outline"></ion-icon>
+            </Button>
+          </Popover>
         </Menu>
       </Header>
       <Content className="maincontent">
@@ -412,14 +428,10 @@ const MainPage = () => {
                 subTitle="This is Operation Area"
               >
               </PageHeader>
-              {/*
-                1.menu
-                2.informations
-                3.operations 
-               */}
-              <p className="content_infor">
-                {operationInfor}
-              </p>
+              <OperationSelf
+                operationInfor={operationInfor}
+              >
+              </OperationSelf>
             </Col>
           </Row>
         </div>
