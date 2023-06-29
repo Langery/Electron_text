@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import FormSelf from '../components/form';
 import ExcelSelf from '../components/excel';
 import TalkSelf from '../components/talk';
+import OperationSelf from "../mainpage/Operagtion";
 
 import card01 from "../../images/card_01.jpg"
 import card02 from "../../images/card_02.jpg"
@@ -118,7 +119,7 @@ const MainPage = () => {
 
   const [detailInfor, setDetailInfor] = useState('Detail');
   // eslint-disable-next-line
-  const [operationInfor, setOperationInfor] = useState('Operation');
+  const [operationInfor, setOperationInfor] = useState('This is Operation');
 
   /**
    * This is Form Data
@@ -412,9 +413,10 @@ const MainPage = () => {
                 subTitle="This is a subtitle"
               >
               </PageHeader>
-              <p className="content_infor">
-                {operationInfor}
-              </p>
+              <OperationSelf
+                operationInfor={operationInfor}
+              >
+              </OperationSelf>
             </Col>
           </Row>
         </div>
