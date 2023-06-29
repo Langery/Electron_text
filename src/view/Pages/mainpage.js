@@ -284,10 +284,10 @@ const MainPage = () => {
   const onSelect = (keys, info) => {
     let sendKey = keys[0];
     console.log('Trigger Select', sendKey, info);
-    const sendData = {
+    let sendData = {
       id: sendKey
     }
-    const getWay = GetWay('getListInfor', sendData);
+    let getWay = GetWay('getListInfor', sendData);
     fetch(getWay[0], getWay[1])
       .then(res => {
         if (res.ok) {
@@ -371,7 +371,7 @@ const MainPage = () => {
             <Col span={8} className="main_col_1">
               <PageHeader
                 title="Menu Area"
-                subTitle="This is a subtitle"
+                subTitle="This is Menu Area"
               >
               </PageHeader>
               <DirectoryTree
@@ -385,7 +385,7 @@ const MainPage = () => {
             <Col span={8} className="main_col_2">
               <PageHeader
                 title="Detail Area"
-                subTitle="This is a subtitle"
+                subTitle="This is Detail Area"
               >
               </PageHeader>
               <p className="content_infor">
@@ -409,9 +409,14 @@ const MainPage = () => {
             <Col span={8} className="main_col_3">
               <PageHeader
                 title="Operation Area"
-                subTitle="This is a subtitle"
+                subTitle="This is Operation Area"
               >
               </PageHeader>
+              {/*
+                1.menu
+                2.informations
+                3.operations 
+               */}
               <p className="content_infor">
                 {operationInfor}
               </p>
