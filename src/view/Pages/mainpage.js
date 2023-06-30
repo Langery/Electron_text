@@ -17,7 +17,7 @@ import card05 from "../../images/card_05.jpg"
 import card06 from "../../images/card_06.jpg"
 
 // Skeleton
-import { Col, Layout, Menu, Modal, PageHeader, Row, Tree, Card, Carousel, Button, Popover } from 'antd';
+import { Col, Layout, Menu, Modal, PageHeader, Row, Tree, Card, Carousel, Button, Popover, Badge } from 'antd';
 
 import { PostWay, GetWay } from '../../server/request';
 
@@ -197,24 +197,42 @@ const MainPage = () => {
   const [popoverMenu, setPopoverMenu] = useState([
     {
       id: 1,
-      name: 'Content 1 ~'
+      name: 'Content 1 ~',
+      count: 5
     },
     {
       id: 2,
-      name: 'Content 2 !'
+      name: 'Content 2 !',
+      count: 9
     },
     {
       id: 3,
-      name: 'Content 3 @'
+      name: 'Content 3 @',
+      count: 3
     }
   ])
-  const popoverText = <span>Menu List</span>;
+  // eslint-disable-next-line
+  const [badgeCount, setBadgeCount] = useState(5)
+  /**
+   * 增加一键清除操作
+   * 每项后面有数量提示，即增加相对应模块几个（待优化）
+   * 未完成交互功能
+   */
+  const popoverText =(
+    <div className="popover_menu">
+      <span>Menu List</span>
+      <ion-icon class="popover_menuIcon" name="refresh-outline"></ion-icon>
+    </div>
+  );
   const popoverContent = (
     <div>
       {
         popoverMenu.map(i => {
           return (
-            <p>{i.name}</p>
+            <div className="popover_item">
+              <p>{i.name}</p>
+              <Badge className="popover_badge" count={i.count}></Badge>
+            </div>
           )
         })
       }
