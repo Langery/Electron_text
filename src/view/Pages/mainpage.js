@@ -364,7 +364,7 @@ const MainPage = () => {
   return (
     <div className="mainpage">
       <Header>
-        <Menu className="mainmenu" onClick={handleClick} selectedKeys={[current]} mode="horizontal">
+        <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
           <Menu.Item key="nav1_content">
             <ion-icon name="balloon-outline"></ion-icon>
             Nav1
@@ -395,13 +395,13 @@ const MainPage = () => {
             <ion-icon name="chatbubbles-outline"></ion-icon>
             Talking
           </Menu.Item>
-          {/* 购物车 */}
-          <Popover className="popover_main" placement="leftTop" title={popoverText} content={popoverContent} trigger="click">
-            <Button>
-              <ion-icon name="cart-outline"></ion-icon>
-            </Button>
-          </Popover>
         </Menu>
+        {/* 购物车 */}
+        <Popover className="popover_main" placement="leftTop" title={popoverText} content={popoverContent} trigger="click">
+          <Button>
+            <ion-icon name="cart-outline"></ion-icon>
+          </Button>
+        </Popover>
       </Header>
       <Content className="maincontent">
         <div className="nav1_content">
@@ -474,9 +474,6 @@ const MainPage = () => {
           </Row>
         </div>
         <div className="nav2_content">
-          {/* <Header>
-            Header
-          </Header> */}
           <Row className="nav2_row">
             <NewCol></NewCol>
             <NewCreatCol></NewCreatCol>
