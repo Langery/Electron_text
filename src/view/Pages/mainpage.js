@@ -8,6 +8,7 @@ import FormSelf from '../components/form';
 import ExcelSelf from '../components/excel';
 import TalkSelf from '../components/talk';
 import OperationSelf from "../mainpage/Operagtion";
+import MenuSelf from "../mainpage/MenuPage";
 
 import card01 from "../../images/card_01.jpg"
 import card02 from "../../images/card_02.jpg"
@@ -27,6 +28,8 @@ const { Header, Content } = Layout;
 const { Meta } = Card;
 
 const { DirectoryTree } = Tree;
+
+const HAVE_DATA = 1;
 
 // defined component
 function NewCol (item) {
@@ -120,6 +123,12 @@ const MainPage = () => {
   const [detailInfor, setDetailInfor] = useState('Detail');
   // eslint-disable-next-line
   const [operationInfor, setOperationInfor] = useState('This is Operation');
+
+  // eslint-disable-next-line
+  const [menuInfor, setMenuInfor] = useState({
+    mode: 'horizontal',
+    current: 'nav1_content'
+  })
 
   /**
    * This is Form Data
@@ -292,7 +301,7 @@ const MainPage = () => {
     oldClassSyle.display = 'none';
     setCurrent(e.key);
 
-    if (e.keyPath.length > 1) {
+    if (e.keyPath.length > HAVE_DATA) {
       let getFatherClass = document.getElementsByClassName(e.keyPath[1]);
       let classFatherStyle = getFatherClass[0].style;
       classFatherStyle.display = 'block';
@@ -364,6 +373,9 @@ const MainPage = () => {
   return (
     <div className="mainpage">
       <Header>
+        <MenuSelf
+          menuInfor={menuInfor}
+        ></MenuSelf>
         <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
           <Menu.Item key="nav1_content">
             <ion-icon name="balloon-outline"></ion-icon>
