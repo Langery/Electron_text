@@ -22,6 +22,8 @@ import { Col, Layout, Menu, Modal, PageHeader, Row, Tree, Card, Carousel, Button
 
 import { PostWay, GetWay } from '../../server/request';
 
+import { useCallbackState } from "../../common/common";
+
 const { SubMenu } = Menu;
 const { Header, Content } = Layout;
 
@@ -50,22 +52,6 @@ function NewCol (item) {
     </Col>
   )
   return returnLabel;
-}
-
-function useCallbackState(state) {
-  const _cb = useRef();
-  const [data, setData] = useState(state);
-  useEffect(() => {
-    _cb.current && _cb.current(data);
-  }, [data])
-
-  return [
-    data,
-    (val, callback) => {
-      _cb.current = callback;
-      setData(val);
-    }
-  ]
 }
 
 const MainPage = () => {
@@ -127,7 +113,33 @@ const MainPage = () => {
   // eslint-disable-next-line
   const [menuInfor, setMenuInfor] = useState({
     mode: 'horizontal',
-    current: 'nav1_content'
+    current: 'nav1',
+    menulist: [
+      {
+        key: 'nav1',
+        icon: 'balloon-outline',
+        name: 'Nav - 1',
+        submenu: false
+      },
+      {
+        key: 'nav2',
+        icon: 'bandage-outline',
+        name: 'Nav - 2',
+        submenu: false
+      },
+      {
+        key: 'nav3',
+        icon: 'beer-outline',
+        name: 'Nav - 3',
+        submenu: true
+      },
+      {
+        key: 'nav4',
+        icon: 'chatbubbles-outline',
+        name: 'Nav - 4 Talk',
+        submenu: true
+      }
+    ]
   })
 
   /**
