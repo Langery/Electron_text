@@ -23,6 +23,7 @@ import { Col, Layout, Menu, Modal, PageHeader, Row, Tree, Card, Carousel, Button
 import { PostWay, GetWay } from '../../server/request';
 
 import { useCallbackState } from "../../common/common";
+import { commonStatus } from "../../common/status"; // status code
 
 const { SubMenu } = Menu;
 const { Header, Content } = Layout;
@@ -31,7 +32,7 @@ const { Meta } = Card;
 
 const { DirectoryTree } = Tree;
 
-const HAVE_DATA = 1;
+const HAD_DATE = commonStatus.HAD_DATE;
 
 // defined component
 function NewCol (item) {
@@ -131,7 +132,30 @@ const MainPage = () => {
         key: 'nav3',
         icon: 'beer-outline',
         name: 'Nav - 3',
-        submenu: true
+        submenu: true,
+        childlist: [
+          {
+            key: 'key3-1',
+            name: 'Word',
+            title: 'nav 3 - 1',
+            icon: 'bandage-outline',
+            submenu: false
+          },
+          {
+            key: 'key3-2',
+            name: 'Excel',
+            title: 'nav 3 - 2',
+            icon: 'bandage-outline',
+            submenu: false
+          },
+          {
+            key: 'key3-3',
+            name: 'PowerPoint',
+            title: 'nav 3 - 3',
+            icon: 'bandage-outline',
+            submenu: false
+          }
+        ]
       },
       {
         key: 'nav4',
@@ -232,8 +256,7 @@ const MainPage = () => {
       count: 3
     }
   ])
-  // eslint-disable-next-line
-  const [badgeCount, setBadgeCount] = useState(5)
+
   /**
    * 增加一键清除操作
    * 每项后面有数量提示，即增加相对应模块几个（待优化）
@@ -313,7 +336,7 @@ const MainPage = () => {
     oldClassSyle.display = 'none';
     setCurrent(e.key);
 
-    if (e.keyPath.length > HAVE_DATA) {
+    if (e.keyPath.length > HAD_DATE) {
       let getFatherClass = document.getElementsByClassName(e.keyPath[1]);
       let classFatherStyle = getFatherClass[0].style;
       classFatherStyle.display = 'block';

@@ -5,7 +5,6 @@ import { Menu } from 'antd';
 
 const { SubMenu } = Menu;
 
-// eslint-disable-next-line
 const HAVE_DATA = 1;
 
 const MenuSelf = React.forwardRef((props, ref) => {
@@ -13,6 +12,7 @@ const MenuSelf = React.forwardRef((props, ref) => {
   const menuInfor = props.menuInfor;
 
   const [current, setCurrent] = useState(menuInfor.current);
+  // eslint-disable-next-line
   const menulist = menuInfor.menulist;
 
   // click function
@@ -34,8 +34,29 @@ const MenuSelf = React.forwardRef((props, ref) => {
     classStyle.display = 'block';
   }
 
+  const MenuGroupItem = (props) => {
+    const childlist = props.childlist;
+    const title = props.title;
+
+    let GroupMenu = childlist.map(item => {
+      return (
+        <Menu.Item key={item.key}>
+          {item.name}
+        </Menu.Item>
+      )
+    })
+
+    return (
+      <Menu.ItemGroup title={title}>
+        {GroupMenu}
+      </Menu.ItemGroup>
+    )
+
+  }
+
   const MenuItem = () => {
-    return menulist.map(i => {
+    let maplist = menulist;
+    return maplist.map(i => {
       if (!i.submenu) {
         return (
           <Menu.Item key={i.key}>
@@ -54,7 +75,7 @@ const MenuSelf = React.forwardRef((props, ref) => {
               </span>
             }
           >
-
+            <MenuGroupItem childlist={i.childlist} title={i.title}></MenuGroupItem>
           </SubMenu>
         )
       }
