@@ -161,7 +161,7 @@ const MainPage = () => {
         key: 'nav4',
         icon: 'chatbubbles-outline',
         name: 'Nav - 4 Talk',
-        submenu: true
+        submenu: false
       }
     ]
   })

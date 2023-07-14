@@ -11,6 +11,8 @@ const MenuSelf = React.forwardRef((props, ref) => {
   // TYPEOF menuInfor: Object
   const menuInfor = props.menuInfor;
 
+  console.log(menuInfor)
+
   const [current, setCurrent] = useState(menuInfor.current);
   // eslint-disable-next-line
   const menulist = menuInfor.menulist;
@@ -38,10 +40,10 @@ const MenuSelf = React.forwardRef((props, ref) => {
     const childlist = props.childlist;
     const title = props.title;
 
-    let GroupMenu = childlist.map(item => {
+    let GroupMenu = childlist&&childlist.map(i => {
       return (
-        <Menu.Item key={item.key}>
-          {item.name}
+        <Menu.Item key={i.key}>
+          {i.name}
         </Menu.Item>
       )
     })
