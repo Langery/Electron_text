@@ -5,12 +5,14 @@ import { Menu } from 'antd';
 
 const { SubMenu } = Menu;
 
+// eslint-disable-next-line 
 const HAVE_DATA = 1;
 
-const MenuSelf = React.forwardRef((props, ref) => {
+const MenuSelf = React.forwardRef((props, ref, onClick) => {
   // TYPEOF menuInfor: Object
   const menuInfor = props.menuInfor;
 
+  // eslint-disable-next-line 
   const [current, setCurrent] = useState(menuInfor.current);
 
   const menulist = menuInfor.menulist;
@@ -18,8 +20,11 @@ const MenuSelf = React.forwardRef((props, ref) => {
   // click function
   const handleClick = e => {
     let getOldClass = document.getElementsByClassName(current);
+
     let oldClassSyle = getOldClass[0].style;
     oldClassSyle.display = 'none';
+
+    console.log(e); // null ???
 
     setCurrent(e.key);
 

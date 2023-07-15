@@ -332,7 +332,7 @@ const MainPage = () => {
   // nav click function
   const handleClick = e => {
     let getOldClass = document.getElementsByClassName(current);
-    console.log(getOldClass)
+
     let oldClassSyle = getOldClass[0].style;
     oldClassSyle.display = 'none';
     setCurrent(e.key);
