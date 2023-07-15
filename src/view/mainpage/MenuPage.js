@@ -11,18 +11,16 @@ const MenuSelf = React.forwardRef((props, ref) => {
   // TYPEOF menuInfor: Object
   const menuInfor = props.menuInfor;
 
-  console.log(menuInfor)
-
   const [current, setCurrent] = useState(menuInfor.current);
-  // eslint-disable-next-line
+
   const menulist = menuInfor.menulist;
 
   // click function
   const handleClick = e => {
     let getOldClass = document.getElementsByClassName(current);
     let oldClassSyle = getOldClass[0].style;
-    console.log("getOldClass:  " + getOldClass)
     oldClassSyle.display = 'none';
+
     setCurrent(e.key);
 
     if (e.keyPath.length > HAVE_DATA) {
@@ -81,7 +79,6 @@ const MenuSelf = React.forwardRef((props, ref) => {
           </SubMenu>
         )
       }
-      
     })
   }
 

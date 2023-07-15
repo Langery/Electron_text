@@ -114,42 +114,42 @@ const MainPage = () => {
   // eslint-disable-next-line
   const [menuInfor, setMenuInfor] = useState({
     mode: 'horizontal',
-    current: 'nav1',
+    current: 'nav1_content',
     menulist: [
       {
-        key: 'nav1',
+        key: 'nav1_content',
         icon: 'balloon-outline',
         name: 'Nav - 1',
         submenu: false
       },
       {
-        key: 'nav2',
+        key: 'nav2_content',
         icon: 'bandage-outline',
         name: 'Nav - 2',
         submenu: false
       },
       {
-        key: 'nav3',
+        key: 'nav3_content',
         icon: 'beer-outline',
         name: 'Nav - 3',
         submenu: true,
         childlist: [
           {
-            key: 'key3-1',
+            key: 'setting_1',
             name: 'Word',
             title: 'nav 3 - 1',
             icon: 'bandage-outline',
             submenu: false
           },
           {
-            key: 'key3-2',
+            key: 'setting_2',
             name: 'Excel',
             title: 'nav 3 - 2',
             icon: 'bandage-outline',
             submenu: false
           },
           {
-            key: 'key3-3',
+            key: 'setting_3',
             name: 'PowerPoint',
             title: 'nav 3 - 3',
             icon: 'bandage-outline',
@@ -158,7 +158,7 @@ const MainPage = () => {
         ]
       },
       {
-        key: 'nav4',
+        key: 'nav4_content',
         icon: 'chatbubbles-outline',
         name: 'Nav - 4 Talk',
         submenu: false
@@ -332,6 +332,7 @@ const MainPage = () => {
   // nav click function
   const handleClick = e => {
     let getOldClass = document.getElementsByClassName(current);
+    console.log(getOldClass)
     let oldClassSyle = getOldClass[0].style;
     oldClassSyle.display = 'none';
     setCurrent(e.key);
