@@ -15,5 +15,6 @@ export function useCallbackState(state) {
       setData(val);
     }
   ]
-};
+}
+
 

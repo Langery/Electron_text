@@ -14,10 +14,6 @@ export function PostWay (urlname, sendData) {
   return [url, options]
 }
 
-// const sendData = {
-//   'id': 1,
-//   'name': 'ok'
-// }
 export function GetWay (urlname, ...sendData) {
   let options = {
     method: 'GET',
@@ -33,26 +29,3 @@ export function GetWay (urlname, ...sendData) {
   return [url, options]
 }
 
-// class OptionsFun {
-//   constructor(method, ...sendData){
-//     this.method = method;
-//     this.sendData = [...sendData][0];
-//   }
-//   PostOptions(){
-//     return {
-//       method: this.method,
-//       body: JSON.stringify(this.sendData),
-//       headers: { // Request header
-//         'Content-Type': 'application/x-www-form-urlencoded'
-//       }
-//     }
-//   }
-//   GetOptions(){
-//     return {
-//       method: this.method,
-//       headers: {
-//         'Content-Type': 'application/x-www-form-urlencoded'
-//       }
-//     }
-//   }
-// }

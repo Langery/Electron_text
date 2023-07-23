@@ -18,13 +18,11 @@ const MenuSelf = React.forwardRef((props, ref, onClick) => {
   const menulist = menuInfor.menulist;
 
   // click function
-  const handleClick = e => {
+  const handleClick = (e) => {
     let getOldClass = document.getElementsByClassName(current);
 
     let oldClassSyle = getOldClass[0].style;
     oldClassSyle.display = 'none';
-
-    console.log(e); // null ???
 
     setCurrent(e.key);
 
