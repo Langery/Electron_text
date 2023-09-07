@@ -9,10 +9,6 @@
   "dependencies": {
     "@ant-design/compatible": "^1.1.0",
     "@ant-design/icons": "^4.7.0",
-    "@types/jest": "^29.5.3",
-    "@types/node": "^20.4.3",
-    "@types/react": "^18.2.15",
-    "@types/react-dom": "^18.2.7",
     "antd": "^4.19.4",
     "chart.xkcd": "^1.1.13",
     "chart.xkcd-react": "0.0.6",
@@ -31,8 +27,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.1.1",
     "redux": "^4.0.5",
-    "roughjs": "^3.1.0",
-    "typescript": "^5.1.6"
+    "roughjs": "^3.1.0"
   },
   "scripts": {
     "estart": "electron .",

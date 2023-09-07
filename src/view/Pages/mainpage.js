@@ -8,8 +8,6 @@ import FormSelf from '../components/form';
 import ExcelSelf from '../components/excel';
 import TalkSelf from '../components/talk';
 import OperationSelf from "../mainpage/Operagtion";
-// eslint-disable-next-line
-import MenuSelf from "../mainpage/MenuPage";
 
 import card01 from "../../images/card_01.jpg"
 import card02 from "../../images/card_02.jpg"
@@ -332,6 +330,7 @@ const MainPage = () => {
 
   // nav click function
   const handleClick = e => {
+    console.log(e)
     let getOldClass = document.getElementsByClassName(current);
 
     let oldClassSyle = getOldClass[0].style;
@@ -410,9 +409,6 @@ const MainPage = () => {
   return (
     <div className="mainpage">
       <Header>
-        {/* <MenuSelf
-          menuInfor={menuInfor}
-        ></MenuSelf> */}
         <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
           <Menu.Item key="nav1_content">
             <ion-icon name="balloon-outline"></ion-icon>
