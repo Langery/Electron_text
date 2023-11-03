@@ -1,15 +1,26 @@
 // Electron Config
-const { app, BrowserWindow } = require('electron')
-let win
+const { app, BrowserWindow, ipcMain } = require('electron')
+
+let win, contents;
 function createWindow() {
     // create new window
-    win = new BrowserWindow({ width: 800, height: 600 })
+    win = new BrowserWindow({
+        width: 800,
+        height: 600,
+        webPreferences: {
+            // preload: '/path/preload.js'
+            preload: path.join(__dirname, '/path/preload.js')
+        }
+    })
 
     // onload index.html or url
     win.loadURL('http://localhost:3000')
     // win.loadFile('public/index.html')
     // load local files in build
-    // win.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)  
+    // win.loadURL(`file://${path.join(__dirname, '../build/index.html')}`) 
+    
+    contents = win.webContents;
+    console.log(contents)
     
     // open devTools
     win.webContents.openDevTools()
@@ -26,15 +37,20 @@ function createWindow() {
 // Electron ready after init
 // create the brower window to use the function
 // some API after the ready function 
-app.on('ready', createWindow)
+// app.on('ready', createWindow)
+
+
+app.whenReady().then(()=> {
+    createWindow()
+
+    ipcMain.handle('ping', () => 'pong')
+})
 
 // close the windows and quit
 app.on('window-all-closed', () => {
     // 在 macOS 上，除非用户用 Cmd + Q 确定地退出，
     // 否则绝大部分应用及其菜单栏会保持激活。
-    if (process.platform !== 'darwin') {
-        app.quit()
-    }
+    if (process.platform !== 'darwin') app.quit()
 })
 
 app.on('activate', () => {
@@ -45,5 +61,5 @@ app.on('activate', () => {
     }
 })
 
-// 在这个文件中，你可以续写应用剩下主进程代码。
+// 在这个文件中，可以续写应用剩下主进程代码。
 // 也可以拆分成几个文件，然后用 require 导入。

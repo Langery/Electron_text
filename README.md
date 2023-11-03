@@ -190,8 +190,12 @@
 - [x] Canvas 和 SVG 的区别
   - [ ] 处理速度
   - [ ] CPU 与 GPU 耗能
-- [ ] electron 打包发布
-  - [ ] Github Actions
+- [ ] electron
+  - [ ] 进程通讯
+    - [ ] ipMain
+    - [ ] ipcRenderer
+  - [ ] electron 打包发布
+    - [ ] Github Actions
 - [ ] GUI 嵌入
 - [ ] 待续...
 
