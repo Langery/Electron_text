@@ -15,11 +15,14 @@
 - [Link](#link)
 
 ### <a id="chu">初识</a>
+***
 
-> 官网：[Electron](https://electronjs.org/)
+> 官网：[Electron](https://electronjs.org/)<br />
+
 > 图标库：[ionic](https://ionic.io/ionicons/)
 
 ### <a id="qi">启动项目</a>
+***
 
 ```node
   $ npm start // step 1
@@ -27,6 +30,7 @@
 ```
 
 ### <a id="idea">idea</a>
+***
 
 > 业务层
 
@@ -163,6 +167,7 @@
   - 使用 `git cz` 代替 `git commit`
 
 ### <a id="todo">To be resolved</a>
+***
 
 - [x] 不实现新打开窗口，只是在当前状态下进行界面跳转
 - [x] react 嵌入到 electron 中
@@ -200,6 +205,7 @@
 - [ ] 待续...
 
 ### <a id="finish">Finished</a>
+***
 
 - [x] 实现 IPC 与主进程的交互功能，并实现新窗口的创建以及对应函数的响应操作
 - [x] 关闭当前打开窗口以及返回上一级时关闭当前窗口
@@ -208,6 +214,7 @@
 - [ ] 待续...
 
 ### <a id="underlying">React 底层逻辑</a>
+***
 
 - [x] forwardRef
 - [ ] useImperativeHandle
@@ -221,6 +228,7 @@
   - [x] extends
 
 ### <a id="components">独立组件库 [页面必用组件库]</a>
+***
 *基于 Ant Design 的封装组件库，持续扩展中...*<br />
 *当前组件为页面必须使用组件，后期做非页面必须组件，持续扩展中...*
 - [ ] Form
@@ -228,6 +236,7 @@
 
 
 ### <a id="link">Link</a>
+***
 
 1. [React-router路由模块化封装](https://www.jianshu.com/p/d4283e7f3c3c)
 2. ~~[React点击事件的两种写法](https://www.jianshu.com/p/2a5c525e9a28)~~
