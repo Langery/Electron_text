@@ -1,18 +1,16 @@
-## Electron_text
+<div align="center">
 
+## Electron_text
 ![](https://img.shields.io/badge/Frame-Ant--design-blue)
 ![](https://img.shields.io/badge/branch-master-green)
 
-## Menu
+</div>
 
-- [初识](#chu)
-- [启动项目](#qi)
-- [idea](#idea)
-- [To be resolved](#todo)
-- [Finished](#finish)
-- [React 底层逻辑](#underlying)
-- [独立组件库](#components)
-- [Link](#link)
+<div align="center">
+
+[初识](#chu) | [启动项目](#qi) | [idea](#idea) | [To be resolved](#todo) | [Finished](#finish) | [React 底层逻辑](#underlying) | [独立组件库](#components) | [Link](#link)
+
+</div>
 
 ### <a id="chu">初识</a>
 ***
