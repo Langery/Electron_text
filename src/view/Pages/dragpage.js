@@ -3,7 +3,7 @@ import { createFromIconfontCN } from '@ant-design/icons';
 import '../../style/drag.less';
 
 // eg: import component
-import { Input, Select, Button, Layout, PageHeader, Col, Row } from "antd";
+import { Input, Select, Button, Radio, Layout, PageHeader, Col, Row } from "antd";
 
 import { Link } from 'react-router-dom';
 
@@ -35,7 +35,7 @@ const menuList = [
   },
   {
     id: 4,
-    name: 'Num 4',
+    name: 'Radio',
     icon: '',
     iconTwoTone: false
   },
@@ -68,6 +68,8 @@ const SumSide = (props) => {
         ItemComponent = <Select></Select>
       } else if (item.name === 'Button') {
         ItemComponent = <ButtonSelf props={item} />
+      } else if (item.name === 'Radio') {
+        ItemComponent = <Radio></Radio>
       }
 
       return (
