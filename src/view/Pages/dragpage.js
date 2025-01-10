@@ -18,32 +18,37 @@ const menuList = [
     id: 1,
     name: 'Input',
     icon: 'icon-instagram-co',
-    iconTwoTone: false
+    iconTwoTone: false,
+    number: 1
   },
   {
     id: 2,
     name: 'Select',
     icon: 'icon-food-pizza',
-    iconTwoTone: true // 双色图标配置
+    iconTwoTone: true, // 双色图标配置
+    number: 2
   },
   {
     id: 3,
     name: 'Button',
     icon: '',
     iconTwoTone: false,
-    infor: 'default'
+    infor: 'default',
+    number: 1
   },
   {
     id: 4,
     name: 'Radio',
     icon: '',
-    iconTwoTone: false
+    iconTwoTone: false,
+    number: 2
   },
   {
     id: 5,
     name: 'Num 5',
     icon: '',
-    iconTwoTone: false
+    iconTwoTone: false,
+    number: Number
   }
 ];
 
@@ -51,7 +56,8 @@ const menuList = [
 const handleDragStart = data => e => e.dataTransfer.setData('itemData', JSON.stringify(data));
 
 /**
- * TODO: 目前右侧拖拽位置变更可能需要重新修订，存在拖拽不方便的地方
+ * TODO: 目前右侧拖拽位置变更可能需要重新修订，存在拖拽不方便的地方；
+ * TODO: 标签个数进行计数统计，实现对应切换时候的数目变化；
  */
 const SumSide = (props) => {
 
