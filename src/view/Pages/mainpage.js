@@ -5,7 +5,12 @@ import '../../style/main.less';
 import { Link } from 'react-router-dom';
 
 import FormSelf from '../components/form';
+
 import ExcelSelf from '../components/excel';
+
+import MapSelf from '../MainView/components/map';
+import RoughSelf from '../MainView/components/rough';
+
 import TalkSelf from '../components/talk';
 import OperationSelf from "../mainpage/Operagtion";
 
@@ -161,6 +166,42 @@ const MainPage = () => {
         icon: 'chatbubbles-outline',
         name: 'Nav - 4 Talk',
         submenu: false
+      },
+      {
+        key: 'nav5_content',
+        icon: 'beer-outline',
+        name: 'Nav - 5',
+        submenu: true,
+        childlist: [
+          {
+            key: 'view_1',
+            name: 'Map',
+            title: 'nav 5 - 1',
+            icon: 'bandage-outline',
+            submenu: false
+          },
+          {
+            key: 'view_2',
+            name: 'Rough',
+            title: 'nav 5 - 2',
+            icon: 'bandage-outline',
+            submenu: false
+          },
+          {
+            key: 'view_3',
+            name: 'Chartxkcd',
+            title: 'nav 5 - 3',
+            icon: 'bandage-outline',
+            submenu: false
+          },
+          {
+            key: 'view_4',
+            name: 'IndexView',
+            title: 'nav 5 - 4',
+            icon: 'bandage-outline',
+            submenu: false
+          }
+        ]
       }
     ]
   })
@@ -440,6 +481,22 @@ const MainPage = () => {
             <ion-icon name="chatbubbles-outline"></ion-icon>
             Talking
           </Menu.Item>
+          <SubMenu
+            key="nav5_content"
+            title={
+              <span>
+                <ion-icon name="bandage-outline"></ion-icon>
+                View
+              </span>
+            }
+          >
+            <Menu.ItemGroup title="Item 1">
+              <Menu.Item key="view_1">Map</Menu.Item>
+              <Menu.Item key="view_2">Rough</Menu.Item>
+              <Menu.Item key="view_3">Chartxkcd</Menu.Item>
+              <Menu.Item key="view_4">IndexView</Menu.Item>
+            </Menu.ItemGroup>
+          </SubMenu>
         </Menu>
         {/* 购物车 */}
         <Popover className="popover_main" placement="leftTop" title={popoverText} content={popoverContent} trigger="click">
@@ -551,6 +608,17 @@ const MainPage = () => {
         </div>
         <div className="nav4_content">
           <TalkSelf></TalkSelf>
+        </div>
+        <div className="nav5_content">
+          <div className="view_1">
+            <MapSelf></MapSelf>
+          </div>
+          <div className="view_2">
+            <RoughSelf></RoughSelf>
+          </div>
+          <div className="view_2">
+            
+          </div>
         </div>
       </Content>
       <Modal title="Add List info modal" visible={isModalVisible} onOk={handleModalOk} onCancel={handleModalCancel}>
