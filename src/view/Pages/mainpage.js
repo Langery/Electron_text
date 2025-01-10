@@ -468,7 +468,7 @@ const MainPage = () => {
               </span>
             }
           >
-            <Menu.ItemGroup title="Item 1">
+            <Menu.ItemGroup title="Set 1">
               <Menu.Item key="setting_1">Excel</Menu.Item>
               <Menu.Item key="setting_2">Option 2</Menu.Item>
             </Menu.ItemGroup>
@@ -490,7 +490,7 @@ const MainPage = () => {
               </span>
             }
           >
-            <Menu.ItemGroup title="Item 1">
+            <Menu.ItemGroup title="View 1">
               <Menu.Item key="view_1">Map</Menu.Item>
               <Menu.Item key="view_2">Rough</Menu.Item>
               <Menu.Item key="view_3">Chartxkcd</Menu.Item>
@@ -610,14 +610,19 @@ const MainPage = () => {
           <TalkSelf></TalkSelf>
         </div>
         <div className="nav5_content">
-          <div className="view_1">
-            <MapSelf></MapSelf>
-          </div>
-          <div className="view_2">
-            <RoughSelf></RoughSelf>
-          </div>
-          <div className="view_2">
-            
+          <div className="nav5_item1">
+            <div className="view_1">
+              <MapSelf></MapSelf>
+            </div>
+            <div className="view_2">
+              <RoughSelf></RoughSelf>
+            </div>
+            <div className="view_3">
+              
+            </div>
+            <div className="view_4">
+              
+            </div>
           </div>
         </div>
       </Content>
