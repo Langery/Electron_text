@@ -3,7 +3,6 @@ import LoginIndex from '../view/Login/login'
 import RegisterIndex from '../view/Register/register'
 // import MainView from '../view/MainView/mainview'
 
-// import IndexView from '../view/MainView/components/indexview'
 
 // import ChartxkcdIndex from '../view/MainView/components/chartxkcd'
 // import ListIndex from '../view/MainView/components/listed';

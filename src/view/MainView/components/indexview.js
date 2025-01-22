@@ -219,7 +219,7 @@ class IndexView extends Component {
 
   render () {
     return (
-      <div>
+      <div className='calendar_view'>
         <Layout>
           <Header className="header-style">
             {/* 分栏 */}

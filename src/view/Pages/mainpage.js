@@ -7,9 +7,10 @@ import { Link } from 'react-router-dom';
 import FormSelf from '../components/form';
 
 import ExcelSelf from '../components/excel';
-
 import MapSelf from '../MainView/components/map';
 import RoughSelf from '../MainView/components/rough';
+import ChartxkcdSelf from '../MainView/components/chartxkcd';
+import IndexSelf from '../MainView/components/indexview';
 
 import TalkSelf from '../components/talk';
 import OperationSelf from "../mainpage/Operagtion";
@@ -196,7 +197,7 @@ const MainPage = () => {
           },
           {
             key: 'view_4',
-            name: 'IndexView',
+            name: 'IndexView', // 日历
             title: 'nav 5 - 4',
             icon: 'bandage-outline',
             submenu: false
@@ -618,10 +619,10 @@ const MainPage = () => {
               <RoughSelf></RoughSelf>
             </div>
             <div className="view_3">
-              
+              <ChartxkcdSelf></ChartxkcdSelf>
             </div>
             <div className="view_4">
-              
+              <IndexSelf></IndexSelf>
             </div>
           </div>
         </div>
