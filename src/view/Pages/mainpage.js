@@ -11,6 +11,7 @@ import MapSelf from '../MainView/components/map';
 import RoughSelf from '../MainView/components/rough';
 import ChartxkcdSelf from '../MainView/components/chartxkcd';
 import IndexSelf from '../MainView/components/indexview';
+import ListSelf from '../MainView/components/listed';
 
 import TalkSelf from '../components/talk';
 import OperationSelf from "../mainpage/Operagtion";
@@ -199,6 +200,13 @@ const MainPage = () => {
             key: 'view_4',
             name: 'IndexView', // 日历
             title: 'nav 5 - 4',
+            icon: 'bandage-outline',
+            submenu: false
+          },
+          {
+            key: 'view_5',
+            name: 'ListSelf',
+            title: 'nav 5 - 5',
             icon: 'bandage-outline',
             submenu: false
           }
@@ -496,6 +504,7 @@ const MainPage = () => {
               <Menu.Item key="view_2">Rough</Menu.Item>
               <Menu.Item key="view_3">Chartxkcd</Menu.Item>
               <Menu.Item key="view_4">IndexView</Menu.Item>
+              <Menu.Item key="view_5">ListSelf</Menu.Item>
             </Menu.ItemGroup>
           </SubMenu>
         </Menu>
@@ -623,6 +632,9 @@ const MainPage = () => {
             </div>
             <div className="view_4">
               <IndexSelf></IndexSelf>
+            </div>
+            <div className="view_5">
+              <ListSelf></ListSelf>
             </div>
           </div>
         </div>

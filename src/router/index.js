@@ -4,8 +4,6 @@ import RegisterIndex from '../view/Register/register'
 // import MainView from '../view/MainView/mainview'
 
 
-// import ChartxkcdIndex from '../view/MainView/components/chartxkcd'
-// import ListIndex from '../view/MainView/components/listed';
 // import ConnectIndex from '../view/MainView/components/connenct';
 import MainPage from '../view/Pages/mainpage';
 import DragPage from '../view/Pages/dragpage';
