@@ -13,6 +13,10 @@
   margin: 2%;
   background: var(--common-white);
 }
+.card_style{
+  height: 76vh;
+  border: none;
+}
 
 :root{
   --common-white: #fff;
@@ -26,10 +30,26 @@ ion-icon{
 .nav1_content{
   .view_width;
   overflow-x: hidden;
+  height: 100%;
 }
 
-.nav1_content > .ant-row {
-  height: 91%;
+.nav1_content > .nav1_card {
+  height: 88vh;
+  .ant-card-body{
+    height: 84vh;
+  }
+  .nav1_row_card1{
+    .card_style;
+    background: #8abcd1;
+  }
+  .nav1_row_card2{
+    .card_style;
+    background: #93d5dc;
+  }
+  .nav1_row_card3{
+    .card_style;
+    background: #c4d7d6;
+  }
 }
 
 .nav2_content{

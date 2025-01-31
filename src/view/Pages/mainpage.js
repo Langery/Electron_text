@@ -24,7 +24,7 @@ import card05 from "../../images/card_05.jpg"
 import card06 from "../../images/card_06.jpg"
 
 // Skeleton
-import { Col, Layout, Menu, Modal, PageHeader, Row, Tree, Card, Carousel, Button, Popover, Badge } from 'antd';
+import { Col, Layout, Menu, Modal, Row, Tree, Card, Carousel, Button, Popover, Badge } from 'antd';
 
 import { PostWay, GetWay } from '../../server/request';
 
@@ -517,11 +517,11 @@ const MainPage = () => {
       </Header>
       <Content className="maincontent">
         <div className="nav1_content">
-          <PageHeader
-            title="Components list"
-            subTitle="This is a subtitle"
+          <Card
+            className="nav1_card"
+            title='Components list'
             extra={[
-              <div>
+              <div className="nav1_card_div">
                 <ion-icon key='2' class="add_icon" onClick={addListInfor} name="add-circle-outline"></ion-icon>
                 <Link to="/dragpage">
                   <Button shape="round" class="drag_btn" type="primary" key='1'>
@@ -532,58 +532,64 @@ const MainPage = () => {
               </div>
             ]}
           >
-          </PageHeader>
-          <Row className="nav1_row">
-            <Col span={8} className="main_col_1">
-              <PageHeader
-                title="Menu Area"
-                subTitle="This is Menu Area"
-              >
-              </PageHeader>
-              <DirectoryTree
-                multiple
-                defaultExpandAll
-                onSelect={onSelect}
-                onExpand={onExpand}
-                treeData={treeData}
-              />
-            </Col>
-            <Col span={8} className="main_col_2">
-              <PageHeader
-                title="Detail Area"
-                subTitle="This is Detail Area"
-              >
-              </PageHeader>
-              <p className="content_infor">
-                {detailInfor}
-              </p>
-              <Carousel>
-                <div className="carousel_style">
-                  <h3>1</h3>
-                </div>
-                <div className="carousel_style">
-                  <h3>2</h3>
-                </div>
-                <div className="carousel_style">
-                  <h3>3</h3>
-                </div>
-                <div className="carousel_style">
-                  <h3>4</h3>
-                </div>
-              </Carousel>
-            </Col>
-            <Col span={8} className="main_col_3">
-              <PageHeader
-                title="Operation Area"
-                subTitle="This is Operation Area"
-              >
-              </PageHeader>
-              <OperationSelf
-                operationInfor={operationInfor}
-              >
-              </OperationSelf>
-            </Col>
-          </Row>
+            <Row className="nav1_row">
+              <Col span={8} className="main_col_1">
+                <Card
+                  className="nav1_row_card1"
+                >
+                  <Meta
+                    title="Menu Area"
+                    description="This is Menu Area" />
+                  <DirectoryTree
+                    multiple
+                    defaultExpandAll
+                    onSelect={onSelect}
+                    onExpand={onExpand}
+                    treeData={treeData}
+                  />
+                </Card>
+              </Col>
+              <Col span={8} className="main_col_2">
+                <Card 
+                  className="nav1_row_card2"
+                >
+                  <Meta
+                    title="Detail Area"
+                    description="This is Detail Area" />
+                    <p className="content_infor">
+                      {detailInfor}
+                    </p>
+                    <Carousel>
+                      <div className="carousel_style">
+                        <h3>1</h3>
+                      </div>
+                      <div className="carousel_style">
+                        <h3>2</h3>
+                      </div>
+                      <div className="carousel_style">
+                        <h3>3</h3>
+                      </div>
+                      <div className="carousel_style">
+                        <h3>4</h3>
+                      </div>
+                    </Carousel>
+                </Card>
+              </Col>
+              <Col span={8} className="main_col_3">
+                <Card
+                  className="nav1_row_card3"
+                >
+                  <Meta
+                    title="Operation Area"
+                    description="This is Operation Area" />
+                  <OperationSelf
+                    operationInfor={operationInfor}
+                  >
+                  </OperationSelf>
+                </Card>
+              </Col>
+            </Row>
+          </Card>
         </div>
         <div className="nav2_content">
           <Row className="nav2_row">

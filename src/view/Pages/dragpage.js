@@ -3,7 +3,7 @@ import { createFromIconfontCN } from '@ant-design/icons';
 import '../../style/drag.less';
 
 // eg: import component
-import { Input, Select, Button, Radio, Layout, PageHeader, Col, Row } from "antd";
+import { Input, Select, Button, Radio, Layout, Col, Row, Anchor } from "antd";
 
 import { Link } from 'react-router-dom';
 
@@ -171,7 +171,8 @@ const DragPage = () => {
   return (
     <div className="dragpage">
       <Header>
-        <PageHeader title="Drag" subTitle="Drag component to a frame" />
+        {/* <PageHeader title="Drag" subTitle="Drag component to a frame" /> */}
+        <Anchor></Anchor>
       </Header>
       <Content>
         {/* initialization  */}

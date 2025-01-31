@@ -7,9 +7,10 @@
   "main": "main.js",
   "license": "ISC",
   "dependencies": {
-    "@ant-design/compatible": "^1.1.0",
+    "@ant-design/compatible": "^5.1.2",
     "@ant-design/icons": "^4.8.3",
-    "antd": "^4.19.4",
+    "@ant-design/pro-components": "^2.8.4",
+    "antd": "^5.23.3",
     "chart.xkcd": "^1.1.13",
     "chart.xkcd-react": "0.0.6",
     "electron": "^13.6.6",
