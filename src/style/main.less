@@ -1,3 +1,7 @@
+:root{
+  --common-white: #fff;
+}
+
 .mainpage{
   height: 100vh;
   background: url(../images/mainpage.jpg);
@@ -16,10 +20,9 @@
 .card_style{
   height: 76vh;
   border: none;
-}
-
-:root{
-  --common-white: #fff;
+  div{
+    padding: 0px;
+  }
 }
 
 ion-icon{
@@ -36,7 +39,9 @@ ion-icon{
 .nav1_content > .nav1_card {
   height: 88vh;
   .ant-card-body{
-    height: 84vh;
+    height: 82vh;
+    overflow: hidden;
+    padding: 15px;
   }
   .nav1_row_card1{
     .card_style;
@@ -49,6 +54,19 @@ ion-icon{
   .nav1_row_card3{
     .card_style;
     background: #c4d7d6;
+  }
+  .add_icon{
+    position: absolute;
+    top: 15px;
+    right: 120px;
+    font-size: 25px;
+    cursor: pointer;
+  }
+  .btn_drag_icon {
+    display: inline-block;
+    position: absolute;
+    top: 6px;
+    right: 4px;
   }
 }
 
@@ -69,23 +87,8 @@ ion-icon{
   height: 100%;
 }
 
-.add_icon{
-  position: absolute;
-  top: 24px;
-  right: 120px;
-  font-size: 25px;
-  cursor: pointer;
-}
-
 .drag_btn{
   display: inline-block;
-}
-
-.btn_drag_icon {
-  display: inline-block;
-  position: absolute;
-  top: 9px;
-  right: 4px;
 }
 
 .ant-btn{
@@ -178,12 +181,11 @@ ion-icon{
   }
 }
 
-
 .popover_item{
   position: relative;
   .popover_badge{
     position: absolute;
-    right: -65px;
+    right: 0px;
     top: 0px;
   }
 }

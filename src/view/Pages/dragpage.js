@@ -3,11 +3,13 @@ import { createFromIconfontCN } from '@ant-design/icons';
 import '../../style/drag.less';
 
 // eg: import component
-import { Input, Select, Button, Radio, Layout, Col, Row, Anchor } from "antd";
+import { Input, Select, Button, Radio, Layout, Col, Row, Card } from "antd";
 
 import { Link } from 'react-router-dom';
 
 const { Header, Content } = Layout;
+
+const { Meta } = Card;
 
 const IconFont = createFromIconfontCN({
   scriptUrl: '//at.alicdn.com/t/c/font_3819225_cvuht688sxe.js', // 阿里图标库链接
@@ -56,6 +58,7 @@ const menuList = [
 const handleDragStart = data => e => e.dataTransfer.setData('itemData', JSON.stringify(data));
 
 /**
+ * TODO: 不能初始化；
  * TODO: 目前右侧拖拽位置变更可能需要重新修订，存在拖拽不方便的地方；
  * TODO: 标签个数进行计数统计，实现对应切换时候的数目变化；
  */
@@ -171,8 +174,11 @@ const DragPage = () => {
   return (
     <div className="dragpage">
       <Header>
-        {/* <PageHeader title="Drag" subTitle="Drag component to a frame" /> */}
-        <Anchor></Anchor>
+        <Card className="drag_card">
+          <Meta
+            title="Drag"
+            description="Drag component to a frame" />
+        </Card>
       </Header>
       <Content>
         {/* initialization  */}
