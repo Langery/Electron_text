@@ -38,7 +38,7 @@ const { Meta } = Card;
 
 const { DirectoryTree } = Tree;
 
-const HAD_DATE = commonStatus.HAD_DATE;
+const HAD_DATA = commonStatus.HAD_DATA;
 
 // defined component
 function NewCol (item) {
@@ -387,7 +387,7 @@ const MainPage = () => {
     oldClassSyle.display = 'none';
     setCurrent(e.key);
 
-    if (e.keyPath.length > HAD_DATE) {
+    if (e.keyPath.length > HAD_DATA) {
       let getFatherClass = document.getElementsByClassName(e.keyPath[1]);
       let classFatherStyle = getFatherClass[0].style;
       classFatherStyle.display = 'block';

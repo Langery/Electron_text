@@ -58,9 +58,9 @@ const menuList = [
 const handleDragStart = data => e => e.dataTransfer.setData('itemData', JSON.stringify(data));
 
 /**
- * TODO: 不能初始化；
  * TODO: 目前右侧拖拽位置变更可能需要重新修订，存在拖拽不方便的地方；
  * TODO: 标签个数进行计数统计，实现对应切换时候的数目变化；
+ * TODO: Splitter 分隔面板
  */
 const SumSide = (props) => {
 
@@ -153,20 +153,10 @@ const DragPage = () => {
   const handleDragLeave = e => e.target.classList.remove('over')
 
 
-  let clearList = menuList;
-  // reset list infor
-  // unfinished ! ! !
   const resetList = () => {
-    dataRef.current = { // 初始化
-      left: {
-        callback: setLeftDragList,
-        list: clearList,
-      },
-      right: {
-        callback: setRightDragList,
-        list: [],
-      }
-    }
+    let cleanList = menuList;
+    setLeftDragList(cleanList);
+    setRightDragList([]);
   }
 
   const [[_leftKey, _leftlist], [_rightKey, _rightlist]] = Object.entries(dataRef.current);

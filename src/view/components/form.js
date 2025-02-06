@@ -8,6 +8,7 @@ import { Form, Input, Select, DatePicker, InputNumber, Button } from "antd";
 const { Option } = Select;
 const { TextArea } = Input;
 
+// Step1: 初始输入内容
 const FormItem = (props) => {
 
   const formItem = props.formItem;
@@ -36,6 +37,7 @@ const FormItem = (props) => {
         props.backNumberData(data);
       }
 
+      // 定义类型
       if (i.type === 'input') {
         OperationComponent = <InputSelf backInput={InputChangeValue} props={i}/>;
       } else if (i.type === 'select') {
