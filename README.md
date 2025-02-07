@@ -18,7 +18,11 @@
 
 > 图标库：[ionic](https://ionic.io/ionicons/)
 
+*Link: 后台项目 [Flask_library](https://github.com/Langery/Flask_library)*
+
 ## <a id="qi">启动项目</a>
+
+**注：node版本不宜过高~**
 
 ```node
   $ npm start // step 1
