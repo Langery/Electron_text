@@ -3,6 +3,25 @@ import '../../style/talk.less';
 
 import { Button, Input } from "antd";
 
+/**
+ * todo: 动态创建输入和接收信息框的展示
+ */
+// 展示发送信息
+const showSendMess = (props) => {
+  const info ='send info';
+  return (
+    <li>{info}</li>
+  )
+}
+
+// 展示接收信息
+const showRecMess = (props) => {
+  const info ='rec info';
+  return (
+    <li>{info}</li>
+  )
+}
+
 const TalkSelf = () => {
 
   const [sessionName, setSessionName] = useState(sessionStorage.getItem('name'));
@@ -18,7 +37,7 @@ const TalkSelf = () => {
    * delete: sessionStorage.removeItem(key) 
    *         sessionStorage.clear()
    */
-  // User Infor
+  // User Info
   const UserProfile = () => {
     if (sessionStorage.getItem('name')) {
       setSessionName(sessionStorage.getItem('name'))
