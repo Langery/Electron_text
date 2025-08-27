@@ -4,21 +4,21 @@ import '../../style/talk.less';
 import { Button, Input } from "antd";
 
 /**
- * todo: 动态创建输入和接收信息框的展示
+ * todo: 多组信息循环展示
  */
 // 展示发送信息
-const showSendMess = (props) => {
+const SendMess = () => {
   const info ='send info';
   return (
-    <li>{info}</li>
+    <li className="send_mess">{info}</li>
   )
 }
 
 // 展示接收信息
-const showRecMess = (props) => {
+const RecMess = () => {
   const info ='rec info';
   return (
-    <li>{info}</li>
+    <li className="rec_mess">{info}</li>
   )
 }
 
@@ -59,18 +59,8 @@ const TalkSelf = () => {
     <div className="talk_page">
       <div className="talk_show">
         <ul>
-          <li>
-            1
-          </li>
-          <li>
-            2
-          </li>
-          <li>
-            3
-          </li>
-          <li>
-            4
-          </li>
+          <SendMess></SendMess>
+          <RecMess></RecMess>
         </ul>
       </div>
       <div className="talk_input">
