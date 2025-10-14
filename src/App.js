@@ -22,7 +22,7 @@ class App extends Component {
           {
             routeMap.map(({path, ComponentName, exact = true, routes = []}, key) => {
               // console.log(routes)
-              return <Route
+              return  <Route
                         exact={exact}
                         key={key}
                         path={path}

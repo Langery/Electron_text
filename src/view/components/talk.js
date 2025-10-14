@@ -5,6 +5,7 @@ import { Button, Input } from "antd";
 
 /**
  * todo: 多组信息循环展示
+ * todo: 创建 token ，在登录界面随机生成
  */
 // 展示发送信息
 const SendMess = () => {
