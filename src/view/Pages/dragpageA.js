@@ -3,7 +3,7 @@ import { createFromIconfontCN } from '@ant-design/icons';
 import '../../style/drag.less';
 
 // eg: import component
-import { Input, Select, Button, Radio, Layout, Card, Row, Col } from "antd";
+import { Input, Select, Button, Radio, Layout, Card, Splitter, Flex, Typography } from "antd";
 
 import { Link } from 'react-router-dom';
 
@@ -60,7 +60,7 @@ const handleDragStart = data => e => e.dataTransfer.setData('itemData', JSON.str
 /**
  * TODO: 目前右侧拖拽位置变更可能需要重新修订，存在拖拽不方便的地方；
  * TODO: 标签个数进行计数统计，实现对应切换时候的数目变化；
- *  TODO: Splitter 分隔面板
+ * // TODO: Splitter 分隔面板
  */
 const SumSide = (props) => {
 
@@ -105,12 +105,23 @@ const ButtonSelf = (props) => {
   )
 }
 
+const Desc = props => (
+  <Flex justify="center" align="center">
+    <Typography.Title type="secondary" level={5} style={{ whiteSpace: 'nowrap' }}>
+      {props.text}
+    </Typography.Title>
+  </Flex>
+);
+
 const DragPage = () => {
 
   const cleanList = menuList;
   const [leftDragList, setLeftDragList] = useState(cleanList);
   const [rightDragList, setRightDragList] = useState([]);
   const dataRef = useRef(null);
+
+  // eslint-disable-next-line 
+  const [showIconMode, setShowIconMode] = useState(true);
 
   dataRef.current = { // 初始化
     left: {
@@ -122,12 +133,11 @@ const DragPage = () => {
       list: rightDragList,
     }
   }
-  
-  // 拖拽元素在目标元素移动事件-阻止浏览器默认行为让目标元素成为可释放的目标元素
-  const handleDragOver = e => e.preventDefault()
+
 
   // 拖拽完成事件-处理完成拖拽时的逻辑
   const handleDrop = (callback, arrow) => {
+
     return e => {
       const { dataset: { id }, classList } = e.target;
       classList.remove('over');
@@ -146,11 +156,24 @@ const DragPage = () => {
     }
   }
 
+  // 拖拽元素在目标元素移动事件-阻止浏览器默认行为让目标元素成为可释放的目标元素
+  const handleDragOver = e => {
+    // console.log(e)
+    console.log(1111)
+    e.preventDefault()
+  }
+
   // 拖拽元素进入目标元素时触发事件-为目标元素添加拖拽元素进入时的样式效果
-  const handleDragEnter = e => e.target.classList.add('over')
+  const handleDragEnter = e => {
+    console.log(222)
+    e.target.classList.add('over')
+  }
 
   // 拖拽元素离开目标元素时触发事件-移除目标元素的样式效果
-  const handleDragLeave = e => e.target.classList.remove('over')
+  const handleDragLeave = e => {
+    console.log(3333)
+    e.target.classList.remove('over')
+  }
 
 
   const resetList = () => {
@@ -181,48 +204,50 @@ const DragPage = () => {
             </Button>
           </Link>
         </div>
-        <Row justify="space-around">
-          <Col span={8}>
-            <div
-              key={_leftKey}
-              className="left-wrap"
-              onDragOver={handleDragOver}
-              onDragEnter={handleDragEnter}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop(_leftlist.callback, _leftKey)}
-            >
-              {
-                _leftlist.list.map(item => 
-                (<div
-                  className="item-text"
-                  key={item.id}
-                  data-id={item.id}
-                  draggable
-                  onDragStart={handleDragStart(item)}
-                >
-                  <IconFont type={item.icon ? item.icon : null} twoToneColor={item.iconColor} />
-                  {item.name}
-                </div>))
-              }
-            </div>
-          </Col>
-          <Col span={12}>
-            <div
-              key={_rightKey}
-              className="min-wrap"
-              onDragOver={handleDragOver}
-              onDragEnter={handleDragEnter}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop(_rightlist.callback, _rightKey)}
-            >
-              <SumSide selfList={_rightlist}></SumSide>
-            </div>
-          </Col>
-          <Col span={4}>
-            <div className="right-wrap">
-            </div>
-          </Col>
-        </Row>
+        <Splitter style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
+          <Splitter.Panel
+            collapsible={{ start: true, end: true, showCollapsibleIcon: showIconMode }}
+            min="20%"
+            key={_leftKey}
+            className="left_wrap"
+            onDragOver={handleDragOver}
+            onDragEnter={handleDragEnter}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop(_leftlist.callback, _leftKey)}
+          >
+            {
+              _leftlist.list.map(item => 
+              (<div
+                className="item-text"
+                key={item.id}
+                data-id={item.id}
+                draggable
+                onDragStart={handleDragStart(item)}
+              >
+                <IconFont type={item.icon ? item.icon : null} twoToneColor={item.iconColor} />
+                {item.name}
+              </div>))
+            }
+            <Desc text="First" />
+          </Splitter.Panel>
+          <Splitter.Panel
+            collapsible={{ start: true, end: true, showCollapsibleIcon: showIconMode }}
+            key={_rightKey}
+            className="min-wrap"
+            onDragOver={handleDragOver}
+            onDragEnter={handleDragEnter}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop(_rightlist.callback, _rightKey)}
+          >
+            <SumSide selfList={_rightlist}></SumSide>
+            <Desc text="Second" />
+          </Splitter.Panel>
+          <Splitter.Panel
+            collapsible={{ start: true, end: true, showCollapsibleIcon: showIconMode }}
+          >
+            <Desc text="Third" />
+          </Splitter.Panel>
+        </Splitter>
       </Content>
     </div>
   )

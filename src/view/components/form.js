@@ -85,7 +85,7 @@ const DatePickerSelf = React.forwardRef(props => {
   )
 })
 
-const InputSelf = React.forwardRef(props => {
+const InputSelf = React.forwardRef((props, ref) => {
   const _props = props.props;
 
   const handleInputChange = (e) => {
@@ -98,7 +98,7 @@ const InputSelf = React.forwardRef(props => {
   )
 });
 
-const NicknameSelf = React.forwardRef(props => {
+const NicknameSelf = React.forwardRef((props, ref) => {
 
   const propdata = props.props;
   const selectData = propdata.selectData;
