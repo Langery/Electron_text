@@ -15,6 +15,7 @@ const IconFont = createFromIconfontCN({
   scriptUrl: '//at.alicdn.com/t/c/font_3819225_cvuht688sxe.js', // 阿里图标库链接
 });
 
+// 左侧选择项
 const menuList = [
   {
     id: 1,
@@ -48,6 +49,13 @@ const menuList = [
   {
     id: 5,
     name: 'Num 5',
+    icon: '',
+    iconTwoTone: false,
+    number: Number
+  },
+  {
+    id: 6,
+    name: '',
     icon: '',
     iconTwoTone: false,
     number: Number
@@ -131,6 +139,7 @@ const DragPage = () => {
     return e => {
       const { dataset: { id }, classList } = e.target;
       classList.remove('over');
+
       const curData = JSON.parse(e.dataTransfer.getData('itemData'))
 
       callback(preData => {

@@ -20,6 +20,8 @@
     "less-loader": "^5.0.0",
     "lodash": "^4.17.20",
     "mapvgl": "^1.0.0-beta.92",
+    "mobx": "^6.15.0",
+    "mobx-react": "^9.2.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-redux": "^7.2.2",
@@ -27,7 +29,6 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.1.1",
-    "redux": "^4.0.5",
     "roughjs": "^3.1.0"
   },
   "scripts": {
