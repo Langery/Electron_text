@@ -3,9 +3,14 @@ import { createFromIconfontCN } from '@ant-design/icons';
 import '../../style/drag.less';
 
 // eg: import component
-import { Input, Select, Button, Radio, Layout, Card, Row, Col } from "antd";
+import { Checkbox, Input, Select, Button, Radio, Layout, Card, Row, Col } from "antd";
 
 import { Link } from 'react-router-dom';
+
+// components list
+import ButtonSelf from "./components/button";
+import InfoPage from "./components/infopage";
+
 
 const { Header, Content } = Layout;
 
@@ -36,7 +41,7 @@ const menuList = [
     name: 'Button',
     icon: '',
     iconTwoTone: false,
-    infor: 'default',
+    info: 'default',
     number: 1
   },
   {
@@ -48,14 +53,14 @@ const menuList = [
   },
   {
     id: 5,
-    name: 'Num 5',
+    name: 'Checkbox',
     icon: '',
     iconTwoTone: false,
     number: Number
   },
   {
     id: 6,
-    name: '',
+    name: 'Button',
     icon: '',
     iconTwoTone: false,
     number: Number
@@ -74,19 +79,34 @@ const SumSide = (props) => {
 
   const rightList = props.selfList.list;
 
+  // right-wrap show or hidden
+  const sumClick = () => {
+    props.onGetShow(true);
+  }
+
   return (
     rightList.map(item => {
 
       let ItemComponent = null;
 
-      if (item.name === 'Input') {
-        ItemComponent = <Input/>
-      } else if (item.name === 'Select') {
-        ItemComponent = <Select></Select>
-      } else if (item.name === 'Button') {
-        ItemComponent = <ButtonSelf props={item} />
-      } else if (item.name === 'Radio') {
-        ItemComponent = <Radio></Radio>
+      switch (item.name) {
+        case 'Input':
+          ItemComponent = <Input/>;
+          break;
+        case 'Select':
+          ItemComponent = <Select></Select>;
+          break;
+        case 'Button':
+          ItemComponent = <ButtonSelf props={item} />;
+          break;
+        case 'Radio':
+          ItemComponent = <Radio></Radio>;
+          break;
+        case 'Checkbox':
+          ItemComponent = <Checkbox></Checkbox>;
+          break;
+        default:
+          ItemComponent = <div>Unknown Component</div>;
       }
 
       return (
@@ -96,6 +116,7 @@ const SumSide = (props) => {
           data-id={item.id}
           draggable
           onDragStart={handleDragStart(item)}
+          onClick={sumClick}
         >
           {ItemComponent}
         </div>
@@ -104,21 +125,15 @@ const SumSide = (props) => {
   )
 }
 
-const ButtonSelf = (props) => {
-
-  const infor = props.props.infor;
-
-  return (
-    <Button type="primary">{infor}</Button>
-  )
-}
 
 const DragPage = () => {
 
   const cleanList = menuList;
   const [leftDragList, setLeftDragList] = useState(cleanList);
   const [rightDragList, setRightDragList] = useState([]);
+  const [isInfoShow, setIsInfoShow] = useState(false);
   const dataRef = useRef(null);
+
 
   dataRef.current = { // 初始化
     left: {
@@ -152,6 +167,8 @@ const DragPage = () => {
       })
 
       arrow === 'left' ? setRightDragList(preData => preData.filter(item => item.id !== curData.id)) : setLeftDragList(preData => preData.filter(item => item.id !== curData.id))
+
+      setIsInfoShow(false);
     }
   }
 
@@ -182,9 +199,17 @@ const DragPage = () => {
       <Content>
         {/* initialization  */}
         <div className="operatio_zone">
-          <Button className="drag_ability" onClick={resetList}>Reset List</Button>
+          <Button
+            className="drag_ability"
+            onClick={resetList}
+          >
+            Reset List
+          </Button>
           <Link to="/mainpage">
-            <Button shape="round" className="back_btn">
+            <Button
+              shape="round"
+              className="back_btn"
+            >
               Back to MainPage&emsp;
               <ion-icon class="btn_drag_icon" name="arrow-forward-outline"></ion-icon>
             </Button>
@@ -209,7 +234,9 @@ const DragPage = () => {
                   draggable
                   onDragStart={handleDragStart(item)}
                 >
-                  <IconFont type={item.icon ? item.icon : null} twoToneColor={item.iconColor} />
+                  <IconFont
+                    type={item.icon ? item.icon : null} 
+                    twoToneColor={item.iconColor} />
                   {item.name}
                 </div>))
               }
@@ -224,11 +251,20 @@ const DragPage = () => {
               onDragLeave={handleDragLeave}
               onDrop={handleDrop(_rightlist.callback, _rightKey)}
             >
-              <SumSide selfList={_rightlist}></SumSide>
+              <SumSide
+                selfList={_rightlist}
+                onGetShow={setIsInfoShow}
+              >
+              </SumSide>
             </div>
           </Col>
           <Col span={4}>
             <div className="right-wrap">
+              {/* 详细信息及内部参数展示 */}
+              <InfoPage
+                isShow={isInfoShow}
+              >
+              </InfoPage>
             </div>
           </Col>
         </Row>
