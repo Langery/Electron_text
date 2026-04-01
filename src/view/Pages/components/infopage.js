@@ -1,11 +1,13 @@
 import React from "react";
 
+import '../../../style/infoipage.less';
+
 const InfoPage = (props) => {
 
   const isShow = {visibility: props.isShow ? 'visible' : 'hidden' }
 
   return (
-    <div style={isShow}>
+    <div id="info_page" style={isShow}>
       Info Page Content
     </div>
   )
