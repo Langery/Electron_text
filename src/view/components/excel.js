@@ -1,27 +1,23 @@
-import React from 'react';
-
+import { forwardRef } from 'react';
+import { UploadOutlined } from '@ant-design/icons';
+import { Button, Upload } from 'antd';
 import '../../style/excel.less';
 
-import { UploadOutlined  } from '@ant-design/icons';
-
-import { Button, Upload } from 'antd'; // message
-
-const ExcelSelf = React.forwardRef((props, ref) => {
-
-  const ExcelChangeValue = info => {
+const ExcelSelf = forwardRef((props, ref) => {
+  const handleChange = (info) => {
     console.log('=============================>');
-    console.log(info)
-    const file = info.file;
+    console.log(info);
+    const { file } = info;
     console.log(file);
-  }
+  };
 
   return (
     <div className="main_excel">
-      <Upload action="" onChange={ExcelChangeValue}>
+      <Upload action="" onChange={handleChange}>
         <Button icon={<UploadOutlined />}>Click to Upload</Button>
       </Upload>
     </div>
-  )
+  );
 });
 
-export default React.memo(ExcelSelf);
+export default ExcelSelf;

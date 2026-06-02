@@ -1,75 +1,58 @@
-import React, { useEffect, useState } from "react";
+import { useState, useEffect, memo } from 'react';
+import { Button, Input } from 'antd';
 import '../../style/talk.less';
 
-import { Button, Input } from "antd";
+const SendMess = memo(() => (
+  <li className="send_mess">send info</li>
+));
 
-/**
- * todo: 多组信息循环展示
- * todo: 创建 token ，在登录界面随机生成
- */
-// 展示发送信息
-const SendMess = () => {
-  const info ='send info';
-  return (
-    <li className="send_mess">{info}</li>
-  )
-}
-
-// 展示接收信息
-const RecMess = () => {
-  const info ='rec info';
-  return (
-    <li className="rec_mess">{info}</li>
-  )
-}
+const RecMess = memo(() => (
+  <li className="rec_mess">rec info</li>
+));
 
 const TalkSelf = () => {
-
   const [sessionName, setSessionName] = useState(sessionStorage.getItem('name'));
-  
-  // eslint-disable-next-line
-  const [sessionKey, setSessionKey] = useState(sessionStorage.getItem('key'))
+  const [message, setMessage] = useState('');
 
-  // session deal
-  /**
-   * save: sessionStorage.setItem(key, value)
-   * get: sessionStorage.getItem(key)
-   *      if () {}
-   * delete: sessionStorage.removeItem(key) 
-   *         sessionStorage.clear()
-   */
-  // User Info
-  const UserProfile = () => {
-    if (sessionStorage.getItem('name')) {
-      setSessionName(sessionStorage.getItem('name'))
+  useEffect(() => {
+    const storedName = sessionStorage.getItem('name');
+    if (storedName) {
+      setSessionName(storedName);
       console.log('=========> saved name data');
     } else {
       console.log('=========> need to save session data');
     }
-  };
-
-  useEffect(() => {
-    UserProfile();
-  }, [sessionName, sessionKey]);
+  }, []);
 
   const sendMess = () => {
-    
-  }
+    console.log('Send message:', message);
+    setMessage('');
+  };
+
+  const handlePressEnter = () => {
+    sendMess();
+  };
 
   return (
     <div className="talk_page">
       <div className="talk_show">
         <ul>
-          <SendMess></SendMess>
-          <RecMess></RecMess>
+          <SendMess />
+          <RecMess />
         </ul>
       </div>
       <div className="talk_input">
-        <Input.TextArea onPressEnter={sendMess} />
-        <Button className="send_btn" type="primary" onClick={sendMess}>Send</Button>
+        <Input.TextArea
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          onPressEnter={handlePressEnter}
+        />
+        <Button className="send_btn" type="primary" onClick={sendMess}>
+          Send
+        </Button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default TalkSelf;

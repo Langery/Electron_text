@@ -1,276 +1,177 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef, memo, useCallback } from 'react';
 import { createFromIconfontCN } from '@ant-design/icons';
+import { Checkbox, Input, Select, Button, Radio, Layout, Card, Row, Col } from 'antd';
+import { Link } from 'react-router-dom';
+import IonIcon from '../../common/IonIcon';
+import ButtonSelf from './components/button';
+import InfoPage from './components/infopage';
 import '../../style/drag.less';
 
-// eg: import component
-import { Checkbox, Input, Select, Button, Radio, Layout, Card, Row, Col } from "antd";
-
-import { Link } from 'react-router-dom';
-
-// components list
-import ButtonSelf from "./components/button";
-import InfoPage from "./components/infopage";
-
-
 const { Header, Content } = Layout;
-
 const { Meta } = Card;
 
 const IconFont = createFromIconfontCN({
-  scriptUrl: '//at.alicdn.com/t/c/font_3819225_cvuht688sxe.js', // 阿里图标库链接
+  scriptUrl: '//at.alicdn.com/t/c/font_3819225_cvuht688sxe.js'
 });
 
-// 左侧选择项
 const menuList = [
-  {
-    id: 1,
-    name: 'Input',
-    icon: 'icon-instagram-co',
-    iconTwoTone: false,
-    number: 1
-  },
-  {
-    id: 2,
-    name: 'Select',
-    icon: 'icon-food-pizza',
-    iconTwoTone: true, // 双色图标配置
-    number: 2
-  },
-  {
-    id: 3,
-    name: 'Button',
-    icon: '',
-    iconTwoTone: false,
-    info: 'default',
-    number: 1
-  },
-  {
-    id: 4,
-    name: 'Radio',
-    icon: '',
-    iconTwoTone: false,
-    number: 2
-  },
-  {
-    id: 5,
-    name: 'Checkbox',
-    icon: '',
-    iconTwoTone: false,
-    number: Number
-  },
-  {
-    id: 6,
-    name: 'Button',
-    icon: '',
-    iconTwoTone: false,
-    number: Number
-  }
+  { id: 1, name: 'Input', icon: 'icon-instagram-co', iconTwoTone: false, number: 1 },
+  { id: 2, name: 'Select', icon: 'icon-food-pizza', iconTwoTone: true, number: 2 },
+  { id: 3, name: 'Button', icon: '', iconTwoTone: false, info: 'default', number: 3 },
+  { id: 4, name: 'Radio', icon: '', iconTwoTone: false, number: 4 },
+  { id: 5, name: 'Checkbox', icon: '', iconTwoTone: false, number: 5 },
+  { id: 6, name: 'Button', icon: '', iconTwoTone: false, number: 6 }
 ];
 
-// 拖拽开始时触发事件-通过dataTransfer对象设置所需要的数据
-const handleDragStart = data => e => e.dataTransfer.setData('itemData', JSON.stringify(data));
+const handleDragStart = (data) => (e) =>
+  e.dataTransfer.setData('itemData', JSON.stringify(data));
 
-/**
- * TODO: 目前右侧拖拽位置变更可能需要重新修订，存在拖拽不方便的地方；
- * TODO: 标签个数进行计数统计，实现对应切换时候的数目变化；
- *  TODO: Splitter 分隔面板
- */
-const SumSide = (props) => {
+const SumSide = memo(({ selfList, onGetShow }) => {
+  const handleClick = useCallback(() => onGetShow(true), [onGetShow]);
 
-  const rightList = props.selfList.list;
-
-  // right-wrap show or hidden
-  const sumClick = () => {
-    props.onGetShow(true);
-  }
-
-  return (
-    rightList.map(item => {
-
-      let ItemComponent = null;
-
+  return selfList.map((item) => {
+    const getComponent = () => {
       switch (item.name) {
-        case 'Input':
-          ItemComponent = <Input/>;
-          break;
-        case 'Select':
-          ItemComponent = <Select></Select>;
-          break;
-        case 'Button':
-          ItemComponent = <ButtonSelf props={item} />;
-          break;
-        case 'Radio':
-          ItemComponent = <Radio></Radio>;
-          break;
-        case 'Checkbox':
-          ItemComponent = <Checkbox></Checkbox>;
-          break;
-        default:
-          ItemComponent = <div>Unknown Component</div>;
+        case 'Input': return <Input />;
+        case 'Select': return <Select />;
+        case 'Button': return <ButtonSelf props={item} />;
+        case 'Radio': return <Radio />;
+        case 'Checkbox': return <Checkbox />;
+        default: return <div>Unknown Component</div>;
       }
+    };
 
-      return (
-        <div
-          className="right_item"
-          key={item.id}
-          data-id={item.id}
-          draggable
-          onDragStart={handleDragStart(item)}
-          onClick={sumClick}
-        >
-          {ItemComponent}
-        </div>
-      )
-    })
-  )
-}
-
+    return (
+      <div
+        key={item.id}
+        className="right_item"
+        draggable
+        onDragStart={handleDragStart(item)}
+        onClick={handleClick}
+      >
+        {getComponent()}
+      </div>
+    );
+  });
+});
 
 const DragPage = () => {
-
-  const cleanList = menuList;
-  const [leftDragList, setLeftDragList] = useState(cleanList);
+  const [leftDragList, setLeftDragList] = useState([...menuList]);
   const [rightDragList, setRightDragList] = useState([]);
   const [isInfoShow, setIsInfoShow] = useState(false);
-  const dataRef = useRef(null);
+  const [dragOverId, setDragOverId] = useState(null);
 
+  const handleDragOver = useCallback((e) => e.preventDefault(), []);
 
-  dataRef.current = { // 初始化
-    left: {
-      callback: setLeftDragList,
-      list: leftDragList,
-    },
-    right: {
-      callback: setRightDragList,
-      list: rightDragList,
+  const handleDrop = useCallback((setCallback, setOtherList, arrow) => (e) => {
+    e.preventDefault();
+    const dropTarget = e.currentTarget;
+    const id = dropTarget.dataset.id;
+
+    const curData = JSON.parse(e.dataTransfer.getData('itemData'));
+
+    setCallback((preData) => {
+      const filtered = preData.filter((item) => item.id !== curData.id);
+      if (!id) return [...filtered, curData];
+
+      const index = filtered.findIndex((item) => item.id === id);
+      filtered.splice(index, 0, curData);
+      return filtered;
+    });
+
+    if (arrow === 'left') {
+      setOtherList((pre) => pre.filter((item) => item.id !== curData.id));
+    } else {
+      // setLeftDragList
     }
-  }
-  
-  // 拖拽元素在目标元素移动事件-阻止浏览器默认行为让目标元素成为可释放的目标元素
-  const handleDragOver = e => e.preventDefault()
 
-  // 拖拽完成事件-处理完成拖拽时的逻辑
-  const handleDrop = (callback, arrow) => {
-    return e => {
-      const { dataset: { id }, classList } = e.target;
-      classList.remove('over');
+    setIsInfoShow(false);
+    setDragOverId(null);
+  }, []);
 
-      const curData = JSON.parse(e.dataTransfer.getData('itemData'))
+  const handleDragEnter = useCallback((e) => {
+    e.preventDefault();
+    setDragOverId(e.currentTarget.dataset.id || 'drop-zone');
+  }, []);
 
-      callback(preData => {
-        const mapPreData = JSON.parse(JSON.stringify(preData)).filter(item => item.id !== curData.id)
-        if (!id) return [...mapPreData, curData]
+  const handleDragLeave = useCallback(() => {
+    setDragOverId(null);
+  }, []);
 
-        const index = mapPreData.findIndex(item => item.id === id)
-        mapPreData.splice(index, 0, curData);
-        return mapPreData;
-      })
+  const handleDragEnd = useCallback(() => {
+    setDragOverId(null);
+  }, []);
 
-      arrow === 'left' ? setRightDragList(preData => preData.filter(item => item.id !== curData.id)) : setLeftDragList(preData => preData.filter(item => item.id !== curData.id))
-
-      setIsInfoShow(false);
-    }
-  }
-
-  // 拖拽元素进入目标元素时触发事件-为目标元素添加拖拽元素进入时的样式效果
-  const handleDragEnter = e => e.target.classList.add('over')
-
-  // 拖拽元素离开目标元素时触发事件-移除目标元素的样式效果
-  const handleDragLeave = e => e.target.classList.remove('over')
-
-
-  const resetList = () => {
-    let cleanList = menuList;
-    setLeftDragList(cleanList);
+  const resetList = useCallback(() => {
+    setLeftDragList([...menuList]);
     setRightDragList([]);
-  }
-
-  const [[_leftKey, _leftlist], [_rightKey, _rightlist]] = Object.entries(dataRef.current);
+  }, []);
 
   return (
     <div className="dragpage">
       <Header>
         <Card className="drag_card">
-          <Meta
-            title="Drag"
-            description="Drag component to a frame" />
+          <Meta title="Drag" description="Drag component to a frame" />
         </Card>
       </Header>
       <Content>
-        {/* initialization  */}
         <div className="operatio_zone">
-          <Button
-            className="drag_ability"
-            onClick={resetList}
-          >
+          <Button className="drag_ability" onClick={resetList}>
             Reset List
           </Button>
           <Link to="/mainpage">
-            <Button
-              shape="round"
-              className="back_btn"
-            >
+            <Button shape="round" className="back_btn">
               Back to MainPage&emsp;
-              <ion-icon class="btn_drag_icon" name="arrow-forward-outline"></ion-icon>
+              <IonIcon className="btn_drag_icon" name="arrow-forward-outline" size={18} />
             </Button>
           </Link>
         </div>
-        <Row justify="space-around">
-          <Col span={8}>
+        <Row gutter={[16, 16]}>
+          <Col xs={24} sm={24} md={8} lg={8}>
             <div
-              key={_leftKey}
-              className="left-wrap"
+              className={`left-wrap${dragOverId === 'left-drop' ? ' over' : ''}`}
+              data-id="left-drop"
               onDragOver={handleDragOver}
               onDragEnter={handleDragEnter}
               onDragLeave={handleDragLeave}
-              onDrop={handleDrop(_leftlist.callback, _leftKey)}
+              onDrop={handleDrop(setLeftDragList, setRightDragList, 'left')}
+              onDragEnd={handleDragEnd}
             >
-              {
-                _leftlist.list.map(item => 
-                (<div
-                  className="item-text"
+              {leftDragList.map((item) => (
+                <div
                   key={item.id}
-                  data-id={item.id}
+                  className="item-text"
                   draggable
                   onDragStart={handleDragStart(item)}
                 >
-                  <IconFont
-                    type={item.icon ? item.icon : null} 
-                    twoToneColor={item.iconColor} />
+                  {item.icon && <IconFont type={item.icon} />}
                   {item.name}
-                </div>))
-              }
+                </div>
+              ))}
             </div>
           </Col>
-          <Col span={12}>
+          <Col xs={24} sm={24} md={12} lg={12}>
             <div
-              key={_rightKey}
-              className="min-wrap"
+              className={`min-wrap${dragOverId === 'right-drop' ? ' over' : ''}`}
+              data-id="right-drop"
               onDragOver={handleDragOver}
               onDragEnter={handleDragEnter}
               onDragLeave={handleDragLeave}
-              onDrop={handleDrop(_rightlist.callback, _rightKey)}
+              onDrop={handleDrop(setRightDragList, setLeftDragList, 'right')}
+              onDragEnd={handleDragEnd}
             >
-              <SumSide
-                selfList={_rightlist}
-                onGetShow={setIsInfoShow}
-              >
-              </SumSide>
+              <SumSide selfList={rightDragList} onGetShow={setIsInfoShow} />
             </div>
           </Col>
-          <Col span={4}>
+          <Col xs={24} sm={24} md={4} lg={4}>
             <div className="right-wrap">
-              {/* 详细信息及内部参数展示 */}
-              <InfoPage
-                isShow={isInfoShow}
-              >
-              </InfoPage>
+              <InfoPage isShow={isInfoShow} />
             </div>
           </Col>
         </Row>
       </Content>
     </div>
-  )
-}
+  );
+};
 
 export default DragPage;

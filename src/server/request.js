@@ -1,29 +1,27 @@
 import config from '../config/index'
 
 export function PostWay (urlname, sendData) {
-  let options = {
-    method: "POST", // Request way
-    body: JSON.stringify(sendData),	 // Request body
-    headers: { // Request header
-      'Content-Type': 'application/x-www-form-urlencoded'
+  const options = {
+    method: 'POST',
+    body: JSON.stringify(sendData),
+    headers: {
+      'Content-Type': 'application/json'
     }
   }
-  // let options = new OptionsFun('POST', sendData);
-  // options.PostOptions()
   const url = config.baseUrl.dev + urlname
   return [url, options]
 }
 
 export function GetWay (urlname, ...sendData) {
-  let options = {
+  const options = {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/json'
     }
   }
   const data = sendData[0]
   let endUrl = ''
-  for (var i in data) endUrl += `&${i}=${data[i]}`
+  for (const i in data) endUrl += `&${i}=${encodeURIComponent(data[i])}`
   endUrl = endUrl.substr(1)
   const url = config.baseUrl.dev + urlname + `?${endUrl}`
   return [url, options]

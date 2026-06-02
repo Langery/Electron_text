@@ -1,16 +1,10 @@
-import React from "react";
-
+import { memo } from 'react';
 import '../../../style/infoipage.less';
 
-const InfoPage = (props) => {
-
-  const isShow = {visibility: props.isShow ? 'visible' : 'hidden' }
-
-  return (
-    <div id="info_page" style={isShow}>
-      Info Page Content
-    </div>
-  )
-}
+const InfoPage = memo(({ isShow }) => (
+  <div id="info_page" style={{ visibility: isShow ? 'visible' : 'hidden' }}>
+    Info Page Content
+  </div>
+));
 
 export default InfoPage;

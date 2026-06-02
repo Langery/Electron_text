@@ -1,5 +1,6 @@
-// Electron Config
+// Electron Config - Updated Version
 const { app, BrowserWindow, ipcMain } = require('electron')
+require('path')
 
 let win, contents;
 function createWindow() {

@@ -1,11 +1,5 @@
-import React, { Component } from 'react';
+import { memo } from 'react';
 
-class ListIndex extends Component {
-  render () {
-    return (
-      <div></div>
-    )
-  }
-}
+const ListIndex = memo(() => <div />);
 
 export default ListIndex;

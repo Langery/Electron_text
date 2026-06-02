@@ -1,254 +1,163 @@
-import React, { Component } from 'react';
-import '../css/indexview.less';
-// Badge, Popover, Select
+import { useState, useEffect, memo } from 'react';
 import { Layout, Calendar, Input, Row, Col, Button, Badge, Popconfirm } from 'antd';
 import { PostWay } from '../../../server/request';
+import '../css/indexview.less';
 
 const { Content, Header } = Layout;
 
-const data = {
-  flag: false,
-  date: '',
-  dateBool: {
-    flag: false,
-    date: ''
-  }
-}
-
-function getMonthData (value) {
-  if (value.month() === 8) { // Sep has 1394, month add once
-    return 1394
-  } else if (value.month() === 2) {
-    return 1234
-  }
-}
-
-// click year show infor
-function monthCellRender (value) {
-  const num = getMonthData(value)
-  return num ? (
-    // this data from backstage
-    // TODO: restructure
-    <div className="notes-month">
-      <section>{ num }</section>
-      <span>Backlog number</span>
-    </div>
-  ) : null
-}
-
-function selectDay (date) {
-  // get the time
-  const clickTime = getDate(date)
-  data.dateBool.date = clickTime
-  data.date = clickTime
-  // open a little window and write infor
-}
-
-function getDate (date, type = 0, addmonth = 1) {
-  let [NORMAL, YEARMON, MONTH, DAY] = [0, 1, 2, 3];
-  let getdate = date === null ? new Date() : new Date(date);
+const getDate = (date, type = 0, addmonth = 1) => {
+  const [NORMAL, YEARMON, MONTH, DAY] = [0, 1, 2, 3];
+  const getdate = date === null ? new Date() : new Date(date);
   let year = getdate.getFullYear();
   let month = getdate.getMonth() + addmonth;
   month = month < 10 ? `0${month}` : month;
-  let day = getdate.getDate();
-  if (type === NORMAL) {
-    return `${year}-${month}-${day}`;
-  } else if (type === YEARMON) {
-    return `${year}-${month}`;
-  } else if (type === MONTH) {
-    return month;
-  } else if (type === DAY) {
-    return day;
-  }
-}
+  const day = getdate.getDate();
+  if (type === NORMAL) return `${year}-${month}-${day}`;
+  if (type === YEARMON) return `${year}-${month}`;
+  if (type === MONTH) return month;
+  if (type === DAY) return day;
+};
 
-// time stamp
-function timeStamp (time) {
-  let backTime = Date.parse(new Date(time)) / 1000
-  return backTime
-}
+const timeStamp = (time) => Date.parse(new Date(time)) / 1000;
 
-function getListData (value, data) {
+const getMonthData = (value) => {
+  if (value.month() === 8) return 1394;
+  if (value.month() === 2) return 1234;
+};
+
+const monthCellRender = (value) => {
+  const num = getMonthData(value);
+  return num ? (
+    <div className="notes-month">
+      <section>{num}</section>
+      <span>Backlog number</span>
+    </div>
+  ) : null;
+};
+
+const getListData = (value, data) => {
   let listData;
-  // month 默认是 +1 的
-  data.forEach(yearItem => {
-    value.year() === yearItem.year && yearItem.monthList.forEach(monItem => {
-      value.month() === monItem.month && monItem.dayList.forEach(dayItem => {
+  data.forEach((yearItem) => {
+    value.year() === yearItem.year && yearItem.monthList.forEach((monItem) => {
+      value.month() === monItem.month && monItem.dayList.forEach((dayItem) => {
         if (value.date() === dayItem.day) {
-          let tempArr = []
+          const tempArr = [];
           dayItem.contentList.forEach((item) => {
-            const sendTemp = {
-              type: item.type,
-              content: item.content
-            }
-            tempArr.push(sendTemp)
-          })
+            tempArr.push({ type: item.type, content: item.content });
+          });
           listData = tempArr;
         }
-      })
-    })
-  })
+      });
+    });
+  });
   return listData || [];
-}
+};
 
-function dateCellRender (value) {
-  let date = [
-    {
-      "year": 2020,
-      "monthList": [
-        {
-          "month": 10,
-          "dayList": [
-            {
-              "day": 1,
-              "type": "warning",
-              "contentList": [
-                {
-                  "type": "success",
-                  "content": "hello"
-                },
-                {
-                  "type": "warning",
-                  "content": "world"
-                }
-              ]
-            },
-            {
-              "day": 2,
-              "type": "success",
-              "contentList": [
-                {
-                  "type": "success",
-                  "content": "你好"
-                },
-                {
-                  "type": "warning",
-                  "content": "欢迎"
-                }
-              ]
-            }
-          ]
-        }
+const dateCellRender = (value) => {
+  const date = [{
+    year: 2020,
+    monthList: [{
+      month: 10,
+      dayList: [
+        { day: 1, type: 'warning', contentList: [{ type: 'success', content: 'hello' }, { type: 'warning', content: 'world' }] },
+        { day: 2, type: 'success', contentList: [{ type: 'success', content: '你好' }, { type: 'warning', content: '欢迎' }] }
       ]
-    }
-  ]
+    }]
+  }];
+
   const listData = getListData(value, date);
-  let liList;
-  if (listData.length !== 0) {
-    liList = (
-      listData.map(item => (
-        <li key={item.content}>
-          <Badge status={item.type} text={item.content} />
-        </li>
-      ))
-    )
-  }else {
-    liList = (
-      <li>
-        <p className="untext"></p>
+
+  const liList = listData.length !== 0 ? (
+    listData.map((item) => (
+      <li key={item.content}>
+        <Badge status={item.type} text={item.content} />
       </li>
-    )
-  }
-  let arrHTML = (
+    ))
+  ) : (
+    <li><p className="untext" /></li>
+  );
+
+  return (
     <Popconfirm title="Are you add Infor?" okText="Add" cancelText="Cancel">
-      <ul>
-        {liList}
-      </ul>
+      <ul>{liList}</ul>
     </Popconfirm>
-  )
+  );
+};
 
-  return arrHTML
-}
+const IndexView = () => {
+  const [val, setVal] = useState('');
+  const [firstData, setFirstData] = useState({});
 
-class IndexView extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      val: '',
-      firstData: {}
+  useEffect(() => {
+    const nowtime = timeStamp(getDate(null, 1));
+    const newtime = timeStamp(getDate(null, 1, 2));
+    const sendData = { nowtime, newtime };
+    const [url, options] = PostWay('calendar/list', sendData);
+
+    fetch(url, options)
+      .then((response) => response.json())
+      .then((data) => {
+        const processed = data.map((item) => ({
+          ...item,
+          createtime: getDate(item.createtime * 1000)
+        }));
+        console.log(processed);
+        setFirstData(processed);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
+  const searchClick = async () => {
+    const getUser = { username: val };
+    const [url, options] = PostWay('canlendar', getUser);
+    try {
+      const response = await fetch(url, options);
+      const data = await response.json();
+      console.log(data);
+    } catch (err) {
+      console.error(err);
     }
-  }
-  // DOM 渲染前调用
-  componentWillMount () {
-    // 处理时间戳 time stamp
-    const nowtime = timeStamp(getDate(null, 1))
-    const newtime = timeStamp(getDate(null, 1, 2)) // newtime 一个月后的时间戳
+  };
 
-    let sendData = {
-      nowtime: nowtime,
-      newtime: newtime
-    }
-    const getCalendar = PostWay(sendData, 'calendar/list')
-    fetch(getCalendar[0], getCalendar[1])
-      .then(response => {
-        return response.json()
-      })
-      .then(data => {
-        data.forEach(item => {
-          item.createtime = getDate(item.createtime * 1000)
-        })
-        console.log(data)
-        this.setState({
-          firstData: data
-        })
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
-  searchClick = () => {
-    const getUser = {
-      username: this.state.val
-    }
-    const getWay = PostWay(getUser, 'canlendar')
-    console.log(getWay)
-    fetch(getWay[0], getWay[1])
-      .then(response => {
-        return response.json()
-      })
-      .then(data => {
-        console.log(data)
-      })
-  }
+  const handleChange = (e) => setVal(e.target.value);
 
-  handelChange (e) {
-    this.setState({
-      val: e.target.value
-    })
-  }
+  const selectDay = (date) => {
+    const clickTime = getDate(date);
+    console.log('Selected:', clickTime);
+  };
 
-  render () {
-    return (
-      <div className='calendar_view'>
-        <Layout>
-          <Header className="header-style">
-            {/* 分栏 */}
-            <Row>
-              <Col span={8}>
-                {/* 查询框：
-                  姓名、内容
-                */}
-                <span style={{ marginRight: 20 }}>User:</span>
-                <Input onChange={this.handelChange.bind(this)} defaultValue={this.state.val} style={{ width: 180 }} placeholder="Search" size="small" />
-              </Col>
-              <Col span={8}>
+  return (
+    <div className="calendar_view">
+      <Layout>
+        <Header className="header-style">
+          <Row>
+            <Col span={8}>
+              <span style={{ marginRight: 20 }}>User:</span>
+              <Input
+                onChange={handleChange}
+                defaultValue={val}
+                style={{ width: 180 }}
+                placeholder="Search"
+                size="small"
+              />
+            </Col>
+            <Col span={8} />
+            <Col span={8}>
+              <Button type="primary" onClick={searchClick}>Search</Button>
+            </Col>
+          </Row>
+        </Header>
+        <Content>
+          <Calendar
+            onSelect={selectDay}
+            dateCellRender={dateCellRender}
+            className="calendar-style"
+            monthCellRender={monthCellRender}
+          />
+        </Content>
+      </Layout>
+    </div>
+  );
+};
 
-              </Col>
-              <Col span={8}>
-                {/* 录入框 - button & 侧边栏 */}
-                <Button type="primary" icon="search" size="small" onClick={() => this.searchClick()}>Search</Button>
-              </Col>
-            </Row>
-          </Header>
-          {/* 日历展示 */}
-          <Content>
-            {/* this.state.firstData */}
-            <Calendar onSelect={selectDay} dateCellRender={dateCellRender} className="calendar-style" monthCellRender={monthCellRender} />
-          </Content>
-        </Layout>
-      </div>
-    )
-  }
-}
-
-export default IndexView
+export default memo(IndexView);

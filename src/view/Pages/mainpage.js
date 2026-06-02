@@ -1,248 +1,85 @@
-// eslint-disable-next-line
-import React, { useState, useEffect, useRef } from "react";
-import '../../style/main.less';
-
+import { useState, useEffect, useRef, useCallback, memo } from 'react';
 import { Link } from 'react-router-dom';
-
+import { Col, Layout, Menu, Modal, Row, Tree, Card, Carousel, Button, Popover, Badge } from 'antd';
+import { PostWay, GetWay } from '../../server/request';
+import IonIcon from '../../common/IonIcon';
 import FormSelf from '../components/form';
-
 import ExcelSelf from '../components/excel';
 import MapSelf from '../MainView/components/map';
 import RoughSelf from '../MainView/components/rough';
 import ChartxkcdSelf from '../MainView/components/chartxkcd';
 import IndexSelf from '../MainView/components/indexview';
 import ListSelf from '../MainView/components/listed';
-
 import TalkSelf from '../components/talk';
-import OperationSelf from "../mainpage/Operagtion";
-
-import card01 from "../../images/card_01.jpg"
-import card02 from "../../images/card_02.jpg"
-import card03 from "../../images/card_03.jpg"
-import card04 from "../../images/card_04.jpg"
-import card05 from "../../images/card_05.jpg"
-import card06 from "../../images/card_06.jpg"
-
-// Skeleton
-import { Col, Layout, Menu, Modal, Row, Tree, Card, Carousel, Button, Popover, Badge } from 'antd';
-
-import { PostWay, GetWay } from '../../server/request';
-
-import { useCallbackState } from "../../common/common";
-import { commonStatus } from "../../common/status"; // status code
+import OperationSelf from '../mainpage/Operation';
+import card01 from '../../images/card_01.jpg';
+import card02 from '../../images/card_02.jpg';
+import card03 from '../../images/card_03.jpg';
+import card04 from '../../images/card_04.jpg';
+import card05 from '../../images/card_05.jpg';
+import card06 from '../../images/card_06.jpg';
+import '../../style/main.less';
 
 const { SubMenu } = Menu;
 const { Header, Content } = Layout;
-
 const { Meta } = Card;
-
 const { DirectoryTree } = Tree;
 
-const HAD_DATA = commonStatus.HAD_DATA;
+const cardList = [
+  { cardname: 1, img: card01 },
+  { cardname: 2, img: card02 },
+  { cardname: 3, img: card03 },
+  { cardname: 4, img: card04 },
+  { cardname: 5, img: card05 },
+  { cardname: 6, img: card06 },
+  { cardname: 7 },
+  { cardname: 8 },
+  { cardname: 9 }
+];
 
-// defined component
-function NewCol (item) {
-  const i = item.item;
-  let [titleWord, Iimg] = ['', ''];
-  if (i) {
-    titleWord = "Model Card by self " + i.cardname;
-    Iimg = i.img
-  } else {
-    titleWord = "Model Card by self ";
+const treeData = [
+  {
+    title: 'parent 0',
+    key: '0-0',
+    children: [
+      { title: 'leaf 0-0', key: '0-0-0', isLeaf: true },
+      { title: 'leaf 0-1', key: '0-0-1', isLeaf: true }
+    ]
   }
-  
-  let returnLabel = (
+];
+
+const NewCol = memo(({ cardData }) => {
+  const titleWord = cardData ? `Model Card ${cardData.cardname}` : 'Model Card';
+  const cardImg = cardData?.img;
+
+  return (
     <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-      <Card className="card_content" title={titleWord} cover={<img alt="== 我的照片丢了~" src={Iimg}/>}>
+      <Card
+        className="card_content"
+        title={titleWord}
+        cover={cardImg ? <img alt="card" src={cardImg} style={{ height: '160px', objectFit: 'cover' }} /> : null}
+      >
         <Meta title="title" description="text" />
       </Card>
     </Col>
-  )
-  return returnLabel;
-}
+  );
+});
 
 const MainPage = () => {
-
-  const [current, setCurrent] = useState('nav1_content');
+  const [currentNav, setCurrentNav] = useState('nav1_content');
   const [isModalVisible, setIsModalVisible] = useState(false);
-  // const [isModalVisible, setIsModalVisible] = useState(true);
-  const [treeData, setTreeData] = useState([
-    {
-      title: 'parent 0',
-      key: '0-0',
-      children: [
-        { title: 'leaf 0-0', key: '0-0-0', isLeaf: true },
-        { title: 'leaf 0-1', key: '0-0-1', isLeaf: true },
-      ],
-    }
-  ])
-  // eslint-disable-next-line 
-  const [cardList, setCardList] = useState([
-    {
-      cardname: 1,
-      img: card01
-    },
-    {
-      cardname: 2,
-      img: card02
-    },
-    {
-      cardname: 3,
-      img: card03
-    },
-    {
-      cardname: 4,
-      img: card04
-    },
-    {
-      cardname: 5,
-      img: card05
-    },
-    {
-      cardname: 6,
-      img: card06
-    },
-    {
-      cardname: 7
-    },
-    {
-      cardname: 8
-    },
-    {
-      cardname: 9
-    }
-  ])
-
   const [detailInfor, setDetailInfor] = useState('Detail');
-  // eslint-disable-next-line
-  const [operationInfor, setOperationInfor] = useState('This is Operation');
+  const [treeDataState] = useState(treeData);
+  const [clearData, setClearData] = useState(false);
+  const [backInfor, setBackInfor] = useState(false);
 
-  // eslint-disable-next-line
-  const [menuInfor, setMenuInfor] = useState({
-    mode: 'horizontal',
-    current: 'nav1_content',
-    menulist: [
-      {
-        key: 'nav1_content',
-        icon: 'balloon-outline',
-        name: 'Nav - 1',
-        submenu: false
-      },
-      {
-        key: 'nav2_content',
-        icon: 'bandage-outline',
-        name: 'Nav - 2',
-        submenu: false
-      },
-      {
-        key: 'nav3_content',
-        icon: 'beer-outline',
-        name: 'Nav - 3',
-        submenu: true,
-        childlist: [
-          {
-            key: 'setting_1',
-            name: 'Word',
-            title: 'nav 3 - 1',
-            icon: 'bandage-outline',
-            submenu: false
-          },
-          {
-            key: 'setting_2',
-            name: 'Excel',
-            title: 'nav 3 - 2',
-            icon: 'bandage-outline',
-            submenu: false
-          },
-          {
-            key: 'setting_3',
-            name: 'PowerPoint',
-            title: 'nav 3 - 3',
-            icon: 'bandage-outline',
-            submenu: false
-          }
-        ]
-      },
-      {
-        key: 'nav4_content',
-        icon: 'chatbubbles-outline',
-        name: 'Nav - 4 Talk',
-        submenu: false
-      },
-      {
-        key: 'nav5_content',
-        icon: 'beer-outline',
-        name: 'Nav - 5',
-        submenu: true,
-        childlist: [
-          {
-            key: 'view_1',
-            name: 'Map',
-            title: 'nav 5 - 1',
-            icon: 'bandage-outline',
-            submenu: false
-          },
-          {
-            key: 'view_2',
-            name: 'Rough',
-            title: 'nav 5 - 2',
-            icon: 'bandage-outline',
-            submenu: false
-          },
-          {
-            key: 'view_3',
-            name: 'Chartxkcd',
-            title: 'nav 5 - 3',
-            icon: 'bandage-outline',
-            submenu: false
-          },
-          {
-            key: 'view_4',
-            name: 'IndexView', // 日历
-            title: 'nav 5 - 4',
-            icon: 'bandage-outline',
-            submenu: false
-          },
-          {
-            key: 'view_5',
-            name: 'ListSelf',
-            title: 'nav 5 - 5',
-            icon: 'bandage-outline',
-            submenu: false
-          }
-        ]
-      }
-    ]
-  })
+  const childSendRef = useRef(null);
 
-  /**
-   * This is Form Data
-   */
-  // eslint-disable-next-line
-  const [dataLayout, setDataLayout] = useState({
-    labelCol: 4,
-    wrapperCol: 20
-  })
+  const dataLayout = { labelCol: 4, wrapperCol: 20 };
 
-
-  // eslint-disable-next-line
-  const [dataItem, setDataItem] = useState([
-    {
-      id: 1,
-      title: 'name',
-      type: 'input',
-      size: 'middle',
-      placeholder: 'This is name',
-      // inputType: 'text', // text | number
-      required: true
-    },
-    {
-      id: 2,
-      title: 'age',
-      type: 'inputnumber',
-      size: 'middle',
-      placeholder: 'This is age'
-    },
+  const dataItem = [
+    { id: 1, title: 'name', type: 'input', size: 'middle', placeholder: 'This is name', required: true },
+    { id: 2, title: 'age', type: 'inputnumber', size: 'middle', placeholder: 'This is age' },
     {
       id: 3,
       title: 'nickname',
@@ -250,413 +87,263 @@ const MainPage = () => {
       size: 'middle',
       placeholder: 'This is select',
       selectData: [
-        {
-          id: 1,
-          name: 'Tom',
-          value: 'tom'
-        },
-        {
-          id: 2,
-          name: 'Jack',
-          value: 'jack'
-        }
+        { id: 1, name: 'Tom', value: 'tom' },
+        { id: 2, name: 'Jack', value: 'jack' }
       ],
       defaultSelect: 'Tom'
     },
-    {
-      id: 4,
-      title: 'create time',
-      type: 'datepick',
-      size: 'middle',
-      placeholder: 'This is data pick',
-      disabled: false
-    },
-    // {
-    //   id: 5,
-    //   title: 'infor',
-    //   type: 'text',
-    //   size: 'middle',
-    //   placeholder: 'This is TextArea',
-    //   row: 4
-    // }
-  ])
+    { id: 4, title: 'create time', type: 'datepick', size: 'middle', placeholder: 'This is data pick', disabled: false }
+  ];
 
-  const [clearData, setClearData] = useCallbackState(false);
-  const [backInfor, setBackInfor] = useCallbackState(false);
+  const popoverMenu = [
+    { id: 1, name: 'Content 1 ~', count: 5 },
+    { id: 2, name: 'Content 2 !', count: 9 },
+    { id: 3, name: 'Content 3 @', count: 3 }
+  ];
 
-  const childSendRef = useRef(null);
-
-  // popover
-  // eslint-disable-next-line
-  const [popoverMenu, setPopoverMenu] = useState([
-    {
-      id: 1,
-      name: 'Content 1 ~',
-      count: 5
-    },
-    {
-      id: 2,
-      name: 'Content 2 !',
-      count: 9
-    },
-    {
-      id: 3,
-      name: 'Content 3 @',
-      count: 3
-    }
-  ])
-
-  /**
-   * 增加一键清除操作
-   * 每项后面有数量提示，即增加相对应模块几个（待优化）
-   * 未完成交互功能
-   */
-  const popoverText =(
+  const popoverText = (
     <div className="popover_menu">
       <span>Menu List</span>
-      <ion-icon class="popover_menuIcon" name="refresh-outline"></ion-icon>
+      <IonIcon className="popover_menuIcon" name="refresh-outline" size={14} />
     </div>
   );
+
   const popoverContent = (
     <div>
-      {
-        popoverMenu.map(i => {
-          return (
-            <div className="popover_item">
-              <p>{i.name}</p>
-              <Badge className="popover_badge" count={i.count}></Badge>
-            </div>
-          )
-        })
-      }
+      {popoverMenu.map((i) => (
+        <div className="popover_item" key={i.id}>
+          <p>{i.name}</p>
+          <Badge className="popover_badge" count={i.count} />
+        </div>
+      ))}
     </div>
-  )
+  );
 
-  // 数据更新
   useEffect(() => {
-    setSessionFun(); // 临时数据
-    // run function
-    getTreeData();
-    if (backInfor) childSendRef.current.getChildData();
+    sessionStorage.setItem('name', 'demo1');
+    sessionStorage.setItem('key', '950214');
+  }, []);
 
-    return(() => {
-      console.log('COMPONENT WILL UNMOUNT ...');
-    })
-  }, [backInfor])
-
-  /**
-   * 存储 session 数据
-   * 临时数据
-   */
-  const setSessionFun = () => {
-    sessionStorage.setItem('name', 'demo1')
-    sessionStorage.setItem('key', '950214')
-  }
-
-
-  const getTreeData = () => {
-    const getWay = PostWay('getTree', '')
-    fetch(getWay[0], getWay[1])
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        } else {
-          console.log('error')
-        }
-      })
-      .then(data => {
-        console.log(data)
-        setTreeData(data);
-      })
-      .catch(error => { console.log(error) })
-  }
-
-  // defined a label
-  const NewCreatCol = () => {
-    return cardList.map(item => {
-      return <NewCol item={item} key={item.cardname}></NewCol>
-    })
-  }
-
-  // nav click function
-  const handleClick = e => {
-    console.log(e)
-    let getOldClass = document.getElementsByClassName(current);
-
-    let oldClassSyle = getOldClass[0].style;
-    oldClassSyle.display = 'none';
-    setCurrent(e.key);
-
-    if (e.keyPath.length > HAD_DATA) {
-      let getFatherClass = document.getElementsByClassName(e.keyPath[1]);
-      let classFatherStyle = getFatherClass[0].style;
-      classFatherStyle.display = 'block';
+  useEffect(() => {
+    if (backInfor && childSendRef.current) {
+      childSendRef.current.getChildData();
     }
-    let getClass = document.getElementsByClassName(e.key);
+  }, [backInfor]);
 
-    let classStyle = getClass[0].style;
-    classStyle.display = 'block';
-  };
+  const handleNavClick = useCallback((e) => {
+    setCurrentNav(e.key);
+  }, []);
 
-  const addListInfor = e => {
-    console.log('CLICK ADD ICON ...');
-    setBackInfor((false), data => {
-      console.log(data);
-    })
+  const addListInfor = useCallback(() => {
+    setBackInfor(false);
     setIsModalVisible(true);
-  }
+  }, []);
 
-  const handleModalOk = e => {
-    console.log('CLICK MODAL OK ...')
-    // set a event to the child component data
-    // setBackInfor((true), data => {
-    //   console.log(data);
-    // })
-    setBackInfor(true)
+  const handleModalOk = useCallback(() => {
+    setBackInfor(true);
     setIsModalVisible(false);
-  }
+  }, []);
 
-  const handleModalCancel = e => {
-    setClearData((true), (data) => {
-      console.log(data)
-    });
+  const handleModalCancel = useCallback(() => {
+    setClearData(true);
     setIsModalVisible(false);
-  }
+  }, []);
 
-  // tree =====================================================> start
-  const onSelect = (keys, info) => {
-    let sendKey = keys[0];
-    console.log('Trigger Select', sendKey, info);
-    let sendData = {
-      id: sendKey
+  const onSelect = useCallback(async (keys, info) => {
+    const sendKey = keys[0];
+    try {
+      const [url, options] = GetWay('getListInfor', { id: sendKey });
+      const response = await fetch(url, options);
+      const data = await response.json();
+      setDetailInfor(data.describe || 'No description');
+    } catch (error) {
+      console.error('Error fetching list info:', error);
     }
-    let getWay = GetWay('getListInfor', sendData);
-    fetch(getWay[0], getWay[1])
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        } else {
-          console.log('error')
-        }
-      })
-      .then(data => {
-        console.log(data);
-        setDetailInfor(data.describe);
-      })
-      .catch(error => { console.log(error) })
+  }, []);
+
+  const onExpand = useCallback(() => {}, []);
+
+  const childRef = useCallback((data) => {
+    console.log(data);
+  }, []);
+
+  const renderContent = () => {
+    switch (currentNav) {
+      case 'nav1_content':
+        return (
+          <Row gutter={[16, 16]} className="content-row">
+            <Col xs={24} md={8} lg={7}>
+              <Card className="content-card card-menu" hoverable>
+                <Meta title="导航面板" description="目录树导航" />
+                <DirectoryTree
+                  className="menu-tree"
+                  multiple
+                  defaultExpandAll
+                  onSelect={onSelect}
+                  onExpand={onExpand}
+                  treeData={treeDataState}
+                />
+              </Card>
+            </Col>
+            <Col xs={24} md={10} lg={10}>
+              <Card className="content-card card-detail" hoverable>
+                <Meta title="详情信息" description="选中项目详细信息" />
+                <p className="detail-text">{detailInfor}</p>
+                <Carousel autoplay dotPosition="bottom" className="detail-carousel">
+                  {[1, 2, 3, 4].map((num) => (
+                    <div className="carousel-item" key={num}>
+                      <h3>{num}</h3>
+                    </div>
+                  ))}
+                </Carousel>
+              </Card>
+            </Col>
+            <Col xs={24} md={6} lg={7}>
+              <Card className="content-card card-operation" hoverable>
+                <Meta title="快捷操作" description="常用功能入口" />
+                <OperationSelf operationInfor="This is Operation" />
+                <div className="action-buttons">
+                  <IonIcon onClick={addListInfor} name="add-circle-outline" size={32} className="action-icon" />
+                  <Link to="/dragpage">
+                    <Button type="primary" shape="round" className="drag-btn">
+                      Drag
+                      <IonIcon name="arrow-forward-outline" size={18} />
+                    </Button>
+                  </Link>
+                </div>
+              </Card>
+            </Col>
+          </Row>
+        );
+      case 'nav2_content':
+        return (
+          <Row gutter={[16, 16]} className="content-row">
+            <NewCol cardData={{}} />
+            {cardList.map((item) => <NewCol key={item.cardname} cardData={item} />)}
+          </Row>
+        );
+      case 'nav3_content':
+        return (
+          <Row gutter={[16, 16]} className="content-row">
+            <Col xs={24} md={12}>
+              <ExcelSelf />
+            </Col>
+            <Col xs={24} md={12}>
+              <Card className="content-card" hoverable>
+                <Meta title="Option 2" description="Additional settings" />
+                <p style={{ color: '#333' }}>Content 3_2</p>
+              </Card>
+            </Col>
+          </Row>
+        );
+      case 'nav4_content':
+        return <TalkSelf />;
+      case 'nav5_content':
+        return (
+          <Row gutter={[16, 16]} className="content-row">
+            <Col xs={24} md={12} lg={8}><MapSelf /></Col>
+            <Col xs={24} md={12} lg={8}><RoughSelf /></Col>
+            <Col xs={24} md={12} lg={8}><ChartxkcdSelf /></Col>
+          </Row>
+        );
+      default:
+        return null;
+    }
   };
 
-  const onExpand = () => {
-    console.log('Trigger Expand');
-  };
-  // tree =====================================================> end
-
-  // child component data
-  const childRef = (data) => {
-    console.log(data)
-  }
+  const menuItems = [
+    { key: 'nav1_content', icon: 'balloon-outline', label: 'Nav1' },
+    { key: 'nav2_content', icon: 'beer-outline', label: 'Nav2' },
+    { key: 'nav3_content', icon: 'bandage-outline', label: 'Nav3', submenu: [
+      { key: 'setting_1', label: 'Excel' },
+      { key: 'setting_2', label: 'Option 2' }
+    ]},
+    { key: 'nav4_content', icon: 'chatbubbles-outline', label: 'Talking' },
+    { key: 'nav5_content', icon: 'bandage-outline', label: 'View', submenu: [
+      { key: 'view_1', label: 'Map' },
+      { key: 'view_2', label: 'Rough' },
+      { key: 'view_3', label: 'Chartxkcd' },
+      { key: 'view_4', label: 'IndexView' },
+      { key: 'view_5', label: 'ListSelf' }
+    ]}
+  ];
 
   return (
     <div className="mainpage">
-      <Header>
-        <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
-          <Menu.Item key="nav1_content">
-            <ion-icon name="balloon-outline"></ion-icon>
-            Nav1
-          </Menu.Item>
-          <Menu.Item key="nav2_content">
-            <ion-icon name="beer-outline"></ion-icon>
-            Nav2
-          </Menu.Item>
-          <SubMenu
-            key="nav3_content"
-            title={
-              <span>
-                <ion-icon name="bandage-outline"></ion-icon>
-                Nav3
-              </span>
-            }
-          >
-            <Menu.ItemGroup title="Set 1">
-              <Menu.Item key="setting_1">Excel</Menu.Item>
-              <Menu.Item key="setting_2">Option 2</Menu.Item>
-            </Menu.ItemGroup>
-            <Menu.ItemGroup title="Item 2">
-              <Menu.Item key="setting_3">Option 3</Menu.Item>
-              <Menu.Item key="setting_4">Option 4</Menu.Item>
-            </Menu.ItemGroup>
-          </SubMenu>
-          <Menu.Item key="nav4_content">
-            <ion-icon name="chatbubbles-outline"></ion-icon>
-            Talking
-          </Menu.Item>
-          <SubMenu
-            key="nav5_content"
-            title={
-              <span>
-                <ion-icon name="bandage-outline"></ion-icon>
-                View
-              </span>
-            }
-          >
-            <Menu.ItemGroup title="View 1">
-              <Menu.Item key="view_1">Map</Menu.Item>
-              <Menu.Item key="view_2">Rough</Menu.Item>
-              <Menu.Item key="view_3">Chartxkcd</Menu.Item>
-              <Menu.Item key="view_4">IndexView</Menu.Item>
-              <Menu.Item key="view_5">ListSelf</Menu.Item>
-            </Menu.ItemGroup>
-          </SubMenu>
-        </Menu>
-        {/* 购物车 */}
-        <Popover className="popover_main" placement="leftTop" title={popoverText} content={popoverContent} trigger="click">
-          <Button>
-            <ion-icon name="cart-outline"></ion-icon>
-          </Button>
-        </Popover>
-      </Header>
-      <Content className="maincontent">
-        <div className="nav1_content">
-          <Card
-            className="nav1_card"
-            title='Components list'
-            extra={[
-              <div className="nav1_card_div">
-                <ion-icon key='2' class="add_icon" onClick={addListInfor} name="add-circle-outline"></ion-icon>
-                <Link to="/dragpage">
-                  <Button shape="round" class="drag_btn" type="primary" key='1'>
-                    Drag&emsp;
-                    <ion-icon class="btn_drag_icon" name="arrow-forward-outline"></ion-icon>
-                  </Button>
-                </Link>
-              </div>
-            ]}
-          >
-            <Row className="nav1_row">
-              <Col span={8} className="main_col_1">
-                <Card
-                  className="nav1_row_card1"
-                >
-                  <Meta
-                    title="Menu Area"
-                    description="This is Menu Area" />
-                  <DirectoryTree
-                    multiple
-                    defaultExpandAll
-                    onSelect={onSelect}
-                    onExpand={onExpand}
-                    treeData={treeData}
-                  />
-                </Card>
-              </Col>
-              <Col span={8} className="main_col_2">
-                <Card 
-                  className="nav1_row_card2"
-                >
-                  <Meta
-                    title="Detail Area"
-                    description="This is Detail Area" />
-                    <p className="content_infor">
-                      {detailInfor}
-                    </p>
-                    <Carousel>
-                      <div className="carousel_style">
-                        <h3>1</h3>
-                      </div>
-                      <div className="carousel_style">
-                        <h3>2</h3>
-                      </div>
-                      <div className="carousel_style">
-                        <h3>3</h3>
-                      </div>
-                      <div className="carousel_style">
-                        <h3>4</h3>
-                      </div>
-                    </Carousel>
-                </Card>
-              </Col>
-              <Col span={8} className="main_col_3">
-                <Card
-                  className="nav1_row_card3"
-                >
-                  <Meta
-                    title="Operation Area"
-                    description="This is Operation Area" />
-                  <OperationSelf
-                    operationInfor={operationInfor}
+      <Header className="main-header">
+        <Row align="middle" justify="space-between">
+          <Col>
+            <Link to="/" className="logo-text">Electron Ant</Link>
+          </Col>
+          <Col>
+            <Menu
+              onClick={handleNavClick}
+              selectedKeys={[currentNav]}
+              mode="horizontal"
+              className="nav-menu"
+            >
+              {menuItems.map(item => (
+                item.submenu ? (
+                  <SubMenu
+                    key={item.key}
+                    title={
+                      <span className="menu-item-with-icon">
+                        <IonIcon name={item.icon} size={16} />
+                        <span>{item.label}</span>
+                      </span>
+                    }
                   >
-                  </OperationSelf>
-                </Card>
-              </Col>
-            </Row>
-          </Card>
-        </div>
-        <div className="nav2_content">
-          <Row className="nav2_row">
-            <NewCol></NewCol>
-            <NewCreatCol></NewCreatCol>
-          </Row>
-        </div>
-        <div className="nav3_content">
-          <div className="nav3_item1">
-            <div className="setting_1">
-              {/* TODO: Excel */}
-              <ExcelSelf></ExcelSelf>
-            </div>
-            <div className="setting_2">
-              <p style={{color: '#fff'}}>
-                Content 3_2
-              </p>
-            </div>
-          </div>
-          <div className="nav3_item2">
-            <div className="setting_3">
-              <p style={{color: '#fff'}}>
-                Content 3_3
-              </p>
-            </div>
-            <div className="setting_4">
-              <p style={{color: '#fff'}}>
-                Content 3_4
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="nav4_content">
-          <TalkSelf></TalkSelf>
-        </div>
-        <div className="nav5_content">
-          <div className="nav5_item1">
-            <div className="view_1">
-              <MapSelf></MapSelf>
-            </div>
-            <div className="view_2">
-              <RoughSelf></RoughSelf>
-            </div>
-            <div className="view_3">
-              <ChartxkcdSelf></ChartxkcdSelf>
-            </div>
-            <div className="view_4">
-              <IndexSelf></IndexSelf>
-            </div>
-            <div className="view_5">
-              <ListSelf></ListSelf>
-            </div>
-          </div>
-        </div>
+                    {item.submenu.map(sub => (
+                      <Menu.Item key={sub.key}>{sub.label}</Menu.Item>
+                    ))}
+                  </SubMenu>
+                ) : (
+                  <Menu.Item key={item.key}>
+                    <span className="menu-item-with-icon">
+                      <IonIcon name={item.icon} size={16} />
+                      <span>{item.label}</span>
+                    </span>
+                  </Menu.Item>
+                )
+              ))}
+            </Menu>
+          </Col>
+          <Col>
+            <Popover
+              placement="bottomRight"
+              title={popoverText}
+              content={popoverContent}
+              trigger="click"
+            >
+              <Button shape="circle" className="cart-btn">
+                <IonIcon name="cart-outline" size={18} />
+              </Button>
+            </Popover>
+          </Col>
+        </Row>
+      </Header>
+
+      <Content className="main-content">
+        {renderContent()}
       </Content>
-      <Modal title="Add List info modal" visible={isModalVisible} onOk={handleModalOk} onCancel={handleModalCancel}>
+
+      <Modal
+        title="Add List info"
+        open={isModalVisible}
+        onOk={handleModalOk}
+        onCancel={handleModalCancel}
+      >
         <FormSelf
           ref={childSendRef}
-          getBackData = {childRef}
+          getBackData={childRef}
           formItemData={dataItem}
           formLayout={dataLayout}
           formClear={clearData}
           formBackInfor={backInfor}
-        ></FormSelf>
+        />
       </Modal>
     </div>
-  )
-}
+  );
+};
 
-export default React.memo(MainPage);
+export default memo(MainPage);

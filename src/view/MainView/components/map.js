@@ -1,19 +1,10 @@
-import React, { Component } from "react";
-// import './hello.css'
+import { memo } from 'react';
 
-class MapView extends Component {
-  componentWillMount () {
-  }
-  render () {
-    return (
-      <div className="hello-map">
-        <p className="text-style">
-          It is the Map page about MapVGL
-        </p>
-        <div id="map_container"></div>
-      </div>
-    )
-  }
-}
+const MapView = memo(() => (
+  <div className="hello-map">
+    <p className="text-style">It is the Map page about MapVGL</p>
+    <div id="map_container" />
+  </div>
+));
 
 export default MapView;

@@ -1,11 +1,7 @@
-import React, {  } from "react";
+const DemoPage = () => (
+  <div>
+    <p>Demo Page</p>
+  </div>
+);
 
-const DemoPage = () => {
-  return (
-    <div>
-
-    </div>
-  )
-}
-
-export default React.memo(DemoPage);
+export default DemoPage;

@@ -7,6 +7,7 @@
   background: fade(#fff, 45%);
   border: solid 1px var(--common-white);
   padding: 2px;
+  min-height: 200px;
 }
 
 .block{
@@ -17,12 +18,14 @@
 .dragpage{
   height: 98vh;
   background: url(../images/drag.jpg);
+  background-size: cover;
+  background-position: center;
   header{
     padding: 0;
     background: var(--common-white);
     .block();
     .drag_card{
-      border: none  ;
+      border: none;
       div{
         padding: 0;
       }
@@ -30,14 +33,12 @@
   }
   main{
     margin-top: 10px;
-    .ant-row{
-      // margin-top: 5px;
-    }
   }
 }
 
 .over{
   border: red solid 2px;
+  background-color: rgba(255, 0, 0, 0.1);
 }
 
 .main-warp{
@@ -46,24 +47,40 @@
 
 .left-wrap{
   #warp_style;
-  margin-left: 0px;
-  margin-right: 5px;
+  .item-text {
+    display: inline-block;
+    background-color: #bce2d0;
+    width: 48%;
+    text-align: center;
+    margin: 2px;
+    margin-top: 8px;
+    border: 1px dotted lightskyblue;
+    padding: 8px 4px;
+    cursor: move;
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: #a0d4be;
+      transform: scale(1.02);
+    }
+  }
 }
 
 .min-wrap{
   #warp_style;
-  margin-left: 0px;
+  min-height: 300px;
 }
 
 .right-wrap{
   #warp_style;
-  margin-left: 5px;
+  height: auto;
+  min-height: 200px;
 }
 
 .item-text {
   display: inline-block;
   background-color: #bce2d0;
-  width: 49%;
+  width: 48%;
   text-align: center;
   margin: 2px;
   margin-top: 8px;
@@ -74,12 +91,18 @@
   clear: both;
   height: 45px;
   padding: 5px 10px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+
   .drag_ability{
-    float: left;
+    flex-shrink: 0;
   }
 
   .back_btn{
-    float: right;
+    flex-shrink: 0;
   }
 }
 
@@ -89,3 +112,38 @@
   margin: 5px;
 }
 
+// Responsive styles
+@media (max-width: 768px) {
+  .dragpage {
+    height: auto;
+    min-height: 100vh;
+
+    .left-wrap,
+    .min-wrap,
+    .right-wrap {
+      height: auto;
+      min-height: 150px;
+      margin-bottom: 16px;
+    }
+
+    .item-text {
+      width: 46%;
+      padding: 6px 2px;
+      font-size: 12px;
+    }
+  }
+
+  .operatio_zone {
+    height: auto;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dragpage {
+    .item-text {
+      width: 100%;
+      margin: 4px 0;
+    }
+  }
+}
