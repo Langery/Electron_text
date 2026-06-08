@@ -1,6 +1,7 @@
 // Electron Config - Updated Version
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
+const fs = require('fs')
 
 let win = null
 
@@ -51,6 +52,22 @@ app.whenReady().then(() => {
 
   // IPC 通信示例
   ipcMain.handle('ping', () => 'pong')
+
+  // 错误日志: 渲染进程 -> 主进程 -> 写入文件
+  // 日志路径: ~/Library/Application Support/electron-ant/logs/error.log (macOS)
+  //         %APPDATA%\electron-ant\logs\error.log (Windows)
+  //         ~/.config/electron-ant/logs/error.log (Linux)
+  ipcMain.handle('write-error-log', (event, logEntry) => {
+    try {
+      const logDir = path.join(app.getPath('userData'), 'logs')
+      if (!fs.existsSync(logDir)) fs.mkdirSync(logDir, { recursive: true })
+      const logPath = path.join(logDir, 'error.log')
+      const line = `[${new Date().toISOString()}] ${logEntry}\n`
+      fs.appendFileSync(logPath, line, 'utf-8')
+    } catch (err) {
+      console.error('写入错误日志失败:', err)
+    }
+  })
 
   // macOS 激活应用
   app.on('activate', () => {
