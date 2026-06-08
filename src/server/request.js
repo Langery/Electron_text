@@ -1,29 +1,45 @@
-import config from '../config/index'
+import axios from 'axios';
+import config from '../config/index';
 
-export function PostWay (urlname, sendData) {
-  const options = {
-    method: 'POST',
-    body: JSON.stringify(sendData),
-    headers: {
-      'Content-Type': 'application/json'
+// axios 单例:全局共享 baseURL / timeout / headers
+const api = axios.create({
+  baseURL: config.baseUrl.dev,
+  timeout: 10000,
+  headers: { 'Content-Type': 'application/json' }
+});
+
+// 请求拦截器:自动注入 Bearer token
+api.interceptors.request.use(
+  config => {
+    const token = localStorage.getItem('token');
+    if (token) config.headers['Authorization'] = `Bearer ${token}`;
+    return config;
+  },
+  error => Promise.reject(error)
+);
+
+// 响应拦截器:统一返回 data,401 自动跳登录,统一错误结构
+api.interceptors.response.use(
+  response => response.data,
+  error => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem('token');
+      window.location.hash = '#/login';
     }
+    return Promise.reject({
+      code: error.response?.status,
+      message: error.response?.data?.message || error.message,
+      url: error.config?.url
+    });
   }
-  const url = config.baseUrl.dev + urlname
-  return [url, options]
-}
+);
 
-export function GetWay (urlname, ...sendData) {
-  const options = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }
-  const data = sendData[0]
-  let endUrl = ''
-  for (const i in data) endUrl += `&${i}=${encodeURIComponent(data[i])}`
-  endUrl = endUrl.substr(1)
-  const url = config.baseUrl.dev + urlname + `?${endUrl}`
-  return [url, options]
-}
+// 统一请求出口
+export const request = {
+  get: (url, params) => api.get(url, { params }),
+  post: (url, data) => api.post(url, data),
+  put: (url, data) => api.put(url, data),
+  delete: (url, params) => api.delete(url, { params })
+};
 
+export default request;

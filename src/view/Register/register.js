@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Form, Input, Tooltip, Row, Col, Checkbox, Button, message } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
-import { PostWay } from '../../server/request';
+import { request } from '../../server/request';
 import './register.less';
 import '../../common/common.css';
 
@@ -26,11 +26,9 @@ const RegisterIndex = () => {
       password: values.password,
       nickname: values.nickname
     };
-    const [url, options] = PostWay('register', sendData);
 
     try {
-      const response = await fetch(url, options);
-      const data = await response.json();
+      const data = await request.post('register', sendData);
       if (!data.backData) {
         message.error('The username or nickname had exist, plase to use a new username or nickname~');
       } else {

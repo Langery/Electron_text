@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Row, Col, Button, Form, Input, Checkbox, message } from 'antd';
 import { LeftOutlined, UserAddOutlined, LockOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
-import { PostWay } from '../../server/request';
+import { request } from '../../server/request';
 import './login.css';
 import '../../common/common.css';
 
@@ -16,11 +16,9 @@ const LoginIndex = () => {
       username: values.username,
       password: values.password
     };
-    const [url, options] = PostWay('login', sendData);
 
     try {
-      const response = await fetch(url, options);
-      const data = await response.json();
+      const data = await request.post('login', sendData);
       if (!data.backData) {
         message.error('The username or password is not exist, please to register user~');
       } else {
