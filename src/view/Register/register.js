@@ -11,11 +11,10 @@ const leftTop = { paddingLeft: '20px' };
 const RegisterIndex = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
-  const [size] = useState('large');
+  const SIZE = 'large';
   const [confirmDirty, setConfirmDirty] = useState(false);
 
   const handleSubmit = async (values) => {
-    console.log('Received values of form: ', values);
     if (typeof values.agreement === 'undefined') {
       message.error('Plase to agree the rules');
       return;
@@ -32,7 +31,6 @@ const RegisterIndex = () => {
       if (!data.backData) {
         message.error('The username or nickname had exist, plase to use a new username or nickname~');
       } else {
-        console.log('add success');
         navigate('/login');
       }
     } catch (error) {
@@ -79,7 +77,7 @@ const RegisterIndex = () => {
       <Row>
         <Col span={6} style={leftTop}>
           <Link to="/">
-            <Button.Group size={size}>
+            <Button.Group size={SIZE}>
               <Button type="primary">
                 <LeftOutlined />
                 Backward

@@ -5,10 +5,7 @@ import '../../style/excel.less';
 
 const ExcelSelf = forwardRef((props, ref) => {
   const handleChange = (info) => {
-    console.log('=============================>');
-    console.log(info);
     const { file } = info;
-    console.log(file);
   };
 
   return (

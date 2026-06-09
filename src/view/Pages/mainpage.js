@@ -162,7 +162,6 @@ const MainPage = () => {
   const onExpand = useCallback(() => {}, []);
 
   const childRef = useCallback((data) => {
-    console.log(data);
   }, []);
 
   const renderContent = () => {

@@ -103,7 +103,6 @@ const FormSelf = forwardRef(({
         age: formNumber,
         nickname: formNickname
       };
-      console.log('GET CHILD DATA TO UP LEVEL ...', returnForm);
       getBackData(returnForm);
       form.resetFields();
     }

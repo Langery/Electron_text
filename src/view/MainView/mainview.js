@@ -22,11 +22,9 @@ class MainView extends Component {
     })
   }
   onCollapse = collapsed => {
-    console.log(collapsed)
     this.setState({ collapsed })
   }
   handle = (e) => {
-    console.log(e)
   }
   render () {
     let {match, routes} = this.props

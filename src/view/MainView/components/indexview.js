@@ -99,7 +99,6 @@ const IndexView = () => {
           ...item,
           createtime: getDate(item.createtime * 1000)
         }));
-        console.log(processed);
         setFirstData(processed);
       })
       .catch((err) => console.error(err));
@@ -108,8 +107,7 @@ const IndexView = () => {
   const searchClick = async () => {
     const getUser = { username: val };
     try {
-      const data = await request.post('canlendar', getUser);
-      console.log(data);
+      await request.post('canlendar', getUser);
     } catch (err) {
       console.error(err);
     }
@@ -119,7 +117,6 @@ const IndexView = () => {
 
   const selectDay = (date) => {
     const clickTime = getDate(date);
-    console.log('Selected:', clickTime);
   };
 
   return (

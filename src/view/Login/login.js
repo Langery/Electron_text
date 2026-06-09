@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Row, Col, Button, Form, Input, Checkbox, message } from 'antd';
 import { LeftOutlined, UserAddOutlined, LockOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
@@ -8,10 +7,9 @@ import '../../common/common.css';
 
 const LoginIndex = () => {
   const navigate = useNavigate();
-  const [size] = useState('large');
+  const SIZE = 'large';
 
   const handleSubmit = async (values) => {
-    console.log('Received values of form: ', values);
     const sendData = {
       username: values.username,
       password: values.password
@@ -22,7 +20,6 @@ const LoginIndex = () => {
       if (!data.backData) {
         message.error('The username or password is not exist, please to register user~');
       } else {
-        console.log('log in success');
         navigate('/mainpage');
       }
     } catch (error) {
@@ -35,7 +32,7 @@ const LoginIndex = () => {
       <Row>
         <Col span={6} className="leftTop">
           <Link to="/">
-            <Button.Group size={size}>
+            <Button.Group size={SIZE}>
               <Button type="primary">
                 <LeftOutlined />
                 Backward

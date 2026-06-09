@@ -18,14 +18,10 @@ const TalkSelf = () => {
     const storedName = sessionStorage.getItem('name');
     if (storedName) {
       setSessionName(storedName);
-      console.log('=========> saved name data');
-    } else {
-      console.log('=========> need to save session data');
     }
   }, []);
 
   const sendMess = () => {
-    console.log('Send message:', message);
     setMessage('');
   };
 
