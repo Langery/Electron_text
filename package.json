@@ -10,9 +10,10 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "dev": "concurrently \"npm run react-dev\" \"npm run electron-dev\"",
+    "dev": "vite",
+    "dev:electron": "concurrently \"npm run react-dev\" \"npm run electron-dev\"",
     "react-dev": "vite",
-    "electron-dev": "wait-on http://localhost:5174 && electron .",
+    "electron-dev": "wait-on http://localhost:5175 && electron .",
     "build": "vite build && electron-builder",
     "build:win": "vite build && electron-builder --win",
     "build:mac": "vite build && electron-builder --mac",
