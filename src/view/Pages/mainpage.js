@@ -12,6 +12,7 @@ import ChartxkcdSelf from '../MainView/components/chartxkcd';
 import IndexSelf from '../MainView/components/indexview';
 import ListSelf from '../MainView/components/listed';
 import TalkSelf from '../components/talk';
+import NewsSelf from '../News/news';
 import OperationSelf from '../mainpage/Operation';
 import card01 from '../../images/card_01.jpg';
 import card02 from '../../images/card_02.jpg';
@@ -248,6 +249,8 @@ const MainPage = () => {
             <Col xs={24} md={12} lg={8}><ChartxkcdSelf /></Col>
           </Row>
         );
+      case 'nav6_content':
+        return <NewsSelf />;
       default:
         return null;
     }
@@ -267,7 +270,8 @@ const MainPage = () => {
       { key: 'view_3', label: 'Chartxkcd' },
       { key: 'view_4', label: 'IndexView' },
       { key: 'view_5', label: 'ListSelf' }
-    ]}
+    ]},
+    { key: 'nav6_content', icon: 'newspaper-outline', label: 'News' }
   ];
 
   return (
