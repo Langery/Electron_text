@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Form, Input, Tooltip, Row, Col, Checkbox, Button, message } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
-import { request } from '../../server/request';
+import { api } from '../../server/request';
+import useRequest from '../../hooks/useRequest';
 import './register.less';
 import '../../common/common.css';
 
@@ -13,6 +14,11 @@ const RegisterIndex = () => {
   const [form] = Form.useForm();
   const SIZE = 'large';
   const [confirmDirty, setConfirmDirty] = useState(false);
+
+  const { loading, refetch: register } = useRequest(
+    (params, { signal }) => api.post('register', params, { signal }),
+    { manual: true }
+  );
 
   const handleSubmit = async (values) => {
     if (typeof values.agreement === 'undefined') {
@@ -26,15 +32,12 @@ const RegisterIndex = () => {
       nickname: values.nickname
     };
 
-    try {
-      const data = await request.post('register', sendData);
-      if (!data.backData) {
-        message.error('The username or nickname had exist, plase to use a new username or nickname~');
-      } else {
-        navigate('/login');
-      }
-    } catch (error) {
-      console.error('Register error:', error);
+    const data = await register(sendData);
+    if (data === undefined) return;
+    if (!data.backData) {
+      message.error('The username or nickname had exist, plase to use a new username or nickname~');
+    } else {
+      navigate('/login');
     }
   };
 
@@ -138,10 +141,10 @@ const RegisterIndex = () => {
               </Checkbox>
             </Form.Item>
             <Form.Item {...tailFormItemLayout}>
-              <Button type="primary" htmlType="submit" className="leftStyle">
+              <Button type="primary" htmlType="submit" className="leftStyle" loading={loading}>
                 Register
               </Button>
-              <Button type="primary" onClick={clearData} className="rightStyle">
+              <Button type="primary" onClick={clearData} className="rightStyle" disabled={loading}>
                 Clear Infor
               </Button>
             </Form.Item>
