@@ -83,6 +83,7 @@ const MainPage = () => {
   const [currentNav, setCurrentNav] = useState('nav1_content');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [detailInfor, setDetailInfor] = useState(null);
+  const [selectedKeys, setSelectedKeys] = useState([]);
   const [treeDataState] = useState(treeData);
   const [clearData, setClearData] = useState(false);
   const [backInfor, setBackInfor] = useState(false);
@@ -158,7 +159,8 @@ const MainPage = () => {
     setIsModalVisible(false);
   }, []);
 
-  const onSelect = useCallback((_keys, info) => {
+  const onSelect = useCallback((keys, info) => {
+    setSelectedKeys(keys);
     const node = info.node;
     if (!node) return;
     setDetailInfor({
@@ -166,6 +168,24 @@ const MainPage = () => {
       describe: node.describe || '暂无描述',
       category: node.category || '未分类'
     });
+  }, []);
+
+  const handleRefresh = useCallback(() => {
+    setDetailInfor(null);
+    setSelectedKeys([]);
+  }, []);
+
+  const handleExport = useCallback((data) => {
+    if (!data) return;
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `detail-${data.title}-${Date.now()}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   }, []);
 
   const renderContent = () => {
@@ -180,6 +200,7 @@ const MainPage = () => {
                   className="menu-tree"
                   multiple
                   defaultExpandAll
+                  selectedKeys={selectedKeys}
                   onSelect={onSelect}
                   treeData={treeDataState}
                 />
@@ -209,7 +230,12 @@ const MainPage = () => {
             <Col xs={24} md={6} lg={7}>
               <Card className="content-card card-operation" hoverable>
                 <Meta title="快捷操作" description="常用功能入口" />
-                <OperationSelf operationInfor="This is Operation" />
+                <OperationSelf
+                  onAdd={addListInfor}
+                  onRefresh={handleRefresh}
+                  onExport={handleExport}
+                  detailInfor={detailInfor}
+                />
                 <div className="action-buttons">
                   <IonIcon onClick={addListInfor} name="add-circle-outline" size={32} className="action-icon" />
                   <Link to="/dragpage">
