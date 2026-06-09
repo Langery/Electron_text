@@ -1,8 +1,8 @@
-import { forwardRef, memo } from 'react';
+import { memo } from 'react';
 import { Button } from 'antd';
 import '../../style/operation.less';
 
-const OperationSelf = forwardRef(({ operationInfor }, ref) => (
+const OperationSelf = memo(({ operationInfor }) => (
   <div id="operation_main">
     <Button type="primary">Operation</Button>
     <Button type="primary">+</Button>
@@ -10,4 +10,4 @@ const OperationSelf = forwardRef(({ operationInfor }, ref) => (
   </div>
 ));
 
-export default memo(OperationSelf);
+export default OperationSelf;

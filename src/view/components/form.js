@@ -77,8 +77,7 @@ const FormSelf = forwardRef(({
   formItemData,
   formLayout,
   formClear,
-  formBackInfor,
-  getBackData
+  formBackInfor
 }, ref) => {
   const [form] = Form.useForm();
   const formRef = createRef();
@@ -97,13 +96,6 @@ const FormSelf = forwardRef(({
 
   useImperativeHandle(ref, () => ({
     getChildData: () => {
-      const returnForm = {
-        name: formName,
-        date: formDate,
-        age: formNumber,
-        nickname: formNickname
-      };
-      getBackData(returnForm);
       form.resetFields();
     }
   }));

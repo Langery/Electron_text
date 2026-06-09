@@ -122,11 +122,6 @@ const MainPage = () => {
   );
 
   useEffect(() => {
-    sessionStorage.setItem('name', 'demo1');
-    sessionStorage.setItem('key', '950214');
-  }, []);
-
-  useEffect(() => {
     if (backInfor && childSendRef.current) {
       childSendRef.current.getChildData();
     }
@@ -165,11 +160,6 @@ const MainPage = () => {
     setDetailInfor(data.describe || 'No description');
   }, [fetchListInfor]);
 
-  const onExpand = useCallback(() => {}, []);
-
-  const childRef = useCallback((data) => {
-  }, []);
-
   const renderContent = () => {
     switch (currentNav) {
       case 'nav1_content':
@@ -183,7 +173,6 @@ const MainPage = () => {
                   multiple
                   defaultExpandAll
                   onSelect={onSelect}
-                  onExpand={onExpand}
                   treeData={treeDataState}
                 />
               </Card>
@@ -341,7 +330,6 @@ const MainPage = () => {
       >
         <FormSelf
           ref={childSendRef}
-          getBackData={childRef}
           formItemData={dataItem}
           formLayout={dataLayout}
           formClear={clearData}
