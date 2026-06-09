@@ -1,9 +1,5 @@
 module.exports = {
   root: true,
-  parser: 'babel-eslint',//解析器，这里我们使用babel-eslint
-  parserOptions: {
-    sourceType: 'module'//类型为module，因为代码使用了使用了ECMAScript模块
-  },
   env: {
     browser: true,
     node: true
