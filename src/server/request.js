@@ -42,4 +42,8 @@ export const request = {
   delete: (url, params) => api.delete(url, { params })
 };
 
+// 导出底层 axios 实例,供 useRequest 等需要传 AbortController signal 的场景使用
+// 业务代码仍推荐用上面的 request 对象,这个导出仅作 hook 底层通道
+export { api };
+
 export default request;
