@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef, useCallback, memo } from 'react';
 import { Link } from 'react-router-dom';
-import { Col, Layout, Menu, Modal, Row, Tree, Card, Carousel, Button, Popover, Badge } from 'antd';
-import { api } from '../../server/request';
-import useRequest from '../../hooks/useRequest';
+import { Col, Layout, Menu, Modal, Row, Tree, Card, Carousel, Button, Popover, Badge, Tag } from 'antd';
 import IonIcon from '../../common/IonIcon';
 import FormSelf from '../components/form';
 import ExcelSelf from '../components/excel';
@@ -43,9 +41,23 @@ const treeData = [
   {
     title: 'parent 0',
     key: '0-0',
+    describe: '这是一个父节点,包含两个叶子节点,用于演示目录树到详情面板的联动效果。',
+    category: '父节点',
     children: [
-      { title: 'leaf 0-0', key: '0-0-0', isLeaf: true },
-      { title: 'leaf 0-1', key: '0-0-1', isLeaf: true }
+      {
+        title: 'leaf 0-0',
+        key: '0-0-0',
+        isLeaf: true,
+        describe: '叶子节点 0-0 的描述,属于 A 类目下的一条记录,展示树节点字段到详情面板的映射。',
+        category: 'A 类目'
+      },
+      {
+        title: 'leaf 0-1',
+        key: '0-0-1',
+        isLeaf: true,
+        describe: '叶子节点 0-1 的描述,属于 B 类目。切换节点时可以观察详情面板的实时更新。',
+        category: 'B 类目'
+      }
     ]
   }
 ];
@@ -70,7 +82,7 @@ const NewCol = memo(({ cardData }) => {
 const MainPage = () => {
   const [currentNav, setCurrentNav] = useState('nav1_content');
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [detailInfor, setDetailInfor] = useState('Detail');
+  const [detailInfor, setDetailInfor] = useState(null);
   const [treeDataState] = useState(treeData);
   const [clearData, setClearData] = useState(false);
   const [backInfor, setBackInfor] = useState(false);
@@ -146,19 +158,15 @@ const MainPage = () => {
     setIsModalVisible(false);
   }, []);
 
-  // service 用 useCallback 稳引用, 让 useRequest 内部 run 也稳, 避免 onSelect 跟着每次 render 重建
-  const fetchListInforService = useCallback(
-    (params, { signal }) => api.get('getListInfor', { params, signal }),
-    []
-  );
-  const { refetch: fetchListInfor } = useRequest(fetchListInforService, { manual: true });
-
-  const onSelect = useCallback(async (keys, info) => {
-    const sendKey = keys[0];
-    const data = await fetchListInfor({ id: sendKey });
-    if (data === undefined) return;
-    setDetailInfor(data.describe || 'No description');
-  }, [fetchListInfor]);
+  const onSelect = useCallback((_keys, info) => {
+    const node = info.node;
+    if (!node) return;
+    setDetailInfor({
+      title: node.title,
+      describe: node.describe || '暂无描述',
+      category: node.category || '未分类'
+    });
+  }, []);
 
   const renderContent = () => {
     switch (currentNav) {
@@ -180,7 +188,15 @@ const MainPage = () => {
             <Col xs={24} md={10} lg={10}>
               <Card className="content-card card-detail" hoverable>
                 <Meta title="详情信息" description="选中项目详细信息" />
-                <p className="detail-text">{detailInfor}</p>
+                {detailInfor ? (
+                  <div className="detail-content">
+                    <h3 className="detail-title">{detailInfor.title}</h3>
+                    <Tag color="blue" className="detail-category">{detailInfor.category}</Tag>
+                    <p className="detail-text">{detailInfor.describe}</p>
+                  </div>
+                ) : (
+                  <p className="detail-text detail-empty">请从左侧树中选择节点查看详情</p>
+                )}
                 <Carousel autoplay dotPosition="bottom" className="detail-carousel">
                   {[1, 2, 3, 4].map((num) => (
                     <div className="carousel-item" key={num}>

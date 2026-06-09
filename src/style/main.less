@@ -63,6 +63,23 @@
     padding: 16px;
   }
 
+  .detail-content {
+    margin-bottom: 12px;
+  }
+
+  .detail-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f1f1f;
+    margin: 0 0 8px;
+    padding-left: 8px;
+    border-left: 3px solid var(--common-green);
+  }
+
+  .detail-category {
+    margin-bottom: 8px;
+  }
+
   .detail-text {
     font-size: 14px;
     color: #666;
@@ -72,6 +89,12 @@
     background: #f5f5f5;
     border-radius: 6px;
     border-left: 3px solid var(--common-green);
+
+    &.detail-empty {
+      color: #999;
+      font-style: italic;
+      border-left-color: #d9d9d9;
+    }
   }
 
   .detail-carousel {
