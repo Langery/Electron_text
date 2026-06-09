@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef, useCallback, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { Col, Layout, Menu, Modal, Row, Tree, Card, Carousel, Button, Popover, Badge } from 'antd';
-import { request } from '../../server/request';
+import { api } from '../../server/request';
+import useRequest from '../../hooks/useRequest';
 import IonIcon from '../../common/IonIcon';
 import FormSelf from '../components/form';
 import ExcelSelf from '../components/excel';
@@ -149,15 +150,19 @@ const MainPage = () => {
     setIsModalVisible(false);
   }, []);
 
+  // service 用 useCallback 稳引用, 让 useRequest 内部 run 也稳, 避免 onSelect 跟着每次 render 重建
+  const fetchListInforService = useCallback(
+    (params, { signal }) => api.get('getListInfor', { params, signal }),
+    []
+  );
+  const { refetch: fetchListInfor } = useRequest(fetchListInforService, { manual: true });
+
   const onSelect = useCallback(async (keys, info) => {
     const sendKey = keys[0];
-    try {
-      const data = await request.get('getListInfor', { id: sendKey });
-      setDetailInfor(data.describe || 'No description');
-    } catch (error) {
-      console.error('Error fetching list info:', error);
-    }
-  }, []);
+    const data = await fetchListInfor({ id: sendKey });
+    if (data === undefined) return;
+    setDetailInfor(data.describe || 'No description');
+  }, [fetchListInfor]);
 
   const onExpand = useCallback(() => {}, []);
 
