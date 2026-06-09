@@ -18,13 +18,13 @@ api.interceptors.request.use(
   error => Promise.reject(error)
 );
 
-// 响应拦截器:统一返回 data,401 自动跳登录,统一错误结构
+// 响应拦截器:统一返回 data,401 派发事件由 App.js 跳登录,统一错误结构
 api.interceptors.response.use(
   response => response.data,
   error => {
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
-      window.location.hash = '#/login';
+      window.dispatchEvent(new CustomEvent('auth:unauthorized'));
     }
     return Promise.reject({
       code: error.response?.status,

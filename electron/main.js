@@ -40,6 +40,15 @@ function createWindow() {
     win.show()
   })
 
+  // 监听渲染进程错误
+  win.webContents.on('render-process-gone', (event, details) => {
+    console.error('渲染进程崩溃:', details)
+  })
+
+  win.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
+    console.error('页面加载失败:', errorCode, errorDescription)
+  })
+
   // 关闭窗口
   win.on('closed', () => {
     win = null
@@ -82,13 +91,4 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
-})
-
-// 监听渲染进程错误
-win?.webContents.on('render-process-gone', (event, details) => {
-  console.error('渲染进程崩溃:', details)
-})
-
-win?.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
-  console.error('页面加载失败:', errorCode, errorDescription)
 })
