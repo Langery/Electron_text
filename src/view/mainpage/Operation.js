@@ -1,6 +1,6 @@
 import { memo, useState } from 'react';
 import { Button, Modal } from 'antd';
-import { FileAddOutlined, ReloadOutlined, DownloadOutlined, SettingOutlined } from '@ant-design/icons';
+import { ReloadOutlined, DownloadOutlined, SettingOutlined } from '@ant-design/icons';
 import '../../style/operation.less';
 
 const OperationSelf = memo(({ onAdd, onRefresh, onExport, detailInfor }) => {
@@ -9,7 +9,7 @@ const OperationSelf = memo(({ onAdd, onRefresh, onExport, detailInfor }) => {
 
   return (
     <div id="operation_main">
-      <Button type="primary" icon={<FileAddOutlined />} onClick={onAdd}>
+      <Button type="primary" onClick={onAdd}>
         新增
       </Button>
       <Button icon={<ReloadOutlined />} onClick={onRefresh}>
