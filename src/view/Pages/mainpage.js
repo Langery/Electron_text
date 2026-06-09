@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { Col, Layout, Menu, Modal, Row, Tree, Card, Carousel, Button, Popover, Badge } from 'antd';
-import { PostWay, GetWay } from '../../server/request';
+import { request } from '../../server/request';
 import IonIcon from '../../common/IonIcon';
 import FormSelf from '../components/form';
 import ExcelSelf from '../components/excel';
@@ -152,9 +152,7 @@ const MainPage = () => {
   const onSelect = useCallback(async (keys, info) => {
     const sendKey = keys[0];
     try {
-      const [url, options] = GetWay('getListInfor', { id: sendKey });
-      const response = await fetch(url, options);
-      const data = await response.json();
+      const data = await request.get('getListInfor', { id: sendKey });
       setDetailInfor(data.describe || 'No description');
     } catch (error) {
       console.error('Error fetching list info:', error);

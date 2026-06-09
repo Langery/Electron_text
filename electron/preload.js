@@ -19,7 +19,10 @@ contextBridge.exposeInMainWorld('electronAPI', {
   invoke: (channel, ...args) => ipcRenderer.invoke(channel, ...args),
 
   // 示例：ping
-  ping: () => ipcRenderer.invoke('ping')
+  ping: () => ipcRenderer.invoke('ping'),
+
+  // 错误日志: 渲染进程调用, 主进程写入 userData/logs/error.log
+  writeErrorLog: (logEntry) => ipcRenderer.invoke('write-error-log', logEntry)
 })
 
 // 暴露平台信息

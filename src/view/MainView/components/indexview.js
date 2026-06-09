@@ -1,6 +1,6 @@
 import { useState, useEffect, memo } from 'react';
 import { Layout, Calendar, Input, Row, Col, Button, Badge, Popconfirm } from 'antd';
-import { PostWay } from '../../../server/request';
+import { request } from '../../../server/request';
 import '../css/indexview.less';
 
 const { Content, Header } = Layout;
@@ -92,10 +92,8 @@ const IndexView = () => {
     const nowtime = timeStamp(getDate(null, 1));
     const newtime = timeStamp(getDate(null, 1, 2));
     const sendData = { nowtime, newtime };
-    const [url, options] = PostWay('calendar/list', sendData);
 
-    fetch(url, options)
-      .then((response) => response.json())
+    request.post('calendar/list', sendData)
       .then((data) => {
         const processed = data.map((item) => ({
           ...item,
@@ -109,10 +107,8 @@ const IndexView = () => {
 
   const searchClick = async () => {
     const getUser = { username: val };
-    const [url, options] = PostWay('canlendar', getUser);
     try {
-      const response = await fetch(url, options);
-      const data = await response.json();
+      const data = await request.post('canlendar', getUser);
       console.log(data);
     } catch (err) {
       console.error(err);
