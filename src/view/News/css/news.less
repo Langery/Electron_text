@@ -4,6 +4,12 @@
   .news-card {
     height: 200px;
     overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
 
     .news-title {
       font-size: 14px;
@@ -25,6 +31,12 @@
       line-height: 1.5;
     }
   }
+
+  .news-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+  }
 }
 
 .news-loading {
@@ -36,4 +48,29 @@
 
 .news-empty {
   margin: 60px 0;
+}
+
+.news-detail-loading {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.news-detail {
+  .news-detail-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    text-transform: capitalize;
+  }
+
+  .news-detail-meta {
+    margin-bottom: 16px;
+  }
+
+  .news-detail-body {
+    line-height: 1.7;
+    color: #595959;
+    white-space: pre-wrap;
+  }
 }
