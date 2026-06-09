@@ -1,6 +1,7 @@
-import { useState, useEffect, memo } from 'react';
+import { useState, useCallback, memo } from 'react';
 import { Layout, Calendar, Input, Row, Col, Button, Badge, Popconfirm } from 'antd';
-import { request } from '../../../server/request';
+import { api } from '../../../server/request';
+import useRequest from '../../../hooks/useRequest';
 import '../css/indexview.less';
 
 const { Content, Header } = Layout;
@@ -86,38 +87,35 @@ const dateCellRender = (value) => {
 
 const IndexView = () => {
   const [val, setVal] = useState('');
-  const [firstData, setFirstData] = useState({});
 
-  useEffect(() => {
-    const nowtime = timeStamp(getDate(null, 1));
-    const newtime = timeStamp(getDate(null, 1, 2));
-    const sendData = { nowtime, newtime };
+  // 主请求: mount 时拉日历列表, service 内包数据加工 (createtime 时间戳转日期串)
+  const calendarService = useCallback(
+    (_, { signal }) => {
+      const nowtime = timeStamp(getDate(null, 1));
+      const newtime = timeStamp(getDate(null, 1, 2));
+      return api.post('calendar/list', { nowtime, newtime }, { signal })
+        .then((data) => data.map((item) => ({ ...item, createtime: getDate(item.createtime * 1000) })));
+    },
+    []
+  );
+  useRequest(calendarService);
+  // 注: 原本 setFirstData 后从未在 JSX 中读取, 已删 (死状态);
+  //     hook 内部已托管请求/错误/卸载 abort, 此处仅触发副作用
 
-    request.post('calendar/list', sendData)
-      .then((data) => {
-        const processed = data.map((item) => ({
-          ...item,
-          createtime: getDate(item.createtime * 1000)
-        }));
-        setFirstData(processed);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+  // 搜索: 点击触发, 独立的第二个 hook
+  const searchService = useCallback(
+    (params, { signal }) => api.post('canlendar', params, { signal }),
+    []
+  );
+  const { loading: searching, refetch: doSearch } = useRequest(searchService, { manual: true });
 
-  const searchClick = async () => {
-    const getUser = { username: val };
-    try {
-      await request.post('canlendar', getUser);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const searchClick = () => doSearch({ username: val });
 
   const handleChange = (e) => setVal(e.target.value);
 
-  const selectDay = (date) => {
-    const clickTime = getDate(date);
-  };
+  // 原 selectDay 只把入参算了一次 clickTime 但从未消费, 等同空函数;
+  // 保留以维持 Calendar 的 onSelect prop 不变, 后续真要响应再扩
+  const selectDay = () => {};
 
   return (
     <div className="calendar_view">
@@ -136,7 +134,7 @@ const IndexView = () => {
             </Col>
             <Col span={8} />
             <Col span={8}>
-              <Button type="primary" onClick={searchClick}>Search</Button>
+              <Button type="primary" onClick={searchClick} loading={searching}>Search</Button>
             </Col>
           </Row>
         </Header>
