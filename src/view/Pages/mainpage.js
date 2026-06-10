@@ -235,7 +235,6 @@ const MainPage = () => {
                   detailInfor={detailInfor}
                 />
                 <div className="action-buttons">
-                  <IonIcon onClick={addListInfor} name="add-circle-outline" size={32} className="action-icon" />
                   <Link to="/dragpage">
                     <Button type="primary" shape="round" className="drag-btn">
                       Drag
