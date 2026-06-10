@@ -1,4 +1,4 @@
-import { useState, useEffect, createRef, forwardRef, memo } from 'react';
+import { useState, createRef, forwardRef, memo } from 'react';
 import { Form, Input, Select, DatePicker, InputNumber, Button, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import '../../style/form.less';
@@ -77,7 +77,6 @@ const FormItem = memo(({ formItem, backInputUpData, backNicknameUpData, backDate
 const FormSelf = forwardRef(({
   formItemData,
   formLayout,
-  formClear,
   onSubmit
 }, ref) => {
   const [form] = Form.useForm();
@@ -86,14 +85,6 @@ const FormSelf = forwardRef(({
   const [formDate, setFormDate] = useState(null);
   const [formNickname, setFormNickname] = useState(null);
   const [formNumber, setFormNumber] = useState(0);
-
-  const clearType = ['input', 'select', 'datepick', 'text'];
-
-  useEffect(() => {
-    if (formClear && formRef.current) {
-      formRef.current.resetFields(clearType);
-    }
-  }, [formClear, formRef, clearType]);
 
   const resetAll = () => {
     form.resetFields();

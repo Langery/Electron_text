@@ -86,7 +86,6 @@ const MainPage = () => {
   const [detailInfor, setDetailInfor] = useState(null);
   const [selectedKeys, setSelectedKeys] = useState([]);
   const [treeDataState] = useState(treeData);
-  const [clearData, setClearData] = useState(false);
 
   const navigate = useNavigate();
 
@@ -143,7 +142,6 @@ const MainPage = () => {
   }, []);
 
   const handleModalCancel = useCallback(() => {
-    setClearData(true);
     setIsModalVisible(false);
   }, []);
 
@@ -386,7 +384,6 @@ const MainPage = () => {
         <FormSelf
           formItemData={dataItem}
           formLayout={dataLayout}
-          formClear={clearData}
           onSubmit={handleFormSubmit}
         />
       </Modal>
