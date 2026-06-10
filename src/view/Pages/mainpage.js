@@ -8,8 +8,6 @@ import ExcelSelf from '../components/excel';
 import MapSelf from '../MainView/components/map';
 import RoughSelf from '../MainView/components/rough';
 import ChartxkcdSelf from '../MainView/components/chartxkcd';
-import IndexSelf from '../MainView/components/indexview';
-import ListSelf from '../MainView/components/listed';
 import TalkSelf from '../components/talk';
 import NewsSelf from '../News/news';
 import OperationSelf from '../mainpage/Operation';
