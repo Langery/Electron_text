@@ -1,5 +1,6 @@
-import { useState, useEffect, useImperativeHandle, createRef, forwardRef, memo } from 'react';
-import { Form, Input, Select, DatePicker, InputNumber } from 'antd';
+import { useState, useEffect, createRef, forwardRef, memo } from 'react';
+import { Form, Input, Select, DatePicker, InputNumber, Button, message } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 import '../../style/form.less';
 
 const { Option } = Select;
@@ -77,7 +78,7 @@ const FormSelf = forwardRef(({
   formItemData,
   formLayout,
   formClear,
-  formBackInfor
+  onSubmit
 }, ref) => {
   const [form] = Form.useForm();
   const formRef = createRef();
@@ -94,11 +95,28 @@ const FormSelf = forwardRef(({
     }
   }, [formClear, formRef, clearType]);
 
-  useImperativeHandle(ref, () => ({
-    getChildData: () => {
-      form.resetFields();
+  const resetAll = () => {
+    form.resetFields();
+    setFormName(null);
+    setFormDate(null);
+    setFormNickname(null);
+    setFormNumber(0);
+  };
+
+  const handleAdd = () => {
+    if (!formName) {
+      message.warning('请先填写 name');
+      return;
     }
-  }));
+    onSubmit?.({
+      id: Date.now(),
+      name: formName,
+      age: formNumber,
+      nickname: formNickname,
+      createTime: formDate
+    });
+    resetAll();
+  };
 
   const labelLayout = { span: formLayout.labelCol };
   const wrapperLayout = { span: formLayout.wrapperCol };
@@ -119,6 +137,16 @@ const FormSelf = forwardRef(({
         backDateUpData={setFormDate}
         backNumberData={setFormNumber}
       />
+      <div className="form-submit-row">
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          onClick={handleAdd}
+          block
+        >
+          加入备选库
+        </Button>
+      </div>
     </Form>
   );
 });

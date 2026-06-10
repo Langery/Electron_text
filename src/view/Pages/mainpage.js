@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef, useCallback, memo } from 'react';
+import { useState, useCallback, memo } from 'react';
 import { Link } from 'react-router-dom';
-import { Col, Layout, Menu, Modal, Row, Tree, Card, Carousel, Button, Popover, Badge, Tag } from 'antd';
+import { Col, Layout, Menu, Modal, Row, Tree, Card, Carousel, Button, Popover, Badge, Tag, message } from 'antd';
 import IonIcon from '../../common/IonIcon';
 import FormSelf from '../components/form';
 import ExcelSelf from '../components/excel';
@@ -86,9 +86,6 @@ const MainPage = () => {
   const [selectedKeys, setSelectedKeys] = useState([]);
   const [treeDataState] = useState(treeData);
   const [clearData, setClearData] = useState(false);
-  const [backInfor, setBackInfor] = useState(false);
-
-  const childSendRef = useRef(null);
 
   const dataLayout = { labelCol: 4, wrapperCol: 20 };
 
@@ -134,29 +131,30 @@ const MainPage = () => {
     </div>
   );
 
-  useEffect(() => {
-    if (backInfor && childSendRef.current) {
-      childSendRef.current.getChildData();
-    }
-  }, [backInfor]);
-
   const handleNavClick = useCallback((e) => {
     setCurrentNav(e.key);
   }, []);
 
   const addListInfor = useCallback(() => {
-    setBackInfor(false);
     setIsModalVisible(true);
-  }, []);
-
-  const handleModalOk = useCallback(() => {
-    setBackInfor(true);
-    setIsModalVisible(false);
   }, []);
 
   const handleModalCancel = useCallback(() => {
     setClearData(true);
     setIsModalVisible(false);
+  }, []);
+
+  const handleFormSubmit = useCallback((item) => {
+    try {
+      const raw = localStorage.getItem('candidateLibrary');
+      const list = raw ? JSON.parse(raw) : [];
+      list.push(item);
+      localStorage.setItem('candidateLibrary', JSON.stringify(list));
+      message.success(`已加入备选库: ${item.name}`);
+      setIsModalVisible(false);
+    } catch (err) {
+      message.error('写入备选库失败');
+    }
   }, []);
 
   const onSelect = useCallback((keys, info) => {
@@ -367,15 +365,15 @@ const MainPage = () => {
       <Modal
         title="Add List info"
         open={isModalVisible}
-        onOk={handleModalOk}
         onCancel={handleModalCancel}
+        footer={null}
+        destroyOnClose
       >
         <FormSelf
-          ref={childSendRef}
           formItemData={dataItem}
           formLayout={dataLayout}
           formClear={clearData}
-          formBackInfor={backInfor}
+          onSubmit={handleFormSubmit}
         />
       </Modal>
     </div>
