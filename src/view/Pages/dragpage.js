@@ -1,4 +1,5 @@
 import { useState, memo, useCallback } from 'react';
+import { message } from 'antd';
 import { createFromIconfontCN } from '@ant-design/icons';
 import { Checkbox, Input, Select, Button, Radio, Layout, Card, Row, Col } from 'antd';
 import { Link } from 'react-router-dom';
@@ -35,6 +36,23 @@ const readCandidateLibrary = () => {
 const persistCandidateLibrary = (list) => {
   try {
     localStorage.setItem('candidateLibrary', JSON.stringify(list));
+  } catch {
+    // ignore quota errors
+  }
+};
+
+const readDragLayout = () => {
+  try {
+    const raw = localStorage.getItem('dragLayout');
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+};
+
+const persistDragLayout = (list) => {
+  try {
+    localStorage.setItem('dragLayout', JSON.stringify(list));
   } catch {
     // ignore quota errors
   }
@@ -83,7 +101,7 @@ const SumSide = memo(({ selfList, onGetShow }) => {
 
 const DragPage = () => {
   const [leftDragList, setLeftDragList] = useState([...menuList]);
-  const [rightDragList, setRightDragList] = useState([]);
+  const [rightDragList, setRightDragList] = useState(() => readDragLayout());
   const [candidateList, setCandidateList] = useState(() => readCandidateLibrary());
   const [isInfoShow, setIsInfoShow] = useState(false);
   const [dragOverId, setDragOverId] = useState(null);
@@ -152,6 +170,17 @@ const DragPage = () => {
     persistCandidateLibrary([]);
   }, []);
 
+  const saveLayout = useCallback(() => {
+    persistDragLayout(rightDragList);
+    message.success(`已保存布局 (${rightDragList.length} 项)`);
+  }, [rightDragList]);
+
+  const clearLayout = useCallback(() => {
+    setRightDragList([]);
+    persistDragLayout([]);
+    message.success('已清空布局');
+  }, []);
+
   return (
     <div className="dragpage">
       <Header>
@@ -163,6 +192,12 @@ const DragPage = () => {
         <div className="operatio_zone">
           <Button className="drag_ability" onClick={resetList}>
             Reset List
+          </Button>
+          <Button className="drag_ability" onClick={saveLayout}>
+            保存布局
+          </Button>
+          <Button className="drag_ability" danger onClick={clearLayout} disabled={rightDragList.length === 0}>
+            清空布局
           </Button>
           <Link to="/mainpage">
             <Button shape="round" className="back_btn">
