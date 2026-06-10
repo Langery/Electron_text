@@ -1,4 +1,4 @@
-import { useState, useRef, memo, useCallback } from 'react';
+import { useState, memo, useCallback } from 'react';
 import { createFromIconfontCN } from '@ant-design/icons';
 import { Checkbox, Input, Select, Button, Radio, Layout, Card, Row, Col } from 'antd';
 import { Link } from 'react-router-dom';
@@ -23,6 +23,23 @@ const menuList = [
   { id: 6, name: 'Button', icon: '', iconTwoTone: false, number: 6 }
 ];
 
+const readCandidateLibrary = () => {
+  try {
+    const raw = localStorage.getItem('candidateLibrary');
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+};
+
+const persistCandidateLibrary = (list) => {
+  try {
+    localStorage.setItem('candidateLibrary', JSON.stringify(list));
+  } catch {
+    // ignore quota errors
+  }
+};
+
 const handleDragStart = (data) => (e) =>
   e.dataTransfer.setData('itemData', JSON.stringify(data));
 
@@ -31,6 +48,15 @@ const SumSide = memo(({ selfList, onGetShow }) => {
 
   return selfList.map((item) => {
     const getComponent = () => {
+      if (item.source === 'library') {
+        return (
+          <div className="library-render">
+            <strong>{item.name}</strong>
+            {item.age != null && <span> · {item.age}岁</span>}
+            {item.nickname && <span> · {item.nickname}</span>}
+          </div>
+        );
+      }
       switch (item.name) {
         case 'Input': return <Input />;
         case 'Select': return <Select />;
@@ -58,6 +84,7 @@ const SumSide = memo(({ selfList, onGetShow }) => {
 const DragPage = () => {
   const [leftDragList, setLeftDragList] = useState([...menuList]);
   const [rightDragList, setRightDragList] = useState([]);
+  const [candidateList, setCandidateList] = useState(() => readCandidateLibrary());
   const [isInfoShow, setIsInfoShow] = useState(false);
   const [dragOverId, setDragOverId] = useState(null);
 
@@ -70,6 +97,11 @@ const DragPage = () => {
 
     const curData = JSON.parse(e.dataTransfer.getData('itemData'));
 
+    if (curData.source === 'library' && arrow === 'left') {
+      setDragOverId(null);
+      return;
+    }
+
     setCallback((preData) => {
       const filtered = preData.filter((item) => item.id !== curData.id);
       if (!id) return [...filtered, curData];
@@ -81,8 +113,12 @@ const DragPage = () => {
 
     if (arrow === 'left') {
       setOtherList((pre) => pre.filter((item) => item.id !== curData.id));
-    } else {
-      // setLeftDragList
+    } else if (curData.source === 'library') {
+      setCandidateList((pre) => {
+        const next = pre.filter((item) => item.id !== curData.id);
+        persistCandidateLibrary(next);
+        return next;
+      });
     }
 
     setIsInfoShow(false);
@@ -107,6 +143,15 @@ const DragPage = () => {
     setRightDragList([]);
   }, []);
 
+  const refreshLibrary = useCallback(() => {
+    setCandidateList(readCandidateLibrary());
+  }, []);
+
+  const clearLibrary = useCallback(() => {
+    setCandidateList([]);
+    persistCandidateLibrary([]);
+  }, []);
+
   return (
     <div className="dragpage">
       <Header>
@@ -126,6 +171,39 @@ const DragPage = () => {
             </Button>
           </Link>
         </div>
+
+        <div className="candidate-library">
+          <div className="library-header">
+            <h4>备选库</h4>
+            <span className="library-count">{candidateList.length} 项</span>
+            <Button size="small" onClick={refreshLibrary}>刷新</Button>
+            <Button size="small" danger onClick={clearLibrary} disabled={candidateList.length === 0}>
+              清空
+            </Button>
+          </div>
+          <div className="library-items">
+            {candidateList.length === 0 ? (
+              <p className="library-empty">暂无备选项,请到 MainPage 用表单 + 按钮添加</p>
+            ) : (
+              candidateList.map((item) => (
+                <div
+                  key={item.id}
+                  className="library-item"
+                  draggable
+                  onDragStart={handleDragStart({ ...item, source: 'library' })}
+                  title="拖到中间画布使用"
+                >
+                  <div className="library-item-title">{item.name}</div>
+                  <div className="library-item-meta">
+                    {item.age != null && <span>{item.age}岁</span>}
+                    {item.nickname && <span>{item.nickname}</span>}
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+
         <Row gutter={[16, 16]}>
           <Col xs={24} sm={24} md={8} lg={8}>
             <div
