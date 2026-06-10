@@ -14,7 +14,7 @@ const readCandidateLibrary = () => {
   }
 };
 
-const formatAge = (age) => (typeof age === 'number' && age > 0 ? `${age}岁` : '未填写');
+const formatAge = (age) => (typeof age === 'number' && age >= 0 ? `${age}岁` : '未填写');
 
 const LibraryOverview = memo(() => {
   const [items, setItems] = useState(() => readCandidateLibrary());

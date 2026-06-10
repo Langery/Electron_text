@@ -31,7 +31,7 @@ const readCandidateLibrary = () => {
   }
 };
 
-const isValidItem = (i) => i.name && typeof i.age === 'number' && i.age > 0;
+const isValidItem = (i) => i.name && typeof i.age === 'number' && i.age >= 0;
 
 const buildLibraryConfig = (items) => {
   const valid = items.filter(isValidItem);
