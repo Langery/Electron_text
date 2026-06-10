@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { TabsProvider, useTabs } from './contexts/TabsContext';
+import TabBar from './view/components/TabBar';
 import HomeIndex from './view/Home/home';
 import LoginIndex from './view/Login/login';
 import RegisterIndex from './view/Register/register';
@@ -18,20 +20,44 @@ function AuthBridge() {
   return null;
 }
 
+function TabsSyncer() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { openTab, activeKey } = useTabs();
+
+  useEffect(() => {
+    openTab(location.pathname);
+  }, [location.pathname, openTab]);
+
+  useEffect(() => {
+    if (activeKey && location.pathname !== activeKey) {
+      navigate(activeKey);
+    }
+  }, [activeKey, location.pathname, navigate]);
+
+  return null;
+}
+
 function App() {
   return (
     <Router>
-      <AuthBridge />
-      <div className="main-style">
-        <Routes>
-          <Route exact path="/" element={<HomeIndex />} />
-          <Route path="/login" element={<LoginIndex />} />
-          <Route path="/register" element={<RegisterIndex />} />
-          <Route path="/mainpage" element={<MainPage />} />
-          <Route path="/dragpage" element={<DragPage />} />
-          <Route path="/demo" element={<DemoPage />} />
-        </Routes>
-      </div>
+      <TabsProvider>
+        <AuthBridge />
+        <TabsSyncer />
+        <div className="app-shell">
+          <TabBar />
+          <div className="main-style">
+            <Routes>
+              <Route exact path="/" element={<HomeIndex />} />
+              <Route path="/login" element={<LoginIndex />} />
+              <Route path="/register" element={<RegisterIndex />} />
+              <Route path="/mainpage" element={<MainPage />} />
+              <Route path="/dragpage" element={<DragPage />} />
+              <Route path="/demo" element={<DemoPage />} />
+            </Routes>
+          </div>
+        </div>
+      </TabsProvider>
     </Router>
   );
 }
