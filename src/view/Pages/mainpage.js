@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Col, Layout, Menu, Modal, Row, Tree, Card, Carousel, Button, Popover, Badge, Tag, message } from 'antd';
 import IonIcon from '../../common/IonIcon';
 import FormSelf from '../components/form';
+import LibraryOverview from '../components/libraryOverview';
 import ExcelSelf from '../components/excel';
 import MapSelf from '../MainView/components/map';
 import RoughSelf from '../MainView/components/rough';
@@ -196,62 +197,69 @@ const MainPage = () => {
     switch (currentNav) {
       case 'nav1_content':
         return (
-          <Row gutter={[16, 16]} className="content-row">
-            <Col xs={24} md={8} lg={7}>
-              <Card className="content-card card-menu" hoverable>
-                <Meta title="导航面板" description="目录树导航" />
-                <DirectoryTree
-                  className="menu-tree"
-                  multiple
-                  defaultExpandAll
-                  selectedKeys={selectedKeys}
-                  onSelect={onSelect}
-                  treeData={treeDataState}
-                />
-              </Card>
-            </Col>
-            <Col xs={24} md={10} lg={10}>
-              <Card className="content-card card-detail" hoverable>
-                <Meta title="详情信息" description="选中项目详细信息" />
-                {detailInfor ? (
-                  <div className="detail-content">
-                    <h3 className="detail-title">{detailInfor.title}</h3>
-                    <Tag color="blue" className="detail-category">{detailInfor.category}</Tag>
-                    <p className="detail-text">{detailInfor.describe}</p>
-                  </div>
-                ) : (
-                  <p className="detail-text detail-empty">请从左侧树中选择节点查看详情</p>
-                )}
-                <Carousel autoplay dotPosition="bottom" className="detail-carousel">
-                  {[1, 2, 3, 4].map((num) => (
-                    <div className="carousel-item" key={num}>
-                      <h3>{num}</h3>
+          <>
+            <Row gutter={[16, 16]} className="content-row">
+              <Col xs={24} md={8} lg={7}>
+                <Card className="content-card card-menu" hoverable>
+                  <Meta title="导航面板" description="目录树导航" />
+                  <DirectoryTree
+                    className="menu-tree"
+                    multiple
+                    defaultExpandAll
+                    selectedKeys={selectedKeys}
+                    onSelect={onSelect}
+                    treeData={treeDataState}
+                  />
+                </Card>
+              </Col>
+              <Col xs={24} md={10} lg={10}>
+                <Card className="content-card card-detail" hoverable>
+                  <Meta title="详情信息" description="选中项目详细信息" />
+                  {detailInfor ? (
+                    <div className="detail-content">
+                      <h3 className="detail-title">{detailInfor.title}</h3>
+                      <Tag color="blue" className="detail-category">{detailInfor.category}</Tag>
+                      <p className="detail-text">{detailInfor.describe}</p>
                     </div>
-                  ))}
-                </Carousel>
-              </Card>
-            </Col>
-            <Col xs={24} md={6} lg={7}>
-              <Card className="content-card card-operation" hoverable>
-                <Meta title="快捷操作" description="常用功能入口" />
-                <OperationSelf
-                  onAdd={addListInfor}
-                  onRefresh={handleRefresh}
-                  onExport={handleExport}
-                  onRestore={handleRestore}
-                  detailInfor={detailInfor}
-                />
-                <div className="action-buttons">
-                  <Link to="/dragpage">
-                    <Button type="primary" shape="round" className="drag-btn">
-                      Drag
-                      <IonIcon name="arrow-forward-outline" size={18} />
-                    </Button>
-                  </Link>
-                </div>
-              </Card>
-            </Col>
-          </Row>
+                  ) : (
+                    <p className="detail-text detail-empty">请从左侧树中选择节点查看详情</p>
+                  )}
+                  <Carousel autoplay dotPosition="bottom" className="detail-carousel">
+                    {[1, 2, 3, 4].map((num) => (
+                      <div className="carousel-item" key={num}>
+                        <h3>{num}</h3>
+                      </div>
+                    ))}
+                  </Carousel>
+                </Card>
+              </Col>
+              <Col xs={24} md={6} lg={7}>
+                <Card className="content-card card-operation" hoverable>
+                  <Meta title="快捷操作" description="常用功能入口" />
+                  <OperationSelf
+                    onAdd={addListInfor}
+                    onRefresh={handleRefresh}
+                    onExport={handleExport}
+                    onRestore={handleRestore}
+                    detailInfor={detailInfor}
+                  />
+                  <div className="action-buttons">
+                    <Link to="/dragpage">
+                      <Button type="primary" shape="round" className="drag-btn">
+                        Drag
+                        <IonIcon name="arrow-forward-outline" size={18} />
+                      </Button>
+                    </Link>
+                  </div>
+                </Card>
+              </Col>
+            </Row>
+            <Row gutter={[16, 16]} className="content-row">
+              <Col xs={24}>
+                <LibraryOverview />
+              </Col>
+            </Row>
+          </>
         );
       case 'nav2_content':
         return (
