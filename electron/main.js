@@ -7,7 +7,7 @@ let win = null
 
 function createWindow() {
   // 创建窗口
-  win = new BrowserWindow({
+  const browserWindow = new BrowserWindow({
     width: 1200,
     height: 800,
     minWidth: 800,
@@ -21,36 +21,37 @@ function createWindow() {
     titleBarStyle: 'hiddenInset',
     show: false
   })
+  win = browserWindow
 
   // 根据环境加载不同的URL
   const isDev = process.env.NODE_ENV === 'development' || !app.isPackaged
 
   if (isDev) {
     // 开发模式：加载 Vite 开发服务器
-    win.loadURL('http://localhost:5174')
+    browserWindow.loadURL('http://localhost:5174')
     // 开发模式下打开 DevTools
-    win.webContents.openDevTools()
+    browserWindow.webContents.openDevTools()
   } else {
     // 生产模式：加载打包后的文件
-    win.loadFile(path.join(__dirname, '../dist/index.html'))
+    browserWindow.loadFile(path.join(__dirname, '../dist/index.html'))
   }
 
   // 窗口准备好后显示，避免闪烁
-  win.once('ready-to-show', () => {
-    win.show()
+  browserWindow.once('ready-to-show', () => {
+    browserWindow.show()
   })
 
   // 监听渲染进程错误
-  win.webContents.on('render-process-gone', (event, details) => {
+  browserWindow.webContents.on('render-process-gone', (event, details) => {
     console.error('渲染进程崩溃:', details)
   })
 
-  win.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
+  browserWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
     console.error('页面加载失败:', errorCode, errorDescription)
   })
 
   // 关闭窗口
-  win.on('closed', () => {
+  browserWindow.on('closed', () => {
     win = null
   })
 }
