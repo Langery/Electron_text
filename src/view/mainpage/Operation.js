@@ -1,9 +1,9 @@
 import { memo, useState } from 'react';
 import { Button, Modal } from 'antd';
-import { ReloadOutlined, DownloadOutlined, SettingOutlined } from '@ant-design/icons';
+import { ReloadOutlined, DownloadOutlined, SettingOutlined, CloudDownloadOutlined } from '@ant-design/icons';
 import '../../style/operation.less';
 
-const OperationSelf = memo(({ onAdd, onRefresh, onExport, detailInfor }) => {
+const OperationSelf = memo(({ onAdd, onRefresh, onExport, onRestore, detailInfor }) => {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const hasSelection = !!detailInfor;
 
@@ -24,6 +24,13 @@ const OperationSelf = memo(({ onAdd, onRefresh, onExport, detailInfor }) => {
       </Button>
       <Button icon={<SettingOutlined />} onClick={() => setSettingsOpen(true)}>
         设置
+      </Button>
+      <Button
+        className="operation-full-width"
+        icon={<CloudDownloadOutlined />}
+        onClick={onRestore}
+      >
+        恢复布局
       </Button>
 
       <Modal

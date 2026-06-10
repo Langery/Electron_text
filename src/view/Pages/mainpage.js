@@ -1,5 +1,5 @@
 import { useState, useCallback, memo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Col, Layout, Menu, Modal, Row, Tree, Card, Carousel, Button, Popover, Badge, Tag, message } from 'antd';
 import IonIcon from '../../common/IonIcon';
 import FormSelf from '../components/form';
@@ -86,6 +86,8 @@ const MainPage = () => {
   const [selectedKeys, setSelectedKeys] = useState([]);
   const [treeDataState] = useState(treeData);
   const [clearData, setClearData] = useState(false);
+
+  const navigate = useNavigate();
 
   const dataLayout = { labelCol: 4, wrapperCol: 20 };
 
@@ -186,6 +188,10 @@ const MainPage = () => {
     URL.revokeObjectURL(url);
   }, []);
 
+  const handleRestore = useCallback(() => {
+    navigate('/dragpage');
+  }, [navigate]);
+
   const renderContent = () => {
     switch (currentNav) {
       case 'nav1_content':
@@ -232,6 +238,7 @@ const MainPage = () => {
                   onAdd={addListInfor}
                   onRefresh={handleRefresh}
                   onExport={handleExport}
+                  onRestore={handleRestore}
                   detailInfor={detailInfor}
                 />
                 <div className="action-buttons">
