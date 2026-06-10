@@ -100,7 +100,7 @@ const FormSelf = forwardRef(({
       return;
     }
     onSubmit?.({
-      id: Date.now(),
+      id: `${Date.now()}-${Math.floor(Math.random() * 1000)}`,
       name: formName,
       age: formNumber,
       nickname: formNickname,
