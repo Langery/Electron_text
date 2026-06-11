@@ -1,27 +1,15 @@
-import { memo, useState, useCallback } from 'react';
+import { memo } from 'react';
 import { Card, Empty, Button, Tag, Space } from 'antd';
 import { ReloadOutlined, UserAddOutlined } from '@ant-design/icons';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 import '../../style/libraryOverview.less';
 
 const { Meta } = Card;
 
-const readCandidateLibrary = () => {
-  try {
-    const raw = localStorage.getItem('candidateLibrary');
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
-  }
-};
-
 const formatAge = (age) => (typeof age === 'number' && age >= 0 ? `${age}岁` : '未填写');
 
 const LibraryOverview = memo(() => {
-  const [items, setItems] = useState(() => readCandidateLibrary());
-
-  const refresh = useCallback(() => {
-    setItems(readCandidateLibrary());
-  }, []);
+  const [items, , refresh] = useLocalStorage('candidateLibrary', []);
 
   return (
     <Card className="library-overview-card" hoverable>

@@ -1,8 +1,9 @@
-import { memo, useState, useCallback } from 'react';
+import { memo, useState } from 'react';
 import chartXkcd from 'chart.xkcd';
 import { Line } from 'chart.xkcd-react';
 import { Radio, Button, Space, Empty } from 'antd';
 import { ReloadOutlined } from '@ant-design/icons';
+import { useLocalStorage } from '../../../hooks/useLocalStorage';
 import '../../../style/chartxkcd.less';
 
 const DEMO_CONFIG = {
@@ -19,15 +20,6 @@ const DEMO_CONFIG = {
   options: {
     yTickCount: 3,
     legendPosition: chartXkcd.config.positionType.upLeft
-  }
-};
-
-const readCandidateLibrary = () => {
-  try {
-    const raw = localStorage.getItem('candidateLibrary');
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
   }
 };
 
@@ -52,11 +44,7 @@ const buildLibraryConfig = (items) => {
 
 const ChartxkcdIndex = memo(() => {
   const [source, setSource] = useState('demo');
-  const [library, setLibrary] = useState(() => readCandidateLibrary());
-
-  const refreshLibrary = useCallback(() => {
-    setLibrary(readCandidateLibrary());
-  }, []);
+  const [library, , refreshLibrary] = useLocalStorage('candidateLibrary', []);
 
   const config = source === 'demo' ? DEMO_CONFIG : buildLibraryConfig(library);
   const hasValidData = source === 'demo' || library.some(isValidItem);

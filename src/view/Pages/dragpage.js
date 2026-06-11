@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import IonIcon from '../../common/IonIcon';
 import ButtonSelf from './components/button';
 import InfoPage from './components/infopage';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 import '../../style/drag.less';
 
 const { Header, Content } = Layout;
@@ -23,40 +24,6 @@ const menuList = [
   { id: 5, name: 'Checkbox', icon: '', iconTwoTone: false, number: 5 },
   { id: 6, name: 'Button', icon: '', iconTwoTone: false, number: 6 }
 ];
-
-const readCandidateLibrary = () => {
-  try {
-    const raw = localStorage.getItem('candidateLibrary');
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
-  }
-};
-
-const persistCandidateLibrary = (list) => {
-  try {
-    localStorage.setItem('candidateLibrary', JSON.stringify(list));
-  } catch {
-    // ignore quota errors
-  }
-};
-
-const readDragLayout = () => {
-  try {
-    const raw = localStorage.getItem('dragLayout');
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
-  }
-};
-
-const persistDragLayout = (list) => {
-  try {
-    localStorage.setItem('dragLayout', JSON.stringify(list));
-  } catch {
-    // ignore quota errors
-  }
-};
 
 const handleDragStart = (data) => (e) =>
   e.dataTransfer.setData('itemData', JSON.stringify(data));
@@ -101,8 +68,8 @@ const SumSide = memo(({ selfList, onGetShow }) => {
 
 const DragPage = () => {
   const [leftDragList, setLeftDragList] = useState([...menuList]);
-  const [rightDragList, setRightDragList] = useState(() => readDragLayout());
-  const [candidateList, setCandidateList] = useState(() => readCandidateLibrary());
+  const [rightDragList, setRightDragList] = useLocalStorage('dragLayout', []);
+  const [candidateList, setCandidateList, refreshCandidateList] = useLocalStorage('candidateLibrary', []);
   const [isInfoShow, setIsInfoShow] = useState(false);
   const [dragOverId, setDragOverId] = useState(null);
 
@@ -132,11 +99,7 @@ const DragPage = () => {
     if (arrow === 'left') {
       setOtherList((pre) => pre.filter((item) => item.id !== curData.id));
     } else if (curData.source === 'library') {
-      setCandidateList((pre) => {
-        const next = pre.filter((item) => item.id !== curData.id);
-        persistCandidateLibrary(next);
-        return next;
-      });
+      setCandidateList((pre) => pre.filter((item) => item.id !== curData.id));
     }
 
     setIsInfoShow(false);
@@ -161,25 +124,18 @@ const DragPage = () => {
     setRightDragList([]);
   }, []);
 
-  const refreshLibrary = useCallback(() => {
-    setCandidateList(readCandidateLibrary());
-  }, []);
-
   const clearLibrary = useCallback(() => {
     setCandidateList([]);
-    persistCandidateLibrary([]);
-  }, []);
+  }, [setCandidateList]);
 
   const saveLayout = useCallback(() => {
-    persistDragLayout(rightDragList);
-    message.success(`已保存布局 (${rightDragList.length} 项)`);
+    message.success(`布局已自动保存 (${rightDragList.length} 项)`);
   }, [rightDragList]);
 
   const clearLayout = useCallback(() => {
     setRightDragList([]);
-    persistDragLayout([]);
     message.success('已清空布局');
-  }, []);
+  }, [setRightDragList]);
 
   return (
     <div className="dragpage">
@@ -211,7 +167,7 @@ const DragPage = () => {
           <div className="library-header">
             <h4>备选库</h4>
             <span className="library-count">{candidateList.length} 项</span>
-            <Button size="small" onClick={refreshLibrary}>刷新</Button>
+            <Button size="small" onClick={refreshCandidateList}>刷新</Button>
             <Button size="small" danger onClick={clearLibrary} disabled={candidateList.length === 0}>
               清空
             </Button>
