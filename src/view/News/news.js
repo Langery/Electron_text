@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Card, Row, Col, Spin, Empty, Pagination, Modal, Tag, Input } from 'antd';
+import { Card, Row, Col, Spin, Empty, Pagination, Modal, Tag, Input, Divider } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { api } from '../../server/request';
 import useRequest from '../../hooks/useRequest';
@@ -7,11 +7,25 @@ import './css/news.less';
 
 const { Meta } = Card;
 
-// 公开 demo 接口, 接 Flask 后台时把 URL 换成相对路径 'news/list' / 'news/detail' 即可
 const NEWS_API = 'https://jsonplaceholder.typicode.com/posts';
 const PAGE_SIZE = 9;
-const TOTAL = 100; // jsonplaceholder posts 总数固定 100; 接真后台时改为响应里的 total 字段
+const TOTAL = 100;
 const DEBOUNCE_MS = 300;
+
+const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+const Highlight = ({ text, kw }) => {
+  if (!kw || !text) return <>{text}</>;
+  const re = new RegExp(`(${escapeRegExp(kw)})`, 'gi');
+  const parts = text.split(re);
+  return (
+    <>
+      {parts.map((p, i) =>
+        i % 2 === 1 ? <mark key={i} className="news-highlight">{p}</mark> : <span key={i}>{p}</span>
+      )}
+    </>
+  );
+};
 
 const NewsView = () => {
   const [page, setPage] = useState(1);
@@ -19,8 +33,6 @@ const NewsView = () => {
   const [debouncedKeyword, setDebouncedKeyword] = useState('');
   const [activeId, setActiveId] = useState(null);
 
-  // 防抖: keyword 停止变化 300ms 后才更新 debouncedKeyword + 重置到第 1 页
-  // setPage(1) 和 setDebouncedKeyword 同 microtask 触发, React 18 自动 batch, list 只重拉一次
   useEffect(() => {
     const t = setTimeout(() => {
       setPage(1);
@@ -29,7 +41,6 @@ const NewsView = () => {
     return () => clearTimeout(t);
   }, [keyword]);
 
-  // 列表请求: page 或 debouncedKeyword 变化时重拉
   const listService = useCallback(
     (_, { signal }) =>
       api.get(NEWS_API, {
@@ -44,7 +55,6 @@ const NewsView = () => {
   );
   const { data: list, loading } = useRequest(listService, { deps: [page, debouncedKeyword] });
 
-  // 详情请求: manual, 点卡片时触发
   const detailService = useCallback(
     (id, { signal }) => api.get(`${NEWS_API}/${id}`, { signal }),
     []
@@ -54,6 +64,23 @@ const NewsView = () => {
     { manual: true }
   );
 
+  const relatedService = useCallback(
+    (userId, { signal }) =>
+      api.get(NEWS_API, { params: { userId, _limit: 100 }, signal }),
+    []
+  );
+  const {
+    data: related,
+    loading: relatedLoading,
+    refetch: fetchRelated
+  } = useRequest(relatedService, { manual: true });
+
+  useEffect(() => {
+    if (detail?.userId != null) {
+      fetchRelated(detail.userId);
+    }
+  }, [detail?.userId, fetchRelated]);
+
   const handleCardClick = (id) => {
     setActiveId(id);
     fetchDetail(id);
@@ -61,7 +88,6 @@ const NewsView = () => {
 
   const handleClose = () => setActiveId(null);
 
-  // 防抖未结算时也提示用户"正在等待输入完成", 视觉反馈
   const isTyping = keyword !== debouncedKeyword;
 
   return (
@@ -103,8 +129,8 @@ const NewsView = () => {
                   onClick={() => handleCardClick(item.id)}
                 >
                   <Meta
-                    title={<span className="news-title">{item.title}</span>}
-                    description={<span className="news-desc">{item.body}</span>}
+                    title={<Highlight text={item.title} kw={debouncedKeyword} />}
+                    description={<Highlight text={item.body} kw={debouncedKeyword} />}
                   />
                 </Card>
               </Col>
@@ -116,8 +142,8 @@ const NewsView = () => {
               total={
                 debouncedKeyword
                   ? list.length === PAGE_SIZE
-                    ? page * PAGE_SIZE + 1 // 当前页满, 暗示可能有下一页
-                    : (page - 1) * PAGE_SIZE + list.length // 当前页不满, 已到末尾
+                    ? page * PAGE_SIZE + 1
+                    : (page - 1) * PAGE_SIZE + list.length
                   : TOTAL
               }
               pageSize={PAGE_SIZE}
@@ -142,12 +168,41 @@ const NewsView = () => {
           </div>
         ) : (
           <div className="news-detail">
-            <h3 className="news-detail-title">{detail.title}</h3>
+            <h3 className="news-detail-title">
+              <Highlight text={detail.title} kw={debouncedKeyword} />
+            </h3>
             <div className="news-detail-meta">
               <Tag color="blue">作者 {detail.userId}</Tag>
               <Tag>ID {detail.id}</Tag>
             </div>
-            <p className="news-detail-body">{detail.body}</p>
+            <p className="news-detail-body">
+              <Highlight text={detail.body} kw={debouncedKeyword} />
+            </p>
+
+            <Divider style={{ margin: '20px 0 12px' }}>同作者的其他资讯</Divider>
+
+            {relatedLoading ? (
+              <div className="news-related-loading">
+                <Spin size="small" />
+              </div>
+            ) : !related || related.length <= 1 ? (
+              <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="该作者暂无其他资讯" />
+            ) : (
+              <ul className="news-related-list">
+                {related
+                  .filter((r) => r.id !== detail.id)
+                  .map((r) => (
+                    <li
+                      key={r.id}
+                      className="news-related-item"
+                      onClick={() => handleCardClick(r.id)}
+                    >
+                      <span className="news-related-id">#{r.id}</span>
+                      <Highlight text={r.title} kw={debouncedKeyword} />
+                    </li>
+                  ))}
+              </ul>
+            )}
           </div>
         )}
       </Modal>
