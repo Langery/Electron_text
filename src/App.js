@@ -12,6 +12,7 @@ import MainPage from './view/Pages/mainpage';
 import DragPage from './view/Pages/dragpage';
 import DemoPage from './view/demo/demopage';
 import SettingsPage from './view/Pages/settings';
+import CommandPalette from './view/components/CommandPalette';
 
 function AuthBridge() {
   const navigate = useNavigate();
@@ -53,6 +54,7 @@ function App() {
         <AuthBridge />
         <TabsSyncer />
         <ThemeEffect />
+        <CommandPalette />
         <div className="app-shell">
           <TabBar />
           <div className="main-style">
