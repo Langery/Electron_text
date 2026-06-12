@@ -1,9 +1,53 @@
-:root{
+:root {
   --common-white: #fff;
 }
 
-#info_page{
+#info_page {
   margin: 0;
-  padding: 0;
-  border: none;
+  padding: 12px;
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+  background: var(--common-white);
+  min-height: 80px;
+
+  .info_detail {
+    .info_title {
+      margin: 0 0 8px 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .info_tag {
+      margin-bottom: 12px;
+    }
+
+    .info_fields {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .info_field {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      padding: 4px 0;
+      border-bottom: 1px dashed #f0f0f0;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    .info_label {
+      color: #888;
+    }
+
+    .info_value {
+      color: #333;
+      font-weight: 500;
+    }
+  }
 }

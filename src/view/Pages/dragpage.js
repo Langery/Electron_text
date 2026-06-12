@@ -28,8 +28,8 @@ const menuList = [
 const handleDragStart = (data) => (e) =>
   e.dataTransfer.setData('itemData', JSON.stringify(data));
 
-const SumSide = memo(({ selfList, onGetShow }) => {
-  const handleClick = useCallback(() => onGetShow(true), [onGetShow]);
+const SumSide = memo(({ selfList, onSelectItem }) => {
+  const handleClick = useCallback((item) => () => onSelectItem(item), [onSelectItem]);
 
   return selfList.map((item) => {
     const getComponent = () => {
@@ -58,7 +58,7 @@ const SumSide = memo(({ selfList, onGetShow }) => {
         className="right_item"
         draggable
         onDragStart={handleDragStart(item)}
-        onClick={handleClick}
+        onClick={handleClick(item)}
       >
         {getComponent()}
       </div>
@@ -70,7 +70,7 @@ const DragPage = () => {
   const [leftDragList, setLeftDragList] = useState([...menuList]);
   const [rightDragList, setRightDragList] = useLocalStorage('dragLayout', []);
   const [candidateList, setCandidateList, refreshCandidateList] = useLocalStorage('candidateLibrary', []);
-  const [isInfoShow, setIsInfoShow] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
   const [dragOverId, setDragOverId] = useState(null);
 
   const handleDragOver = useCallback((e) => e.preventDefault(), []);
@@ -102,7 +102,7 @@ const DragPage = () => {
       setCandidateList((pre) => pre.filter((item) => item.id !== curData.id));
     }
 
-    setIsInfoShow(false);
+    setSelectedItem(null);
     setDragOverId(null);
   }, []);
 
@@ -229,12 +229,12 @@ const DragPage = () => {
               onDrop={handleDrop(setRightDragList, setLeftDragList, 'right')}
               onDragEnd={handleDragEnd}
             >
-              <SumSide selfList={rightDragList} onGetShow={setIsInfoShow} />
+              <SumSide selfList={rightDragList} onSelectItem={setSelectedItem} />
             </div>
           </Col>
           <Col xs={24} sm={24} md={4} lg={4}>
             <div className="right-wrap">
-              <InfoPage isShow={isInfoShow} />
+              <InfoPage item={selectedItem} />
             </div>
           </Col>
         </Row>
