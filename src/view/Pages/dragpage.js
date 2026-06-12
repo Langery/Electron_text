@@ -31,7 +31,7 @@ const handleDragStart = (data) => (e) =>
 
 const DEFAULT_SETTINGS = { theme: 'light', librarySort: 'time', libraryMaxItems: 100 };
 
-const SumSide = memo(({ selfList, onSelectItem }) => {
+const SumSide = memo(({ selfList, onSelectItem, selectedId }) => {
   const handleClick = useCallback((item) => () => onSelectItem(item), [onSelectItem]);
 
   return selfList.map((item) => {
@@ -55,10 +55,11 @@ const SumSide = memo(({ selfList, onSelectItem }) => {
       }
     };
 
+    const isSelected = selectedId != null && item.id === selectedId;
     return (
       <div
         key={item.id}
-        className="right_item"
+        className={`right_item${isSelected ? ' selected' : ''}`}
         draggable
         onDragStart={handleDragStart(item)}
         onClick={handleClick(item)}
@@ -238,7 +239,7 @@ const DragPage = () => {
               onDrop={handleDrop(setRightDragList, setLeftDragList, 'right')}
               onDragEnd={handleDragEnd}
             >
-              <SumSide selfList={rightDragList} onSelectItem={setSelectedItem} />
+              <SumSide selfList={rightDragList} onSelectItem={setSelectedItem} selectedId={selectedItem?.id} />
             </div>
           </Col>
           <Col xs={24} sm={24} md={4} lg={4}>
