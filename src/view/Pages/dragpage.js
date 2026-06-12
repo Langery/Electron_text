@@ -1,4 +1,4 @@
-import { useState, memo, useCallback } from 'react';
+import { useState, memo, useCallback, useMemo } from 'react';
 import { message } from 'antd';
 import { createFromIconfontCN } from '@ant-design/icons';
 import { Checkbox, Input, Select, Button, Radio, Layout, Card, Row, Col } from 'antd';
@@ -7,6 +7,7 @@ import IonIcon from '../../common/IonIcon';
 import ButtonSelf from './components/button';
 import InfoPage from './components/infopage';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { sortLibrary } from '../../utils/librarySort';
 import '../../style/drag.less';
 
 const { Header, Content } = Layout;
@@ -27,6 +28,8 @@ const menuList = [
 
 const handleDragStart = (data) => (e) =>
   e.dataTransfer.setData('itemData', JSON.stringify(data));
+
+const DEFAULT_SETTINGS = { theme: 'light', librarySort: 'time', libraryMaxItems: 100 };
 
 const SumSide = memo(({ selfList, onSelectItem }) => {
   const handleClick = useCallback((item) => () => onSelectItem(item), [onSelectItem]);
@@ -70,8 +73,14 @@ const DragPage = () => {
   const [leftDragList, setLeftDragList] = useState([...menuList]);
   const [rightDragList, setRightDragList] = useLocalStorage('dragLayout', []);
   const [candidateList, setCandidateList, refreshCandidateList] = useLocalStorage('candidateLibrary', []);
+  const [settings] = useLocalStorage('appSettings', DEFAULT_SETTINGS);
   const [selectedItem, setSelectedItem] = useState(null);
   const [dragOverId, setDragOverId] = useState(null);
+
+  const sortedCandidates = useMemo(
+    () => sortLibrary(candidateList, settings.librarySort),
+    [candidateList, settings.librarySort]
+  );
 
   const handleDragOver = useCallback((e) => e.preventDefault(), []);
 
@@ -166,17 +175,17 @@ const DragPage = () => {
         <div className="candidate-library">
           <div className="library-header">
             <h4>备选库</h4>
-            <span className="library-count">{candidateList.length} 项</span>
+            <span className="library-count">{sortedCandidates.length} 项</span>
             <Button size="small" onClick={refreshCandidateList}>刷新</Button>
             <Button size="small" danger onClick={clearLibrary} disabled={candidateList.length === 0}>
               清空
             </Button>
           </div>
           <div className="library-items">
-            {candidateList.length === 0 ? (
+            {sortedCandidates.length === 0 ? (
               <p className="library-empty">暂无备选项,请到 MainPage 用表单 + 按钮添加</p>
             ) : (
-              candidateList.map((item) => (
+              sortedCandidates.map((item) => (
                 <div
                   key={item.id}
                   className="library-item"

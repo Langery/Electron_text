@@ -3,6 +3,7 @@ import './App.css';
 import './style/theme.less';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { TabsProvider, useTabs } from './contexts/TabsContext';
+import { useTheme } from './hooks/useTheme';
 import TabBar from './view/components/TabBar';
 import HomeIndex from './view/Home/home';
 import LoginIndex from './view/Login/login';
@@ -40,12 +41,18 @@ function TabsSyncer() {
   return null;
 }
 
+function ThemeEffect() {
+  useTheme();
+  return null;
+}
+
 function App() {
   return (
     <Router>
       <TabsProvider>
         <AuthBridge />
         <TabsSyncer />
+        <ThemeEffect />
         <div className="app-shell">
           <TabBar />
           <div className="main-style">

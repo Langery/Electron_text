@@ -1,28 +1,40 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { Card, Empty, Button, Tag, Space } from 'antd';
 import { ReloadOutlined, UserAddOutlined } from '@ant-design/icons';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { sortLibrary } from '../../utils/librarySort';
 import '../../style/libraryOverview.less';
 
 const { Meta } = Card;
+
+const DEFAULT_SETTINGS = { theme: 'light', librarySort: 'time', libraryMaxItems: 100 };
 
 const formatAge = (age) => (typeof age === 'number' && age >= 0 ? `${age}岁` : '未填写');
 
 const LibraryOverview = memo(() => {
   const [items, , refresh] = useLocalStorage('candidateLibrary', []);
+  const [settings] = useLocalStorage('appSettings', DEFAULT_SETTINGS);
+
+  const displayItems = useMemo(
+    () => sortLibrary(items, settings.librarySort).slice(0, settings.libraryMaxItems),
+    [items, settings.librarySort, settings.libraryMaxItems]
+  );
 
   return (
     <Card className="library-overview-card" hoverable>
       <div className="library-overview-header">
         <Space>
-          <Meta title="备选库总览" description={`共 ${items.length} 项 · 来自表单 + 加入备选库`} />
+          <Meta
+            title="备选库总览"
+            description={`显示 ${displayItems.length} / 共 ${items.length} 项 · 来自表单 + 加入备选库`}
+          />
         </Space>
         <Button size="small" icon={<ReloadOutlined />} onClick={refresh}>
           刷新
         </Button>
       </div>
 
-      {items.length === 0 ? (
+      {displayItems.length === 0 ? (
         <Empty
           image={<UserAddOutlined style={{ fontSize: 48, color: '#d9d9d9' }} />}
           description="还没有备选项,点上方「新增」表单填好后 + 加入备选库"
@@ -30,7 +42,7 @@ const LibraryOverview = memo(() => {
         />
       ) : (
         <div className="library-overview-grid">
-          {items.map((item) => (
+          {displayItems.map((item) => (
             <Card
               key={item.id}
               size="small"
