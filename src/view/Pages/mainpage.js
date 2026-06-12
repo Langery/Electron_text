@@ -10,6 +10,7 @@ import RoughSelf from '../MainView/components/rough';
 import ChartxkcdSelf from '../MainView/components/chartxkcd';
 import TalkSelf from '../components/talk';
 import NewsSelf from '../News/news';
+import DemoPage from '../demo/demopage';
 import OperationSelf from '../mainpage/Operation';
 import card01 from '../../images/card_01.jpg';
 import card02 from '../../images/card_02.jpg';
@@ -290,6 +291,8 @@ const MainPage = () => {
         );
       case 'nav6_content':
         return <NewsSelf />;
+      case 'nav7_content':
+        return <DemoPage />;
       default:
         return null;
     }
@@ -310,7 +313,8 @@ const MainPage = () => {
       { key: 'view_4', label: 'IndexView' },
       { key: 'view_5', label: 'ListSelf' }
     ]},
-    { key: 'nav6_content', icon: 'newspaper-outline', label: 'News' }
+    { key: 'nav6_content', icon: 'newspaper-outline', label: 'News' },
+    { key: 'nav7_content', icon: 'grid-outline', label: 'Demo' }
   ];
 
   return (
