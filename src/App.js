@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import './App.css';
+import './style/theme.less';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { TabsProvider, useTabs } from './contexts/TabsContext';
 import TabBar from './view/components/TabBar';
@@ -9,6 +10,7 @@ import RegisterIndex from './view/Register/register';
 import MainPage from './view/Pages/mainpage';
 import DragPage from './view/Pages/dragpage';
 import DemoPage from './view/demo/demopage';
+import SettingsPage from './view/Pages/settings';
 
 function AuthBridge() {
   const navigate = useNavigate();
@@ -54,6 +56,7 @@ function App() {
               <Route path="/mainpage" element={<MainPage />} />
               <Route path="/dragpage" element={<DragPage />} />
               <Route path="/demo" element={<DemoPage />} />
+              <Route path="/settings" element={<SettingsPage />} />
             </Routes>
           </div>
         </div>

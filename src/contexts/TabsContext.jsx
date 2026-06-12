@@ -6,7 +6,8 @@ const PATH_TITLES = {
   '/register': 'Register',
   '/mainpage': 'Main',
   '/dragpage': 'Drag',
-  '/demo': 'Demo'
+  '/demo': 'Demo',
+  '/settings': 'Settings'
 };
 
 const normalize = (p) => (p === '/' ? p : p.replace(/\/$/, ''));
